@@ -1,0 +1,44 @@
+:root {
+   --red-color: #ff4c77;
+   --white-color: #ffffff;
+   --black-color: #282828;
+   --grey-color: #8d8d8d;
+}
+
+.navbar {
+   background-color: #ffb8c9;
+}
+
+.navbar-container {
+   display: flex;
+   justify-content: space-between;
+   padding: 20px;
+   width: 100%;
+   max-width: 1200px;
+   height: 10vh;
+   margin: 0 auto;
+}
+
+.navbar-left, .navbar-right {
+   z-index: 2;
+   display: flex;
+   list-style: none;
+   align-items: center;
+   gap: 50px;
+}
+
+.logo{
+   width: 200px;
+}
+
+/* .navbar-left>li>a, */
+/* .navbar-right>li>a { */
+   /* color: white; */
+   /* font-weight: bold; */
+/* } */
+
+/* .navbar-left>li>a:hover, */
+/* .navbar-right>li>a:hover { */
+/*    color: var(--red-color); */
+/* } */
+

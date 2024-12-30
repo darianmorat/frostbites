@@ -1,0 +1,12 @@
+.shop-site{
+   background-color: #f9e0e5;
+}
+.product-list{
+   display: flex;
+   gap: 20px;
+}
+ 
+.product-item {
+   background-color: red;
+   width: 200px;
+}

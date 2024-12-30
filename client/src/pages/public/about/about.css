@@ -1,0 +1,42 @@
+.about-page{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 45px;
+   padding: 80px 0;
+}
+
+.about-section-1,
+.about-section-2{
+   display: flex;
+   gap: 45px;
+   align-items: center;
+   justify-content: center;
+   max-width: 1200px;
+}
+
+.our-team-img, 
+.who-we-are-img {
+   max-width: 600px;
+   max-height: 400px;
+}
+
+@media (width < 1035px) {
+
+   .about-page{
+      gap: 70px;
+   }
+
+   .about-section-1,
+   .about-section-2{
+      flex-direction: column;
+      max-width: 600px;
+   gap: 20px;
+   }
+
+   .about-section-1{
+      flex-direction: column-reverse;
+   }
+
+}
+

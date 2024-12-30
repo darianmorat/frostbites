@@ -1,0 +1,45 @@
+/* the freaking styles work even if the file is not in the folder */
+/* here u got styles from the Footter.jsx component */
+
+.location-map, .location-links{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #fff5f7;
+   padding: 60px 0 0 0;
+}
+
+.location-links, .location-right{
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+}
+
+.location-links {
+   padding: 60px 20px;
+   flex-flow: wrap;
+   gap: 70px;
+}
+
+.location-map{
+   flex-direction: column;
+}
+
+.logo-slogan{
+   width: 400px;
+}
+
+.location-right>div>a{
+   color: grey;
+}
+
+.location-right>div>a:hover{
+   color: #606060;
+   text-decoration: underline;
+}
+
+.map-container {
+   border-radius: 10px;
+   border: 1px solid grey;
+   overflow: hidden;
+}
