@@ -1,5 +1,7 @@
 ![FrostBites Logo](./frostbites.svg)
 
+---
+
 ### Project Overview
 
 FrostBites is a comprehensive full-stack web application developed as part of my project 
