@@ -1,9 +1,16 @@
 import who_we_are_img from '../../../assets/images/who-we-are.jpg'
 import our_team_img from '../../../assets/images/our-team.jpg'
 import './about.css'
+import { motion } from "motion/react"
 
 export function About(){
    return (
+                  <motion.div 
+                     initial={{ opacity: 0, x: -100 }} 
+                     animate={{ opacity: 1, x: 0 }} 
+                     exit={{ opacity: 0, x: 100 }} 
+                     transition={{ duration: 0.7 }}
+                  >
       <div className='about-page'>
          <section className="about-section-1">         
             <div className="about-left">
@@ -54,5 +61,6 @@ export function About(){
          </section>
 
       </div>
+      </motion.div>
    )
 }

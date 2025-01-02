@@ -60,6 +60,9 @@
 .wave-svg{
    z-index: 1;
 }
+.circle-svg{
+   border-radius: 50%;
+}
 
 .wave-svg{
    position: absolute;
@@ -79,7 +82,6 @@
    padding: 90px 20px;
    width: 100%;
    max-width: 1200px;
-
 }
 
 .about-btn-more{
