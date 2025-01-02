@@ -4,10 +4,10 @@
 
 ### Project Overview
 
-FrostBites is a comprehensive full-stack web application developed as part of my project 
-at SENA. Designed with both user convenience and functionality in mind, the application 
-showcases a practical implementation of modern web development principles. This project 
-really helped me sharpen my skills in building applications that are secure, 
+FrostBites is a full-stack web application developed as part of my project at SENA 
+Institution. Designed with both user convenience and functionality in mind, the 
+application showcases a practical implementation of modern web development principles. 
+This project really helped me sharpen my skills in building applications that are secure, 
 user-friendly, and built to last.
 
 ---
@@ -24,18 +24,18 @@ user-friendly, and built to last.
 #### Shopping (Catalog, Cart, and Purchases)
 - [x] **Product Catalog**: A static display of available ice cream products
 - [ ] **Make Product Catalog**: Allow users to customize their ice cream by choosing from a variety of bases, flavors, and toppings.
-- [ ] **Shopping Cart**: Add or remove ice cream items from the cart.
+- [x] **Shopping Cart**: Add or remove ice cream items from the cart.
 - [ ] **Purchase Process**: Complete transactions smoothly.
 - [ ] **Order Confirmation**: Show confirmation after a successful purchase.
 
 #### User Profile
-- [ ] **User Profile Section**: View and update profile information such as username and email
+- [x] **User Profile Section**: View and update profile information such as username and email
 - [ ] **Profile Data Validation**: Validate updated profile data to ensure accuracy and uniqueness.
 - [ ] **Profile preferences**: Allow users to customize their preferences such as dark mode and  language.
 
 #### Admin Panel
 - [x] **Admin Authentication**: Restrict access to admin-only features
-- [ ] **Product Management**: Add, update, or delete items in the product catalog.
+- [x] **Product Management**: Add, update, or delete items in the product catalog.
 - [ ] **Site Statistics**: Track website activity like views and purchases
 - [ ] **Order Management**: Manage purchase orders, including marking them as shipped.
 
@@ -55,28 +55,24 @@ user-friendly, and built to last.
 
 ### Technologies
 #### Front-End:
-- **React.js**: Modern JavaScript library.
+- **React.js**: A modern JavaScript library.
 - **Dependencies**:
-  - **React Router Dom**: Navigation and routing.
+  - **React Router Dom**: For navigation and routing.
   - **Axios**: For handling HTTP requests.
-  - **Boxicons**: Icons package.
-  - **Leaflet**: Interactive maps.
+  - **Boxicons**: A library of customizable icons.
+  - **Leaflet**: A library for Interactive maps.
   - **Loader-Spinner**: For displaying loading animations.
   - **Toastify**: For displaying elegant notifications.
 
 #### Back-End:
-- **Node.js + Express.js**: Better server-side development.
-- **PostgreSQL**: Robust relational database.
+- **Node.js + Express.js**: For better server-side development.
+- **PostgreSQL**: A robust relational database.
 - **Dependencies**:
   - **Bcrypt**: For secure password hashing.
   - **Cors**: To handle cross-origin requests.
-  - **Dotenv**: Environment variable management.
+  - **Dotenv**: For managing environment variables.
   - **JWT Authentication**: For secure user authentication.
-  - **Pg**: PostgreSQL integration.
-
-#### Tools:
-- Git & GitHub: Version control and collaboration
-- Postman: API tesing and debuggind
+  - **Pg**: For PostgreSQL integration.
 
 ---
 
@@ -122,16 +118,14 @@ USER_ROLE=your_user_role
 
 4. Install dependencies for both the client and server:
 ```bash
-# Navigate to the client folder and install dependencies
-cd client
-npm install
+# Install client dependencies
+cd client && npm install
 
-# Navigate to the server folder and install dependencies
-cd ../server
-npm install
+# Install server dependencies
+cd ../server && npm install
 ```
 
-5. initialize database with fake data:
+5. Initialize database with fake data:
 ```bash
 # Missing steps
 ```
@@ -139,10 +133,8 @@ npm install
 6. Run the development environment:
 ```bash
 # For the client, start it using:
-cd client
-npm run dev
+cd client && npm run dev
 
 # For the server, start it using:
-cd ../server
-npm run dev
+cd ../server && npm run dev
 ```
