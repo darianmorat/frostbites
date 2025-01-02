@@ -1,4 +1,4 @@
-# FROSTBITES
+![FrostBites Logo](./frostbites.svg)
 
 ### Project Overview
 
