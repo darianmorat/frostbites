@@ -8,7 +8,7 @@ FrostBites is a full-stack web application developed as part of my project at SE
 Institution. Designed with both user convenience and functionality in mind, the 
 application showcases a practical implementation of modern web development principles. 
 This project really helped me sharpen my skills in building applications that are secure, 
-user-friendly, and built to last.
+user friendly, and built to last.
 
 ---
 
@@ -23,7 +23,7 @@ user-friendly, and built to last.
 
 #### Shopping (Catalog, Cart, and Purchases)
 - [x] **Product Catalog**: A static display of available ice cream products
-- [ ] **Make Product Catalog**: Allow users to customize their ice cream by choosing from a variety of bases, flavors, and toppings.
+- [ ] **Create Product Catalog**: Enable users to customize ice cream with bases, flavors, and toppings.
 - [x] **Shopping Cart**: Add or remove ice cream items from the cart.
 - [ ] **Purchase Process**: Complete transactions smoothly.
 - [ ] **Order Confirmation**: Show confirmation after a successful purchase.
