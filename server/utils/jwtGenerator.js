@@ -10,7 +10,7 @@ function jwtGenerator( user_id ){
 
    // every 1h the user needs to login again
    // there's methods such as using cookies to store long term sessions
-   return jwt.sign(payload, process.env.jwtSecret, {expiresIn: '1hr'})
+   return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1hr'})
 }
 
 export default jwtGenerator
