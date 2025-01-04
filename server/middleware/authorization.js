@@ -11,7 +11,7 @@ export default async (req, res, next) => {
          return res.status(403).json({ success: false, message: 'Not authorized' })
       }
 
-      const verify = jwt.verify(token, process.env.jwtSecret)
+      const verify = jwt.verify(token, process.env.JWT_SECRET)
       req.user = verify.user
       next()
 
