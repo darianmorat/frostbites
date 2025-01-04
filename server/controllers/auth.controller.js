@@ -1,7 +1,10 @@
 import pool from '../db/pool.js'
 import bcrypt from 'bcrypt'
 import jwtGenerator from '../utils/jwtGenerator.js'
+import dotenv from 'dotenv'
 
+dotenv.config() // Load environment variables from .env file
+ 
 export const registerUser = async (req, res) => {
    try {
       // destructure the req.body
@@ -30,9 +33,8 @@ export const registerUser = async (req, res) => {
 
       // role assignation
       let isAdmin = false
-
-      if(email === 'admin@gmail.com'){ // use an array with the valid emails in .env
-         const adminRole = 'admin' // use role_id instead with .env secret
+      if(email === process.env.ADMIN_EMAIL){ 
+         const adminRole = process.env.ADMIN_ROLE 
 
          const roles = await pool.query(
             "SELECT role_id FROM roles WHERE role_name = $1", 
@@ -51,7 +53,7 @@ export const registerUser = async (req, res) => {
       }
 
       // add user role regarless to everyone
-      const userRole = 'user' // use role_id instead with .env secret
+      const userRole = process.env.USER_ROLE 
 
       const roles = await pool.query(
          "SELECT role_id FROM roles WHERE role_name = $1", 
@@ -68,7 +70,7 @@ export const registerUser = async (req, res) => {
 
       // generate jwt token
       const token = jwtGenerator(newUser.rows[0].user_id)
-      res.json({ success: true, token, isAdmin })
+      res.status(200).json({ success: true, token, isAdmin })
 
    } catch (err) {
       console.error(err.message)
@@ -84,7 +86,7 @@ export const loginUser = async (req, res) => {
       // check if user is admin
       let isAdmin = false
 
-      if(email === 'admin@gmail.com'){
+      if(email === process.env.ADMIN_EMAIL){
          isAdmin = true
       }
 
@@ -105,7 +107,7 @@ export const loginUser = async (req, res) => {
 
       // give them jwt token
       const token = jwtGenerator(user.rows[0].user_id)
-      res.json({ success: true, token, isAdmin })
+      res.status(200).json({ success: true, token, isAdmin })
 
    } catch (err) {
       console.error(err.message)
@@ -116,7 +118,7 @@ export const loginUser = async (req, res) => {
 export const verifyUser = async (req, res) => {
    try {
       const admin = req.header('admin')
-      res.json({success: true, isAdmin: admin })
+      res.status(200).json({success: true, isAdmin: admin })
    } catch (err) {
       console.error(err.message)
       res.status(500).json({ success: false, message: 'Server error' })
