@@ -71,15 +71,15 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                      <h3>Create Product</h3>
                      <input 
                         type="text" 
-                        placeholder="Product Name" 
-                        value={name}
-                        onChange={(e) => setName(e.target.value)} 
-                     />
-                     <input 
-                        type="text" 
                         placeholder="Product Image URL" 
                         value={image}
                         onChange={(e) => setImage(e.target.value)} 
+                     />
+                     <input 
+                        type="text" 
+                        placeholder="Product Name" 
+                        value={name}
+                        onChange={(e) => setName(e.target.value)} 
                      />
                      <input 
                         type="number" 

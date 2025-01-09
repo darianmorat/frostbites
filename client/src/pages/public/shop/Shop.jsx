@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react';
 import { motion } from "motion/react"
 import { toast } from 'react-toastify'
 import { RemoveScroll } from 'react-remove-scroll';
+import { CreateProductC } from './CreateProduct'
+
+import select_product_img from '../../../assets/images/svg/selection-product.svg'
 import './shop.css'
 
-import {CreateProductC} from './CreateProduct'
 
 export const Shop = ({ isAdmin }) => {
    // ============
@@ -331,6 +333,7 @@ export const Shop = ({ isAdmin }) => {
                            <span className='max-users'> (MAX 10)</span>
                         </h3>
 
+                        <img src={select_product_img} alt="" className="select-product-img"/>
                         <div className='purchase-container'>
                            <h3 className='purchase-title'>
                               PURCHASE DETAILS
