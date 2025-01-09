@@ -1,45 +1,45 @@
-/* the freaking styles work even if the file is not in the folder */
-/* here u got styles from the Footter.jsx component */
+.location-page{
+   padding-top: 90px;
+   background-color: #fff5f7;
+}
 
-.location-map, .location-links{
+.location-map{
    display: flex;
    align-items: center;
    justify-content: center;
    background-color: #fff5f7;
-   padding: 60px 0 0 0;
 }
-
-.location-links, .location-right{
-   display: flex;
-   justify-content: center;
-   gap: 20px;
-}
-
-.location-links {
-   padding: 60px 20px;
-   flex-flow: wrap;
-   gap: 70px;
-}
-
 .location-map{
    flex-direction: column;
+   height: 45vh;
 }
 
-.logo-slogan{
-   width: 400px;
+.location-title{
+   margin-bottom: 30px;
 }
 
-.location-right>div>a{
-   color: grey;
+.location-container {
+   background-color: white;
+   padding: 30px;
+   display: flex;
+   gap: 40px;
+   border-radius: 10px;
 }
 
-.location-right>div>a:hover{
-   color: #606060;
-   text-decoration: underline;
+.direction-title,
+.schedule-title{
+   font-weight: bold;
 }
 
 .map-container {
    border-radius: 10px;
-   border: 1px solid grey;
    overflow: hidden;
+}
+
+.map-container, 
+.location-schedule, 
+.location-direction{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
 }
