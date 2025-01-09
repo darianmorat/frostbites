@@ -7,3 +7,35 @@
    color: black;
    border-top: 1px solid #cccccc;
 }
+
+.location-links{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #fff5f7;
+}
+
+.location-links, .location-right{
+   display: flex;
+   gap: 20px;
+}
+
+.location-links {
+   padding: 80px 0;
+   flex-flow: wrap;
+   gap: 70px;
+}
+
+.logo-slogan{
+   width: 400px;
+}
+
+.location-right>div>a{
+   color: grey;
+}
+
+.location-right>div>a:hover{
+   color: #606060;
+   text-decoration: underline;
+}
+

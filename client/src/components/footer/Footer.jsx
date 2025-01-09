@@ -9,7 +9,7 @@ export const Footer = () => {
    };
 
    return (
-      <>
+      <div className='footer-page'>
          <div className="location-links"> {/* add better class names */}
             <div className="location-left">
                <Link to="/" onClick={scrollToTop}> {/* Is not sending you back to the top again */}
@@ -38,6 +38,6 @@ export const Footer = () => {
             </div>
          </div>
          <footer className="footer"> <p>&copy; 2024 | All rights Reserved</p> </footer>
-      </>
+      </div>
    )
 }
