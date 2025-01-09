@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import './home.css'
 import about_img from '../../../assets/images/about-us.jpg'
@@ -9,6 +9,8 @@ import iceman_svg from '../../../assets/images/svg/iceman.svg'
 import { motion } from "motion/react"
 
 export function Home(){
+   const navigate = useNavigate()
+
    return (
       <>
          <section className="hero-section">
@@ -22,9 +24,7 @@ export function Home(){
                   >
                      <h2 className="hero-title-small">A NEW WAY TO IMAGE</h2>
                      <h1 className="hero-title">ICE CREAM</h1>
-                     <button className="btn hero-btn-buy"> 
-                        <Link to="/shop">BUY NOW</Link>
-                     </button> 
+                     <button className="primary-btn hero-btn-buy btn " onClick={() => navigate('/shop')}>BUY NOW</button> 
                   </motion.div>
                </div>
 
@@ -52,7 +52,13 @@ export function Home(){
                exit={{ opacity: 0, x: 100 }} 
                transition={{ duration: 0.7 }} >
                <div className="about-left">
-                  <img src={about_img} alt="About us" className='about-img'/>
+                  <div className='who-we-are-img img' style={{ 
+                     backgroundImage: `url(${about_img})`, 
+                     width: '600px', 
+                     height: '400px', 
+                     color: 'blue' 
+                  }}
+                  ></div>
                </div>
             </motion.div>
 
@@ -72,9 +78,7 @@ export function Home(){
                      spreading joy through every scoop and are committed to innovation
                      and excellence in every aspect of our craft.
                   </p>
-                  <button className="btn about-btn-more">
-                     <Link to="/about">READ MORE</Link>
-                  </button>
+                  <button className="primary-btn primary-btn-alt btn about-btn-more" onClick={() => navigate('/about')}>READ MORE</button> 
                </div>
             </motion.div>
          </section>

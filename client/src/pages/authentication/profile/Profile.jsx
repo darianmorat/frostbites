@@ -1,185 +1,219 @@
-// /* eslint-disable react/prop-types */
-//
-// import { useEffect, useState } from 'react'
-// import { toast } from 'react-toastify'
-// import './profile.css'
-//
-// export const Profile = ({ setAuth }) => {
-//    const [name, setName] = useState('')
-//    const [email, setEmail] = useState('')
-//    const [created, setCreated] = useState('')
-//
-//    const getProfile = async () => {
-//       try {
-//          const res = await fetch('http://localhost:3000/user', {
-//             method: "GET",
-//             headers: { token: localStorage.token }
-//          });
-//
-//          const parseData = await res.json();
-//
-//          // convert date
-//          const dateString = parseData.created_at;
-//          const date = new Date(dateString);
-//
-//          // Convert to 'Month Day, Year' format (e.g., "December 27, 2024")
-//          const formattedDate = date.toLocaleDateString('en-US', {
-//             year: 'numeric',
-//             month: 'long',
-//             day: 'numeric'
-//          });
-//
-//          console.log(parseData)
-//          setName(parseData.user_name);
-//          setEmail(parseData.user_email);
-//          setCreated(formattedDate);
-//       } catch (err) {
-//          console.error(err);
-//       }
-//    }
-//
-//    const logout = async (e) => {
-//       e.preventDefault();
-//       try {
-//          localStorage.removeItem("token");
-//          localStorage.removeItem("admin");
-//          setAuth(false);
-//          toast.success("Logout successfully");
-//       } catch (err) {
-//          console.error(err);
-//       }
-//    };
-//
-//    useEffect(() => {
-//       getProfile()
-//    }, [])
-//
-//    return (
-//       <>
-//          <h1>Profile</h1>
-//          <h2 className='name'>Username: {name}</h2>
-//          <h2 className='name'>Email: {email}</h2>
-//          <h2 className='name'>Created at: {created}</h2>
-//          <button onClick={e => logout(e)}>Logout</button>
-//       </>
-//    )
-// }
-
 /* eslint-disable react/prop-types */
 
-import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import './profile.css'
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import './profile.css';
 
 export const Profile = ({ setAuth }) => {
-   const [name, setName] = useState('')
-   const [email, setEmail] = useState('')
-   const [created, setCreated] = useState('')
 
-   // const [newName, setNewName] = useState('')  // For updated username
-   // const [newEmail, setNewEmail] = useState('') // For updated email
+   // Combine related states into one object
+   const [profile, setProfile] = useState({
+      name: '',
+      email: '',
+      created: ''
+   });
 
-   // Fetching the profile data
+   const [originalProfile, setOriginalProfile] = useState({});
+   const [isChanged, setIsChanged] = useState(false);
+
+   // ===========
+   // GET PROFILE
+   // ===========
    const getProfile = async () => {
       try {
          const res = await fetch('http://localhost:3000/user', {
-            method: "GET",
+            method: 'GET',
             headers: { token: localStorage.token }
          });
 
          const parseData = await res.json();
 
-         // Convert date
+         // Format the date
          const dateString = parseData.created_at;
-         const date = new Date(dateString);
-
-         const formattedDate = date.toLocaleDateString('en-US', {
+         const formattedDate = new Date(dateString).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
          });
 
-         setName(parseData.user_name);
-         setEmail(parseData.user_email);
-         setCreated(formattedDate);
-          
-         // setNewName(parseData.user_name);  // Set initial name to edit
-         // setNewEmail(parseData.user_email); // Set initial email to edit
-      } catch (err) {
-         console.error(err);
-      }
-   }
+         // Set current and original profile values
+         const newProfile = {
+            name: parseData.user_name,
+            email: parseData.user_email,
+            created: formattedDate
+         };
 
-   // Logout function
-   const logout = async (e) => {
-      e.preventDefault();
-      try {
-         localStorage.removeItem("token");
-         localStorage.removeItem("admin");
-         setAuth(false);
-         toast.success("Logout successfully");
+         setProfile(newProfile);
+         setOriginalProfile(newProfile);
+
       } catch (err) {
          console.error(err);
       }
    };
 
-   // Update user info
+   useEffect(() => {
+      getProfile();
+   }, []);
+
+   // ========================
+   // DYNAMIC CHANGE DETECTION
+   // ========================
+   useEffect(() => {
+      setIsChanged(JSON.stringify(profile) !== JSON.stringify(originalProfile));
+   }, [profile, originalProfile]);
+
+   // ==============
+   // UPDATE PROFILE
+   // ==============
    const updateProfile = async () => {
       try {
          const res = await fetch('http://localhost:3000/user/update', {
-            method: "PUT",
+            method: 'PUT',
             headers: {
                'Content-Type': 'application/json',
                token: localStorage.token
             },
             body: JSON.stringify({
-               user_name: name,
-               user_email: email
+               user_name: profile.name,
+               user_email: profile.email
             })
          });
 
          const parseRes = await res.json();
-         console.log(parseRes)
 
          if (parseRes.success) {
-            toast.success("Profile updated successfully");
-            setName(name);  // Update the displayed name
-            setEmail(email);  // Update the displayed email
+            toast.success(parseRes.message);
+
+            // Update original profile after a successful save
+            setOriginalProfile(profile);
+            setIsChanged(false);
          } else {
-            toast.error("Failed to update profile"); // check if is the same don't let change the info
+            toast.error(parseRes.message);
          }
+
       } catch (err) {
          console.error(err);
-         toast.error("Error updating profile");
+         toast.error('Error updating profile');
       }
-   }
+   };
 
-   useEffect(() => {
-      getProfile()
-   }, [])
+   // ====================
+   // HANDLE INPUT CHANGES
+   // ====================
+   const handleChange = (e) => {
+      setProfile({
+         ...profile,
+         [e.target.name]: e.target.value
+      });
+   };
+
+   // ============
+   // LOGOUT MANAG
+   // ============
+   const navigate = useNavigate();
+
+   const logout = async (e) => {
+      e.preventDefault();
+      try {
+         localStorage.removeItem('token');
+         localStorage.removeItem('admin');
+         setAuth(false);
+         toast.success('Logout successfully');
+         navigate('/') // REDIRECT TO THIS ROUTE AFTER LOGOUT
+      } catch (err) {
+         console.error(err);
+      }
+   };
+
+   // ================
+   // RETURN COMPONENT
+   // ================
+
+   const [activeBtn, setActiveBtn] = useState('my-data');
+
+   const toggleActive = (button) => {
+      setActiveBtn(button);
+   }
 
    return (
       <>
-         <h1>Profile</h1>
-         <h2 className='name'>Username: 
-            <input 
-               type="text" 
-               value={name} 
-               onChange={(e) => setName(e.target.value)} 
-            />
-         </h2>
-         <h2 className='name'>Email: 
-            <input 
-               type="email" 
-               value={email} 
-               onChange={(e) => setEmail(e.target.value)} 
-            />
-         </h2>
-         <h2 className='name'>Created at:</h2>
-         <h3> {created}</h3>
-         <button onClick={updateProfile}>Save Changes</button>
-         <button onClick={e => logout(e)}>Logout</button>
+         <div className="profile-page">
+            <div className='profile-banner'> </div>
+            <div className='profile-container'>
+               <div className='profile-picture-container'>
+                  <div className='profile-picture'> </div>
+                  <h2>Profile</h2>
+               </div>
+               <nav className='profile-nav'>
+                  <button 
+                     className={`my-data btn ${activeBtn === 'my-data' ? 'active' : 'inactive'}`}
+                     onClick={() => toggleActive('my-data')}
+                  >
+                     My data
+                  </button>
+                  <button 
+                     className={`preferences btn ${activeBtn === 'preferences' ? 'active' : 'inactive'}`}
+                     onClick={() => toggleActive('preferences')}
+                  >
+                     Preferences
+                  </button>
+                  <button 
+                     className={`notifications btn ${activeBtn === 'notifications' ? 'active' : 'inactive'}`}
+                     onClick={() => toggleActive('notifications')}
+                  >
+                     Notifications
+                  </button>
+               </nav>
+
+               {activeBtn === 'my-data' && 
+                  <div className='my-data'>
+                     <div className='my-data-inputs'>
+                        <h3 className="my-data-name">Username:
+                           <input
+                              type="text"
+                              name="name"
+                              value={profile.name}
+                              onChange={handleChange}
+                           />
+                        </h3>
+                        <h3 className="my-data-email">Email:
+                           <input
+                              type="email"
+                              name="email"
+                              value={profile.email}
+                              onChange={handleChange}
+                           />
+                        </h3>
+                     </div>
+                     <h3 className="my-data-created">Created at:<br />
+                        {profile.created}
+                     </h3>
+                     <button className='secondary-btn my-data-save-btn btn' onClick={updateProfile} disabled={!isChanged}>
+                        Save Changes
+                     </button>
+                     <button className='btn logout-btn' onClick={logout}>
+                        Logout
+                     </button>
+                  </div>
+               }
+
+               {activeBtn === 'preferences' && 
+                  <div className='my-data'>
+                     <h3>IN PROGRESS</h3>
+                     <p>Preferences</p>
+                  </div>
+               }
+
+               {activeBtn === 'notifications' && 
+                  <div className='my-data'>
+                     <h3>IN PROGRESS</h3>
+                     <p>Notifications</p>
+                  </div>
+               }
+            </div>
+         </div>
       </>
-   )
-}
+   );
+};
 

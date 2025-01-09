@@ -1,10 +1,15 @@
 /* eslint-disable react/prop-types */
 
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { motion } from "motion/react"
+
+import wave_svg from '../../../assets/images/svg/wave.svg'
 
 export const Login = ({ setAuth }) => {
+   const navigate = useNavigate()
+
    const [inputs, setInputs] = useState({
       email: "",
       password: ""
@@ -56,48 +61,57 @@ export const Login = ({ setAuth }) => {
 
    return (
       <div className='form-body'>
-         <div className='form-container'>
-            <div className='left-form'>
-               <h1 className='form-title'>WELCOME BACK TO ICE CREAM SHOP</h1>
-               <div className='stick-container'>
-                  <div className='stick longer-stick'></div>
-                  <div className='stick smaller-stick'></div>
-               </div>
-               <p className='form-description'>Log in to continue to your account and save more BONUSES for each purchase!</p>
-            </div>
+         <img src={wave_svg} alt="" className="wave-left-svg"/>
+         <img src={wave_svg} alt="" className="wave-right-svg"/>
 
-            <div className='right-form'>
-               <div className='google-auth'>Continue with Google</div>
-               <p className='separator'>
-                  <div className='separator-line'></div> or <div className='separator-line'></div> 
-               </p>
-               <form className='form' onSubmit={onSubmitForm}>
-                  <input 
-                     type="email" 
-                     name="email" 
-                     placeholder="email"
-                     value={email} 
-                     onChange={e => onChange(e)}
-                  />
-                  <input 
-                     type="password" 
-                     name="password" 
-                     placeholder="password"
-                     value={password} 
-                     onChange={e => onChange(e)}
-                  />
-                  <button className='auth-btn btn-submit'>LOGIN</button>
-               </form>
-               <div className='link register-link'>
-                  <p className='description'>Dont have an account?</p>
-                  <Link to='/register'>REGISTER</Link>
+         <motion.div 
+            initial={{ opacity: 0, y: -100 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: 100 }} 
+            transition={{ duration: 0.4 }}
+         >
+            <div className='form-container'>
+               <div className='left-form'>
+                  <h3 className='form-title'>WELCOME BACK TO ICE CREAM SHOP</h3>
+                  <div className='stick-container'>
+                     <div className='stick longer-stick'></div>
+                     <div className='stick smaller-stick'></div>
+                  </div>
+                  <p className='form-description'>Log in to continue to your account and save more BONUSES for each purchase!</p>
+               </div>
+
+               <div className='right-form'>
+                  <div className='google-auth'>Continue with Google</div>
+                  <p className='separator'>
+                     <div className='separator-line'></div> or <div className='separator-line'></div> 
+                  </p>
+                  <form className='form' onSubmit={onSubmitForm}>
+                     <input 
+                        type="email" 
+                        name="email" 
+                        placeholder="email"
+                        value={email} 
+                        onChange={e => onChange(e)}
+                     />
+                     <input 
+                        type="password" 
+                        name="password" 
+                        placeholder="password"
+                        value={password} 
+                        onChange={e => onChange(e)}
+                     />
+                     <button className='btn secondary-btn btn-submit'>LOGIN</button>
+                  </form>
+                  <div className='link register-link'>
+                     <p className='description'>Dont have an account?</p>
+                     <Link to='/register'>REGISTER</Link>
+                  </div>
                </div>
             </div>
-         </div>
+         </motion.div>
 
-         <button className='btn back-btn'>
-            <Link to='/'>↩ Go back</Link>
-         </button>
+         {/* SEND BACK TO WHERE THE USER WAS, NOT TO THE HOME */}
+         <button className='btn primary-btn back-btn' onClick={() => navigate('/')}>↩ Go back</button>
       </div>
    )
 }
