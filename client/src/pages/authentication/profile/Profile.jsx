@@ -7,7 +7,6 @@ import './profile.css';
 
 export const Profile = ({ setAuth }) => {
 
-   // Combine related states into one object
    const [profile, setProfile] = useState({
       name: '',
       email: '',
@@ -56,9 +55,7 @@ export const Profile = ({ setAuth }) => {
       getProfile();
    }, []);
 
-   // ========================
-   // DYNAMIC CHANGE DETECTION
-   // ========================
+   // dynamic change detection
    useEffect(() => {
       setIsChanged(JSON.stringify(profile) !== JSON.stringify(originalProfile));
    }, [profile, originalProfile]);
@@ -98,9 +95,7 @@ export const Profile = ({ setAuth }) => {
       }
    };
 
-   // ====================
-   // HANDLE INPUT CHANGES
-   // ====================
+   // handle input changes
    const handleChange = (e) => {
       setProfile({
          ...profile,
@@ -108,9 +103,43 @@ export const Profile = ({ setAuth }) => {
       });
    };
 
-   // ============
-   // LOGOUT MANAG
-   // ============
+   // ==============
+   // DELETE PROFILE
+   // ==============
+   const deleteProfile = async(e) => {
+      try {
+         e.target.disabled = true;
+
+         const res = await fetch('http://localhost:3000/user/delete', {
+            method: "DELETE",
+            headers: { token: localStorage.token }
+         })
+
+         const parseRes = await res.json();
+
+         if (parseRes.success) {
+            toast.success(parseRes.message);
+
+            setTimeout(() => {
+               toast.warning('Redirecting... Please wait!');
+            }, 1000);
+
+            setTimeout(() => {
+               logoutDeletedAccount();
+            }, 6000);
+         } else {
+            toast.error(parseRes.message);
+            e.target.disabled = false;
+         }
+
+      } catch (err) {
+         console.error(err);
+         toast.error('Error deleting profile');
+         e.target.disabled = false;
+      }
+   };
+
+   // logout management
    const navigate = useNavigate();
 
    const logout = async (e) => {
@@ -120,11 +149,21 @@ export const Profile = ({ setAuth }) => {
          localStorage.removeItem('admin');
          setAuth(false);
          toast.success('Logout successfully');
-         navigate('/') // REDIRECT TO THIS ROUTE AFTER LOGOUT
+         navigate('/') // redirect to this route after logout
       } catch (err) {
          console.error(err);
       }
-   };
+   }
+
+   const logoutDeletedAccount = async () => {
+      try {
+         localStorage.removeItem('token');
+         setAuth(false);
+         navigate('/') // redirect to this route after logout
+      } catch (err) {
+         console.error(err);
+      }
+   }
 
    // ================
    // RETURN COMPONENT
@@ -163,6 +202,12 @@ export const Profile = ({ setAuth }) => {
                      onClick={() => toggleActive('notifications')}
                   >
                      Notifications
+                  </button>
+                  <button 
+                     className={`danger-zone btn ${activeBtn === 'danger-zone' ? 'active' : 'inactive'}`}
+                     onClick={() => toggleActive('danger-zone')}
+                  >
+                     Danger zone
                   </button>
                </nav>
 
@@ -209,6 +254,15 @@ export const Profile = ({ setAuth }) => {
                   <div className='my-data'>
                      <h3>IN PROGRESS</h3>
                      <p>Notifications</p>
+                  </div>
+               }
+
+               {activeBtn === 'danger-zone' && 
+                  <div className='my-data danger-zone'>
+                     <h3>DELETE MY ACCOUNT</h3>
+                     <p>By clicking the button down below, you will remove your account permanently from our databases:</p>
+                     <br/>
+                     <button className='btn logout-btn' onClick={(e) => deleteProfile(e)}>Delete account</button>
                   </div>
                }
             </div>
