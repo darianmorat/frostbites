@@ -1,13 +1,38 @@
+.wave-left-svg{
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100vh;
+   width: 250px;
+   z-index: 1;
+}
+.wave-right-svg{
+   position: absolute;
+   top: 0;
+   right: 0;
+   height: 100vh;
+   width: 250px;
+   z-index: 1;
+   transform: rotate(180deg);
+}
+
+.back-btn { 
+   position: absolute;
+   top: 0;
+   left: 0;
+   margin: 20px;
+}
+
 .form-body {
    background-color: #fff5f7;
    height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 .form-container {
    display: flex;
-   position: absolute;
-   top: 50%;
-   left: 50%; transform: translate(-50%, -50%);
    height: 500px;
    border-radius: 10px;
    overflow: hidden;
@@ -55,6 +80,7 @@
 
 .left-form, .right-form{
    padding: 30px;
+   z-index: 999;
 }
 
 .form {
@@ -79,10 +105,6 @@
 }
 .smaller-stick {
    width: 70px;
-}
-
-.form-title, .form-description{
-   font-family: Inter, Arial;
 }
 
 /* this is being applied to all... fix */
