@@ -63,6 +63,7 @@ user friendly, and built to last.
   - **Leaflet**: A library for Interactive maps.
   - **Loader-Spinner**: For displaying loading animations.
   - **Toastify**: For displaying elegant notifications.
+  - **Remove-Scroll**: For removing scroll in popups.
 
 #### Back-End:
 - **Node.js + Express.js**: For better server-side development.
