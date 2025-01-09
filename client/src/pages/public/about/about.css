@@ -15,12 +15,6 @@
    max-width: 1200px;
 }
 
-.our-team-img, 
-.who-we-are-img {
-   max-width: 600px;
-   max-height: 400px;
-}
-
 @media (width < 1035px) {
 
    .about-page{
