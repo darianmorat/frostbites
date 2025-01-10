@@ -1,4 +1,4 @@
-![FrostBites Logo](./frostbites.svg)
+![FrostBites Logo](./client/public/frostbites.svg)
 
 ---
 
@@ -126,9 +126,13 @@ cd client && npm install
 cd ../server && npm install
 ```
 
-5. Initialize database with fake data:
+5. Initialize database:
 ```bash
-# Missing steps
+# Navigate to the file directory
+cd server/db
+
+# Run the script to create tables
+psql -U your_username -d your_database_name -f init.sql
 ```
 
 6. Run the development environment:
