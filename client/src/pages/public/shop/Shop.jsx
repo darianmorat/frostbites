@@ -5,10 +5,10 @@ import { motion } from "motion/react"
 import { toast } from 'react-toastify'
 import { RemoveScroll } from 'react-remove-scroll';
 import { CreateProductC } from './CreateProduct'
+import api from '../../../../api/axios';
 
 import select_product_img from '../../../assets/images/svg/selection-product.svg'
 import './shop.css'
-
 
 export const Shop = ({ isAdmin }) => {
    // ============
@@ -18,12 +18,10 @@ export const Shop = ({ isAdmin }) => {
 
    const getProducts = async () => {
       try {
-         const res = await fetch('http://localhost:3000/product', {
-            method: "GET" 
-         });
+         const res = await api.get('/product');
+         const data = res.data;
 
-         const parseData = await res.json();
-         setProducts(parseData);
+         setProducts(data.products);
 
       } catch (err) {
          console.error(err);
@@ -50,28 +48,23 @@ export const Shop = ({ isAdmin }) => {
 
    const updateProduct = async (productId) => {
       try {
-         const res = await fetch(`http://localhost:3000/product/update/${productId}`, {
-            method: "PUT",
-            headers: {
-               "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-               image: newImage, 
-               name: newName,
-               price: newPrice
-            })
-         })
+         const body = {
+            image: newImage, 
+            name: newName,
+            price: newPrice
+         }
 
-         const parseData = await res.json();
+         const res = await api.put(`/product/update/${productId}`, body)
+         const data = res.data
 
-         if (res.ok) { 
+         if (data.success) { 
             setEditPopup(false)
             getProducts(); // THE POSITION IS CHANGED TO THE LAST ONE
 
-            toast.success(parseData.message)
+            toast.success(data.message)
          } 
          else {
-            toast.error(parseData.message)
+            toast.error(data.message)
          }
 
       } catch (err) {
@@ -90,20 +83,14 @@ export const Shop = ({ isAdmin }) => {
 
    const deleteProduct = async (productId) => {
       try {
-         const res = await fetch(`http://localhost:3000/product/delete/${productId}`, {
-            method: "DELETE",
-            headers: {
-               "Content-Type": "application/json",
-            }
-         })
+         const res = await api.delete(`/product/delete/${productId}`)
+         const data = res.data;
 
-         const parseData = await res.json();
-
-         if (res.ok) {
-            toast.success(parseData.message)
+         if (data.success) {
+            toast.success(data.message)
             setProducts(products.filter(product => product.product_id !== productId));
          } else {
-            console.error("Failed to delete product");
+            toast.error(data.message)
          }
 
       } catch (err) {
@@ -226,6 +213,7 @@ export const Shop = ({ isAdmin }) => {
                                                    onClick={ () => {
                                                       editProductPopup(product.product_id)
                                                       setCurrentProduct(product.product_id)
+
                                                       setNewImage(product.product_img)
                                                       setNewName(product.product_name)
                                                       setNewPrice(product.product_price)
@@ -263,11 +251,10 @@ export const Shop = ({ isAdmin }) => {
                                           )
                                        }
 
-                                       {/* conditions */}
                                        { editPopup === product.product_id && (
                                           <div className="popup" onClick={() => editProductPopup(false)}>
-                                             <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                                                <RemoveScroll>
+                                             <RemoveScroll>
+                                                <div className="popup-content" onClick={(e) => e.stopPropagation()}>
                                                    <h3>Edit Product</h3>
                                                    <input 
                                                       type="text" 
@@ -289,19 +276,22 @@ export const Shop = ({ isAdmin }) => {
                                                    />
 
                                                    {/* <button>Edit Quantity</button> */}
-                                                   <button onClick={() => updateProduct(currentProduct)}>Save changes</button>
-                                                   <button onClick={()=> editProductPopup(false)}>Close</button>
-                                                </RemoveScroll>
-                                             </div>
+                                                   <button className='btn secondary-btn' 
+                                                      onClick={() => updateProduct(currentProduct)}
+                                                      disabled={newImage === product.product_img && newName === product.product_name && newPrice === product.product_price}
+                                                   >Save changes</button>
+                                                   <button className='btn close-btn' onClick={()=> editProductPopup(false)}>&#10006;</button>
+                                                </div>
+                                             </RemoveScroll>
                                           </div>
                                        )}
                                        {deletePopup === product.product_id && (
                                           <div className="popup" onClick={() => deleteProductPopup(false)}>
                                              <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                                                Are you sure you want to remove: {product.product_name}
-                                                <br/>
-                                                <button onClick={() => {deleteProduct(product.product_id), deleteProductPopup(false)}}>yes</button>
-                                                <button onClick={() => deleteProductPopup(false)}>no</button>
+                                                <p className='confirmation'>Do you wanna remove <span className='confirmation-product'>{product.product_name}?</span></p>
+                                                <button className='btn secondary-btn' onClick={() => {deleteProduct(product.product_id), deleteProductPopup(false)}}>Yes</button>
+                                                <button className='btn logout-btn' onClick={() => deleteProductPopup(false)}>No</button>
+                                                <button className='btn close-btn' onClick={()=> deleteProductPopup(false)}>&#10006;</button>
                                              </div>
                                           </div>
                                        )}

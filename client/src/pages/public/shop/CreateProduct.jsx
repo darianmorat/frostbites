@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 import { toast } from 'react-toastify'
+import api from '../../../../api/axios';
 
 export const CreateProductC = ({ isAdmin, addProduct }) => {
    // ==============
@@ -16,31 +17,26 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
 
    const createProduct = async () => {
       try {
-         const res = await fetch('http://localhost:3000/product/create', {
-            method: "POST",
-            headers: {
-               "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-               image: image, 
-               name: name,
-               price: price
-            })
-         })
+         const body = {
+            image: image, 
+            name: name,
+            price: price
+         }
 
-         const parseData = await res.json();
+         const res = await api.post('/product/create', body)
+         const data = res.data
 
-         if (parseData.success) {
+         if (data.success) {
             setName('')
             setImage('')
             setPrice('')
             setCreatePopup(false)
 
-            addProduct(parseData.product);
-            toast.success(parseData.message);
+            addProduct(data.product);
+            toast.success(data.message);
 
          } else {
-            toast.error(parseData.message);
+            toast.error(data.message);
          }
 
       } catch (err) {
@@ -66,8 +62,8 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
          )}
          { createPopup && (
             <div className="popup" onClick={() => createProductPopup(false)}>
-               <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                  <RemoveScroll>
+               <RemoveScroll>
+                  <div className="popup-content" onClick={(e) => e.stopPropagation()}>
                      <h3>Create Product</h3>
                      <input 
                         type="text" 
@@ -88,10 +84,10 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                         onChange={(e) => setPrice(e.target.value)} 
                      />
 
-                     <button onClick={createProduct}>Create product</button>
-                     <button onClick={()=> createProductPopup(false)}>Close</button>
-                  </RemoveScroll>
-               </div>
+                     <button className='btn secondary-btn' onClick={createProduct}>Create</button>
+                     <button className='btn close-btn' onClick={()=> createProductPopup(false)}>&#10006;</button>
+                  </div>
+               </RemoveScroll>
             </div>
          )}
       </>
