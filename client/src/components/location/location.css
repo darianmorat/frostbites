@@ -1,5 +1,5 @@
 .location-page{
-   padding-top: 90px;
+   padding-top: 100px;
    background-color: #fff5f7;
 }
 
@@ -11,16 +11,16 @@
 }
 .location-map{
    flex-direction: column;
-   height: 45vh;
 }
 
 .location-title{
    margin-bottom: 30px;
+   margin-top: -10px;
 }
 
 .location-container {
    background-color: white;
-   padding: 30px;
+   padding: 20px;
    display: flex;
    gap: 40px;
    border-radius: 10px;
@@ -34,6 +34,7 @@
 .map-container {
    border-radius: 10px;
    overflow: hidden;
+   position: relative;
 }
 
 .map-container, 
@@ -42,4 +43,38 @@
    display: flex;
    flex-direction: column;
    justify-content: center;
+}
+
+.map-expand-btn,
+.map-collapse-btn{
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   border-radius: 2px;
+   background-color: #fff;
+
+   width: 30px;
+   height: 30px;
+   margin: 10px;
+   box-shadow: 0 0 0 1.8px #28282830;
+   border: none;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: 0.2s;
+}
+.map-expand-btn:hover,
+.map-collapse-btn:hover{
+   background-color: #f4f4f4;
+   cursor: pointer;
+}
+.map-collapse-btn{
+   z-index: 999;
+}
+
+.map-popup-content {
+   position: relative;
+   overflow: hidden;
+   border-radius: 8px;
+   border: 8px double white;
 }
