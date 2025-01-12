@@ -2,23 +2,25 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify';
 import { Bars, RotatingLines } from 'react-loader-spinner';
-import './index.css'
+import api from '../api/axios';
+
+import { Navbar, Footer, Location, Cart } from './components'
+import { 
+   Home, About, Contact, Shop, 
+   Register, Login, Profile, PageNotFound, Admin, 
+   ForgotPassword, ResetPassword
+} from './pages'
 
 import wave_svg from './assets/images/svg/wave.svg'
 import logo_slogan from './assets/images/logo/logoSlogan.svg'
-
-import { Navbar, Footer, Location, Cart } from './components'
-import { Home, About, Contact, Shop, Register, Login, Profile, PageNotFound, Admin } from './pages'
+import './index.css'
 
 // Scroll to the top of the page when the route changes
 const Wrapper = ({ children }) => {
    const location = useLocation();
 
-   // Store the current scroll position before the page reload
    useLayoutEffect(() => {
-      const scrollPosition = window.scrollY;
-      sessionStorage.setItem('scrollPosition', scrollPosition);
-
+      // Scroll to the top of the page when the route changes
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
    }, [location.pathname]);
 
@@ -33,23 +35,22 @@ function App() {
 
    const checkAuthentication = async () => {
       try {
-         const res = await fetch("http://localhost:3000/authentication/verify", {
-            method: "GET",
+         const config = {
             headers: { 
                token: localStorage.token,
                admin: localStorage.admin 
             }
-         });
+         }
+         const res = await api.get("/authentication/verify", config);
+         const data = res.data;
 
-         const parseRes = await res.json();
-
-         if(parseRes.isAdmin === 'true'){
+         if(data.isAdmin === 'true'){
             setIsAdmin(true)
          } else {
             setIsAdmin(false)
          }
 
-         if(parseRes.success === true) {
+         if(data.success === true) {
             setIsAuthenticated(true)
          } else{
             setIsAuthenticated(false)
@@ -108,6 +109,8 @@ function App() {
                {  location.pathname !== '/login' && 
                   location.pathname !== '/register' && 
                   location.pathname !== '/not-found' && 
+                  location.pathname !== '/forgot-password' &&
+                  !location.pathname.startsWith('/reset-password/') &&
                   (<Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} isAdmin={isAdmin} setAdmin={setAdmin}/>)
                }
 
@@ -119,6 +122,8 @@ function App() {
                   <Route path='/shop' element={<Shop isAdmin={isAdmin}/>}/>
                   <Route path='/not-found' element={<PageNotFound/>}/>
 
+                  <Route path='/forgot-password' element={<ForgotPassword/>}/>
+                  <Route path='/reset-password/:token' element={<ResetPassword/>}/>
 
                   {/* Private routes */}
                   <Route
@@ -159,7 +164,10 @@ function App() {
                {/* Hide componets for specific routes */}
                {  location.pathname !== '/login' && 
                   location.pathname !== '/register' && 
-                  location.pathname !== '/not-found' && (
+                  location.pathname !== '/not-found' &&
+                  location.pathname !== '/forgot-password' &&
+                  !location.pathname.startsWith('/reset-password/') &&
+                  (
                      <>               
                         {location.pathname !== '/shop' && (
                            <>
@@ -180,9 +188,10 @@ function App() {
 
          <ToastContainer 
             theme="colored" 
-            autoClose={3000}
+            autoClose={3500}
             position='bottom-center'
             transition={Bounce}
+            pauseOnHover={false}
          />
       </>
    )
