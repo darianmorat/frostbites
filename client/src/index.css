@@ -16,7 +16,7 @@
 *{
    font-family: "Inter", Arial, sans-serif;
    line-height: 1.5;
-   font-weight: 400;
+   font-weight: normal;
    font-size: 1rem;
    color: var(--black-color);
    padding: 0;
@@ -117,6 +117,14 @@ h2 {
    background-color: var(--red-btn-hover);
 }
 
+.close-btn{
+   position: absolute;
+   top: 0;
+   right: 0;
+   padding: 5px 12px;
+   font-size: 20px;
+}
+
 .btn:disabled {
    opacity: 0.6;
    cursor: not-allowed;
@@ -151,18 +159,48 @@ h2 {
 }
 
 /* inputs */
+.input-container {
+   position: relative;
+   width: 100%;
+   display: flex;
+   align-items: center;
+}
+.show-password{
+   position: absolute;
+   right: 0;
+   height: 100%;
+   padding: 0 10px;
+   display: flex;
+   align-items: center;
+}
+#show-icon{
+   color: grey;
+}
+
 input {
    border-radius: 5px;
+   width: 100%;
    border: none;
    padding: 10px;
-}
-input {
-   display: block;
-   background-color: #fff5f7;
+   background-color: transparent;
    color: #252525;
+   border: 2px solid grey;
+   display: block;
+   outline: none;
 }
-input::placeholder{
-   color: #828282;
+
+.input:focus {
+   box-shadow: 0 0 5px #28282850;
+}
+.input-error {
+   padding: 10px;
+   border: 2px solid #e74c3c;
+   border-radius: 4px;
+   font-size: 16px;
+}
+
+.form>.label-error {
+   color: #e74c3c;
 }
 
 .left-form{
