@@ -10,3 +10,6 @@ export {Admin} from './admin/Admin'
 export {Login} from './authentication/login/Login'
 export {Register} from './authentication/register/Register'
 export {Profile} from './authentication/profile/Profile'
+
+export { ForgotPassword } from './authentication/password/ForgotPassword'
+export { ResetPassword } from './authentication/password/ResetPassword'
