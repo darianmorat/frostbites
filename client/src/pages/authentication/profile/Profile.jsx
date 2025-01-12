@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import api from '../../../../api/axios';
 import './profile.css';
 
 export const Profile = ({ setAuth }) => {
@@ -21,15 +22,15 @@ export const Profile = ({ setAuth }) => {
    // ===========
    const getProfile = async () => {
       try {
-         const res = await fetch('http://localhost:3000/user', {
-            method: 'GET',
+         const config = {
             headers: { token: localStorage.token }
-         });
+         }
 
-         const parseData = await res.json();
+         const res = await api.get('/user', config);
+         const data = res.data
 
          // Format the date
-         const dateString = parseData.created_at;
+         const dateString = data.created_at;
          const formattedDate = new Date(dateString).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
@@ -38,8 +39,8 @@ export const Profile = ({ setAuth }) => {
 
          // Set current and original profile values
          const newProfile = {
-            name: parseData.user_name,
-            email: parseData.user_email,
+            name: data.user_name,
+            email: data.user_email,
             created: formattedDate
          };
 
@@ -65,28 +66,28 @@ export const Profile = ({ setAuth }) => {
    // ==============
    const updateProfile = async () => {
       try {
-         const res = await fetch('http://localhost:3000/user/update', {
-            method: 'PUT',
-            headers: {
-               'Content-Type': 'application/json',
-               token: localStorage.token
-            },
-            body: JSON.stringify({
-               user_name: profile.name,
-               user_email: profile.email
-            })
-         });
+         const body = {
+            user_name: profile.name,
+            user_email: profile.email
+         }
 
-         const parseRes = await res.json();
+         const config = {
+            headers: { 
+               token: localStorage.token 
+            }
+         }
 
-         if (parseRes.success) {
-            toast.success(parseRes.message);
+         const res = await api.put('/user/update', body, config)
+         const data = res.data;
+
+         if (data.success) {
+            toast.success(data.message);
 
             // Update original profile after a successful save
             setOriginalProfile(profile);
             setIsChanged(false);
          } else {
-            toast.error(parseRes.message);
+            toast.error(data.message);
          }
 
       } catch (err) {
@@ -110,15 +111,17 @@ export const Profile = ({ setAuth }) => {
       try {
          e.target.disabled = true;
 
-         const res = await fetch('http://localhost:3000/user/delete', {
-            method: "DELETE",
-            headers: { token: localStorage.token }
-         })
+         const config = {
+            headers: { 
+               token: localStorage.token 
+            }
+         }
 
-         const parseRes = await res.json();
+         const res = await api.delete('/user/delete', config)
+         const data = res.data
 
-         if (parseRes.success) {
-            toast.success(parseRes.message);
+         if (data.success) {
+            toast.success(data.message);
 
             setTimeout(() => {
                toast.warning('Redirecting... Please wait!');
@@ -128,7 +131,7 @@ export const Profile = ({ setAuth }) => {
                logoutDeletedAccount();
             }, 6000);
          } else {
-            toast.error(parseRes.message);
+            toast.error(data.message);
             e.target.disabled = false;
          }
 

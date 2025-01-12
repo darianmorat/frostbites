@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import api from "../../../api/axios";
 import './admin.css'
 
 export const Admin = () => {  
@@ -7,12 +8,10 @@ export const Admin = () => {
 
    const adminStats = async() => {
       try {
-         const res = await fetch('http://localhost:3000/admin', {
-            method: "GET" 
-         });
+         const res = await api.get('/admin')
+         const data = res.data 
 
-         const parseData = await res.json();
-         setUsers(parseData.countUsers.count);
+         setUsers(data.countUsers.count);
 
       } catch (err) {
          console.error(err);

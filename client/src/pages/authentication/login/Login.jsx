@@ -1,63 +1,55 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from 'react'
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { motion } from "motion/react"
+import { useState } from "react";
+import api from '../../../../api/axios'
+import { ShowPassword } from "../../../components";
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
 
 export const Login = ({ setAuth }) => {
-   const navigate = useNavigate()
+   const formik = useFormik({
+      initialValues: {
+         email: "",
+         password: ""
+      },
+      validationSchema: Yup.object({
+         email: Yup.string().email("Invalid email address")
+      }),
+      onSubmit: async (values) => {
+         try {
+            const res = await api.post('/authentication/login', values)
+            const data = res.data;
 
-   const [inputs, setInputs] = useState({
-      email: "",
-      password: ""
-   })
+            if (data.success) {
+               localStorage.setItem("token", data.token);
+               setAuth(true);
 
-   const { email, password } = inputs
+               if (data.isAdmin) {
+                  localStorage.setItem("admin", data.isAdmin);
+                  toast.success("Welcome Admin!")
+               } else {
+                  toast.success("Logged in Successfully")
+               }
+            } 
 
-   const onChange = (e) => {
-      setInputs({ ...inputs, [e.target.name] : e.target.value })
-   }
-
-   const onSubmitForm = async (e) => {
-      e.preventDefault()
-      try {
-         const body = { email, password }
-
-         const res = await fetch(
-            "http://localhost:3000/authentication/login",
-            {
-               method: "POST",
-               headers: {
-                  "Content-type": "application/json"
-               },
-               body: JSON.stringify(body)
-            }
-         );
-
-         const parseRes = await res.json();
-
-         if (parseRes.token) {
-            localStorage.setItem("token", parseRes.token);
-            setAuth(true);
-
-            if (parseRes.isAdmin) {
-               localStorage.setItem("admin", parseRes.isAdmin);
-               toast.success("Welcome Admin!")
+         } catch (err) {
+            if (err.response) {
+               toast.error(err.response.data.message);
             } else {
-               toast.success("Logged in Successfully")
+               toast.error("Server error. Please try again later.");
             }
-         } else {
             setAuth(false);
-            toast.error(parseRes.message);
          }
+      },
+   });
 
-      } catch (err) {
-         console.error(err)
-      }
-   }
+   const [showPassword, setShowPassword] = useState(false)
+   const navigate = useNavigate()
 
    return (
       <div className='form-body'>
@@ -85,22 +77,39 @@ export const Login = ({ setAuth }) => {
                   <p className='separator'>
                      <div className='separator-line'></div> or <div className='separator-line'></div> 
                   </p>
-                  <form className='form' onSubmit={onSubmitForm}>
-                     <input 
-                        type="email" 
-                        name="email" 
-                        placeholder="email"
-                        value={email} 
-                        onChange={e => onChange(e)}
+                  <form className='form' onSubmit={formik.handleSubmit}>
+                     <label
+                        htmlFor="email"
+                        className={`${ formik.touched.email && formik.errors.email ? "label-error" : "" }`} 
+                     >
+                        {formik.touched.email && formik.errors.email ? formik.errors.email : "Email:"}
+                     </label>
+                     <input
+                        type="email"
+                        className={`input ${ formik.touched.email && formik.errors.email ? "input-error" : "" }`}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur} 
+                        value={formik.values.email}
+                        name="email"
+                        id="email"
                      />
-                     <input 
-                        type="password" 
-                        name="password" 
-                        placeholder="password"
-                        value={password} 
-                        onChange={e => onChange(e)}
-                     />
-                     <button className='btn secondary-btn btn-submit'>LOGIN</button>
+                     <label htmlFor="password">Password:</label>
+                     <div className="input-container">
+                        <input
+                           type={showPassword ? 'text' : 'password'}
+                           className={`input ${ formik.touched.password && formik.errors.password ? "input-error" : "" }`}
+                           onChange={formik.handleChange}
+                           onBlur={formik.handleBlur} 
+                           value={formik.values.password}
+                           name="password"
+                           id="password"
+                        />
+                        <ShowPassword showPassword={showPassword} setShowPassword={setShowPassword}/>
+                     </div>
+                     <div className='link forgot-password'>
+                        <Link to='/forgot-password'>Forgot password?</Link>
+                     </div>
+                     <button type='submit' className='btn secondary-btn btn-submit' disabled={!formik.values.email || !formik.values.password}>LOGIN</button>
                   </form>
                   <div className='link register-link'>
                      <p className='description'>Dont have an account?</p>

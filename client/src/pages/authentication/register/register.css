@@ -16,13 +16,6 @@
    transform: rotate(180deg);
 }
 
-.back-btn { 
-   position: absolute;
-   top: 0;
-   left: 0;
-   margin: 20px;
-}
-
 .form-body {
    background-color: #fff5f7;
    height: 100vh;
@@ -49,7 +42,7 @@
    border-radius: 5px;
 }
 .separator {
-   margin: 20px 0 20px 0;
+   margin: 20px 0 10px 0;
    display: flex;
    gap: 10px;
    justify-content: center;
@@ -83,11 +76,43 @@
    z-index: 999;
 }
 
+/* CHANGE THIS IN OTHER PLACE */
+/* CHANGE THIS IN OTHER PLACE */
 .form {
    display: flex;
    flex-direction: column;
+   align-items: start;
    gap: 12px;
 }
+.form>label{
+   margin-bottom: -25px;
+   background-color: #f9e0e5;
+   z-index: 1;
+   padding: 0 5px;
+   margin-left: 10px;
+   color: grey;
+}
+.form>input{
+   width: 100%;
+   background-color: transparent;
+}
+.form>button{
+   width: 100%;
+   margin-top: 12px;
+}
+
+.form>.forgot-password{
+   margin-top: 0;
+}
+.form>.forgot-password>a{
+   color: black;
+   font-weight: normal;
+}
+.forgot-password{
+   align-self: flex-end;
+}
+/* CHANGE THIS IN OTHER PLACE */
+/* CHANGE THIS IN OTHER PLACE */
 
 .form-title{
    font-size: 18px;
@@ -105,6 +130,13 @@
 }
 .smaller-stick {
    width: 70px;
+}
+
+.form-body>.back-btn { 
+   position: absolute;
+   top: 0;
+   left: 0;
+   margin: 20px;
 }
 
 /* this is being applied to all... fix */
