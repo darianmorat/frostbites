@@ -2,8 +2,10 @@ import pool from '../db/pool.js';
 
 export const getProducts = async (req, res) => {
    try {
-      const products = await pool.query('SELECT * FROM products')
-      res.json(products.rows)
+      const result = await pool.query('SELECT * FROM products')
+      const products = result.rows
+
+      res.status(200).json({ success: true, products })
 
    } catch (err) {
       console.error(err.message)
@@ -16,13 +18,13 @@ export const updateProduct = async (req, res) => {
       const { image, name, price } = req.body
       const { id } = req.params
        
-      const updatedProduct = await pool.query('UPDATE products SET product_img = $1, product_name = $2, product_price = $3 WHERE product_id = $4 RETURNING product_img, product_name, product_price', 
+      const result = await pool.query('UPDATE products SET product_img = $1, product_name = $2, product_price = $3 WHERE product_id = $4 RETURNING product_img, product_name, product_price', 
          [image, name, price, id]
       )
 
-      const newProduct = updatedProduct.rows[0]
+      const updatedProduct = result.rows[0]
 
-      res.status(201).json({ success: true, newProduct, message: 'Product updated successfully' })
+      res.status(201).json({ success: true, message: 'Product updated successfully', updatedProduct })
 
    } catch (err) {
       console.error(err.message)
@@ -44,7 +46,8 @@ export const createProduct = async (req, res) => {
       )
 
       const product = newProduct.rows[0]
-      res.status(201).json({ success: true, product, message: 'Product created successfully' })
+
+      res.status(201).json({ success: true, message: 'Product created successfully', product })
 
    } catch (err) {
       console.error(err.message)
