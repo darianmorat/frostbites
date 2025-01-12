@@ -5,6 +5,8 @@ import about_img from '../../../assets/images/about-us.jpg'
 import wave_svg from '../../../assets/images/svg/wave.svg'
 import circle_svg from '../../../assets/images/svg/circle.svg'
 import iceman_svg from '../../../assets/images/svg/iceman.svg'
+import with_love_svg from '../../../assets/images/svg/with-love.svg'
+import expression_svg from '../../../assets/images/svg/expression.svg'
 
 import { motion } from "motion/react"
 
@@ -24,7 +26,7 @@ export function Home(){
                   >
                      <h2 className="hero-title-small">A NEW WAY TO IMAGE</h2>
                      <h1 className="hero-title">ICE CREAM</h1>
-                     <button className="primary-btn hero-btn-buy btn " onClick={() => navigate('/shop')}>BUY NOW</button> 
+                     <button className="btn primary-btn hero-btn" onClick={() => navigate('/shop')}>BUY NOW</button> 
                   </motion.div>
                </div>
 
@@ -78,12 +80,40 @@ export function Home(){
                      spreading joy through every scoop and are committed to innovation
                      and excellence in every aspect of our craft.
                   </p>
-                  <button className="primary-btn primary-btn-alt btn about-btn-more" onClick={() => navigate('/about')}>READ MORE</button> 
+                  <button className="btn primary-btn primary-btn-alt about-btn" onClick={() => navigate('/about')}>READ MORE</button> 
                </div>
             </motion.div>
          </section>
 
+         <div className="marquee-container">
+            <p className="marquee marquee1">
+               <span>LOVE & ICE CREAM - LOVE & ICE CREAM - LOVE & ICE CREAM - LOVE & ICE CREAM - LOVE & ICE CREAM -&nbsp;</span>
+            </p>
+            <p className="marquee marquee2">
+               <span>LOVE & ICE CREAM - LOVE & ICE CREAM - LOVE & ICE CREAM - LOVE & ICE CREAM - LOVE & ICE CREAM -&nbsp;</span>
+            </p>
+         </div>
+
          <section className="section-3">         
+            <div className="gallery">
+               {/* CHANGE WITH THE REAL IMAGES */}
+               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-1"/>
+               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-2"/>
+               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-3"/>
+
+               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-4"/>
+               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-5"/>
+               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-6"/>
+
+               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-7"/>
+               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-8"/>
+               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-9"/>
+            </div>
+
+            <div className="gallery-svg-container">
+               <img src={expression_svg} alt="" className="expression-svg"/>
+               <img src={with_love_svg} alt="" className="with-love-svg"/>
+            </div>
          </section>
          <div>
          </div>
