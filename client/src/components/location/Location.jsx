@@ -1,15 +1,33 @@
-import './location.css'
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
+import { useState } from "react";
+import { RemoveScroll } from "react-remove-scroll";
+import "boxicons";
+
 import "leaflet/dist/leaflet.css";
+import './location.css'
 
 export const Location = () => {
+
+   const stylesExpand = {
+      mapRoot: {
+         height: 500,
+         width: 850,
+      }
+   } 
 
    const styles = {
       mapRoot: {
          height: 180,
          width: 250,
+         zIndex: 0
       }
    } 
+
+   const [map, setMap] = useState(false)
+
+   const expandMap = (bool) =>{
+      setMap(bool)
+   }
 
    return (
       <div className='location-page'>
@@ -32,23 +50,56 @@ export const Location = () => {
                <div className="map-container">
                   <MapContainer
                      style={styles.mapRoot}
-                     center={[2.9488646, -75.3042927]}
-                     zoom={14}
-                     scrollWheelZoom={false}
+                     center={[4.6682979, -74.0911833]}
+                     zoom={16}
+                     scrollWheelZoom={true}
                      attributionControl={false}
                   >
                      <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        detectRetina={true}
                      />
-                     <Marker position={[2.9488646, -75.3042927]}>
-                        <Circle center={[2.9488646, -75.3042927]} radius={100} />
+                     <Marker position={[4.6682979, -74.0911833]}>
+                        <Circle center={[4.6682979, -74.0911833]} radius={100} />
                         <Popup>
                            IceCream Shop <br/> MATIAS PIN PIN
                         </Popup>
                      </Marker>
                   </MapContainer>
+                  <button className="map-expand-btn" onClick={() => expandMap(true)}><i className='bx bx-expand-alt'></i></button>
                </div>
+
+
+               {map && (
+                  <div className="popup" onClick={() => expandMap(false)}>
+                     <RemoveScroll>
+                        <div className="map-popup-content" onClick={(e) => e.stopPropagation()}>
+                           <MapContainer
+                              style={stylesExpand.mapRoot}
+                              center={[4.6682979, -74.0911833]}
+                              zoom={15}
+                              scrollWheelZoom={true}
+                              attributionControl={false}
+                           >
+                              <TileLayer
+                                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                 detectRetina={true}
+                              />
+                              <Marker position={[4.6682979, -74.0911833]}>
+                                 <Circle center={[4.6682979, -74.0911833]} radius={100} />
+                                 <Popup>
+                                    IceCream Shop <br/> MATIAS PIN PIN
+                                 </Popup>
+                              </Marker>
+                           </MapContainer>
+                           <button className="map-collapse-btn" onClick={() => expandMap(false)}><i className='bx bx-collapse-alt'></i></button>
+                        </div>
+                     </RemoveScroll>
+                  </div>
+               )}
+
             </div>
          </div>
       </div>
