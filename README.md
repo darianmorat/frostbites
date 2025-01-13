@@ -17,9 +17,9 @@ user friendly, and built to last.
 - [x] **Login and Registration**: Users can register and log in using their email and password.
 - [x] **Session Expiry**: Sessions are automatically expired after one hour for security.
 - [ ] **Persistent Login**: Maintain user sessions until explicit logout.
-- [ ] **Email Confirmation for Registration**: Users will verify their registration via email.
-- [ ] **Password Validation**: Enforce strong passwords with specific criteria.
-- [ ] **Forgot Password**: Enable users to reset their password through email confirmation.
+- [x] **Email Confirmation for Registration**: Users will verify their registration via email.
+- [x] **Password Validation**: Enforce strong passwords with specific criteria.
+- [x] **Forgot Password**: Enable users to reset their password through email confirmation.
 
 #### Shopping (Catalog, Cart, and Purchases)
 - [x] **Product Catalog**: A static display of available ice cream products
@@ -64,6 +64,8 @@ user friendly, and built to last.
   - **Loader-Spinner**: For displaying loading animations.
   - **Toastify**: For displaying elegant notifications.
   - **Remove-Scroll**: For removing scroll in popups.
+  - **Formik**: For handling forms in React.
+  - **Yup**: Object schema validation.
 
 #### Back-End:
 - **Node.js + Express.js**: For better server-side development.
@@ -74,6 +76,8 @@ user friendly, and built to last.
   - **Dotenv**: For managing environment variables.
   - **JWT Authentication**: For secure user authentication.
   - **Pg**: For PostgreSQL integration.
+  - **Nodemailer**: For sending emails.
+  - **Motion**: For animations in react.
 
 ---
 
