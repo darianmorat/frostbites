@@ -8,7 +8,8 @@ import { Navbar, Footer, Location, Cart } from './components'
 import { 
    Home, About, Contact, Shop, 
    Register, Login, Profile, PageNotFound, Admin, 
-   ForgotPassword, ResetPassword
+   ForgotPassword, ResetPassword,
+   Verify, ResendVerify
 } from './pages'
 
 import wave_svg from './assets/images/svg/wave.svg'
@@ -109,6 +110,10 @@ function App() {
                {  location.pathname !== '/login' && 
                   location.pathname !== '/register' && 
                   location.pathname !== '/not-found' && 
+
+                  !location.pathname.startsWith('/verify-email/') &&
+                  location.pathname !== '/resend-verify-email' &&
+
                   location.pathname !== '/forgot-password' &&
                   !location.pathname.startsWith('/reset-password/') &&
                   (<Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} isAdmin={isAdmin} setAdmin={setAdmin}/>)
@@ -124,6 +129,15 @@ function App() {
 
                   <Route path='/forgot-password' element={<ForgotPassword/>}/>
                   <Route path='/reset-password/:token' element={<ResetPassword/>}/>
+
+                  <Route 
+                     path='/verify-email/:token' 
+                     element={!isAuthenticated
+                        ? <Verify setAuth={setAuth}/>
+                        : <Navigate to='/'/>
+                     }/>
+
+                  <Route path='/resend-verify-email' element={<ResendVerify/>}/>
 
                   {/* Private routes */}
                   <Route
@@ -165,6 +179,10 @@ function App() {
                {  location.pathname !== '/login' && 
                   location.pathname !== '/register' && 
                   location.pathname !== '/not-found' &&
+
+                  !location.pathname.startsWith('/verify-email/') &&
+                  location.pathname !== '/resend-verify-email' &&
+                   
                   location.pathname !== '/forgot-password' &&
                   !location.pathname.startsWith('/reset-password/') &&
                   (

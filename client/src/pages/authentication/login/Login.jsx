@@ -40,6 +40,21 @@ export const Login = ({ setAuth }) => {
          } catch (err) {
             if (err.response) {
                toast.error(err.response.data.message);
+
+               if (err.response.data.isVerified === false) {
+                  toast.warning(
+                     <>
+                        <span>Did not receive the email? <br/>
+                        <a href="/resend-verify-email">Click here to resend</a></span>
+                     </>, 
+                     {
+                        autoClose: false,
+                        closeOnClick: false,
+                        draggable: false,
+                        position: "top-right",
+                     }
+                  )
+               }
             } else {
                toast.error("Server error. Please try again later.");
             }

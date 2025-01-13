@@ -29,20 +29,28 @@ export const Register = ({ setAuth }) => {
             const res = await api.post('/authentication/register', values)
             const data = res.data;
 
-            if (data.token) {
-               localStorage.setItem("token", data.token);
-               setAuth(true);
-               if (data.isAdmin) {
-                  localStorage.setItem("admin", data.isAdmin);
-                  toast.success("Admin Registered Successfully")
-               } else {
-                  toast.success("Registered Successfully");
-               }
-            } 
+            if (data.success){
+               toast.success(data.message)
+            }
 
          } catch (err) {
             if (err.response) {
                toast.error(err.response.data.message);
+
+               if (err.response.data.isVerified === false) {
+                  toast.warning(
+                     <>
+                        <span>Did not receive the email? <br/>
+                        <a href="/resend-verify-email">Click here to resend</a></span>
+                     </>, 
+                     {
+                        autoClose: false,
+                        closeOnClick: false,
+                        draggable: false,
+                        position: "top-right",
+                     }
+                  )
+               }
             } else {
                toast.error("Server error. Please try again later.");
             }
@@ -129,7 +137,13 @@ export const Register = ({ setAuth }) => {
                         />
                         <ShowPassword showPassword={showPassword} setShowPassword={setShowPassword}/>
                      </div>
-                     <button type='submit' className='btn secondary-btn btn-submit' disabled={!formik.values.name || !formik.values.email || !formik.values.password}>REGISTER</button>
+                     <button 
+                        type='submit' 
+                        className='btn secondary-btn btn-submit' 
+                        disabled={!formik.values.name || !formik.values.email || !formik.values.password}
+                     > {/* SHOW A LOADING WHEN SENDIND THE EMAIL */}
+                        REGISTER
+                     </button>
                   </form>
                   <div className='link login-link'>
                      <p className='description'>Already have an account?</p>

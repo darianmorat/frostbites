@@ -86,13 +86,11 @@ export const Profile = ({ setAuth }) => {
             // Update original profile after a successful save
             setOriginalProfile(profile);
             setIsChanged(false);
-         } else {
-            toast.error(data.message);
-         }
+         } 
 
       } catch (err) {
          console.error(err);
-         toast.error('Error updating profile');
+         toast.error(err.response.data.message);
       }
    };
 
@@ -129,7 +127,7 @@ export const Profile = ({ setAuth }) => {
 
             setTimeout(() => {
                logoutDeletedAccount();
-            }, 6000);
+            }, 4500);
          } else {
             toast.error(data.message);
             e.target.disabled = false;

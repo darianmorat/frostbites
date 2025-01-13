@@ -13,3 +13,6 @@ export {Profile} from './authentication/profile/Profile'
 
 export { ForgotPassword } from './authentication/password/ForgotPassword'
 export { ResetPassword } from './authentication/password/ResetPassword'
+
+export { Verify } from './authentication/register/Verify'
+export { ResendVerify } from './authentication/register/ResendVerify'
