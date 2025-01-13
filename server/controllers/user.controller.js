@@ -22,8 +22,10 @@ export const updateUserInfo = async (req, res) => {
       const currentUser = await pool.query('SELECT * FROM users WHERE user_id = $1', [req.user]);
 
       // If the email is different from the current email, check if it's already in use
-      if (user_email && user_email !== currentUser.rows[0].user_email) {
-         const emailCheck = await pool.query('SELECT * FROM users WHERE user_email = $1', [user_email]);
+      if (user_email !== currentUser.rows[0].user_email) {
+         const emailCheck = await pool.query('SELECT * FROM users WHERE user_email = $1', 
+            [user_email
+         ]);
 
          if (emailCheck.rows.length !== 0) {
             return res.status(409).json({ success: false, message: 'Email already in use' });

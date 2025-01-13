@@ -43,11 +43,13 @@ export const forgotPassword = async (req, res) => {
          html: `
             <h1>Reset Your Password</h1>
             <p>Click on the following link to reset your password:</p>
-            <a href="http://localhost:5173/reset-password/${token}">http://localhost:5173/reset-password/${token}</a>
+            <a href="http://localhost:5173/reset-password/${token}">
+               RESET PASSWORD
+            </a>
             <p>The link will expire in 10 minutes.</p>
             <p>If you didn't request a password reset, please ignore this email.</p>
          `
-      };
+      }; // add a blank option to click and send u to a new tab instead
 
       // Send the email
       transporter.sendMail(mailOptions, (err, info) => {
@@ -92,11 +94,12 @@ export const resetPassword = async (req, res) => {
    } catch (err) {
       // Check if the error is related to expired JWT
       if (err.name === 'TokenExpiredError') {
-         return res.status(401).json({ message: 'Link has already expired' }); // Specific message for expired token
+         return res.status(401).json({ success: false, message: 'Link has already expired' })
       }
 
       // Catch any other errors
-      res.status(500).json({ message: 'Token verification failed or other server error' });
+      console.error(err.message)
+      res.status(500).json({ success: false, message: 'Server error' });
    }
 };
 
