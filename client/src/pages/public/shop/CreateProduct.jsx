@@ -119,6 +119,7 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                            disabled
                         />
                         <button 
+                           type="submit"
                            className='btn secondary-btn' 
                            disabled={!formik.values.imageUrl || !formik.values.name || !formik.values.price}
                         >
