@@ -6,7 +6,6 @@ import api from '../../../../api/axios'
 import { useState } from "react";
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
-// import '../../auth/register/register.css'
 
 export const ResendVerify = () => {
    const [loading, setLoading] = useState(false)
