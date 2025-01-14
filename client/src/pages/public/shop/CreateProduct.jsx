@@ -37,6 +37,7 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                setCreatePopup(false)
                addProduct(data.product);
                toast.success(data.message);
+               formik.resetForm()
             } 
 
          } catch (err) {
@@ -75,13 +76,22 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                      <form className='form' onSubmit={formik.handleSubmit}>
                         <label 
                            htmlFor="imageUrl"
-                           className={`${ formik.touched.imageUrl && formik.errors.imageUrl ? "label-error" : "" }`} 
+                           className={formik.touched.imageUrl && formik.errors.imageUrl 
+                              ? "label-error" 
+                              : ""
+                           } 
                         >
-                           {formik.touched.imageUrl && formik.errors.imageUrl ? formik.errors.imageUrl : "Image-url:"}
+                           {formik.touched.imageUrl && formik.errors.imageUrl 
+                              ? formik.errors.imageUrl 
+                              : "Image-url:"
+                           }
                         </label>
                         <input 
                            type="text" 
-                           className={`input ${ formik.touched.imageUrl && formik.errors.imageUrl ? "input-error" : "" }`}
+                           className={formik.touched.imageUrl && formik.errors.imageUrl 
+                              ? "input input-error" 
+                              : "input"
+                           }
                            onChange={formik.handleChange}
                            onBlur={formik.handleBlur} 
                            value={formik.values.imageUrl}
@@ -90,13 +100,22 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                         />
                         <label 
                            htmlFor="name"
-                           className={`${ formik.touched.name && formik.errors.name ? "label-error" : ""}`}
+                           className={formik.touched.name && formik.errors.name 
+                              ? "label-error" 
+                              : ""
+                           }
                         >
-                           {formik.touched.name && formik.errors.name ? formik.errors.name : "Name:"}
+                           {formik.touched.name && formik.errors.name 
+                              ? formik.errors.name 
+                              : "Name:"
+                           }
                         </label>
                         <input 
                            type="text" 
-                           className={`input ${ formik.touched.name && formik.errors.name ? "input-error" : "" }`}
+                           className={formik.touched.name && formik.errors.name 
+                              ? "input input-error" 
+                              : "input"
+                           }
                            onChange={formik.handleChange}
                            onBlur={formik.handleBlur} 
                            value={formik.values.name}
@@ -105,13 +124,22 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                         />
                         <label 
                            htmlFor="price"
-                           className={`${ formik.touched.price && formik.errors.price ? "label-error" : ""}`}
+                           className={ formik.touched.price && formik.errors.price 
+                              ? "label-error" 
+                              : ""
+                           }
                         >
-                           {formik.touched.price && formik.errors.price ? formik.errors.price : "Price:"}
+                           {formik.touched.price && formik.errors.price 
+                              ? formik.errors.price 
+                              : "Price:"
+                           }
                         </label>
                         <input 
                            type="text" 
-                           className={`input ${ formik.touched.price && formik.errors.price ? "input-error" : "" }`}
+                           className= {formik.touched.price && formik.errors.price 
+                              ? "input input-error" 
+                              : "input"
+                           }
                            onChange={formik.handleChange}
                            onBlur={formik.handleBlur} 
                            value={formik.values.price}
@@ -128,7 +156,11 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                         <button 
                            type="submit"
                            className='btn secondary-btn' 
-                           disabled={!formik.values.imageUrl || !formik.values.name || !formik.values.price}
+                           disabled={
+                              !formik.values.imageUrl || 
+                              !formik.values.name || 
+                              !formik.values.price
+                           }
                         >
                            Create
                         </button>
