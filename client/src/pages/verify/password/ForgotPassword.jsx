@@ -81,6 +81,7 @@ export const ForgotPassword = () => {
                         value={formik.values.email}
                         name="email"
                         id="email"
+                        autoComplete="email"
                      />
                      <button 
                         type='submit' 

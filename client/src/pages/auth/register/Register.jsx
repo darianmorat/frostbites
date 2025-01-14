@@ -92,7 +92,7 @@ export const Register = ({ setAuth }) => {
                <div className='right-form'>
                   <div className='google-auth'>Continue with Google</div>
                   <p className='separator'>
-                     <div className='separator-line'></div> or <div className='separator-line'></div> 
+                     <span className='separator-line'></span> or <span className='separator-line'></span> 
                   </p>
                   <form className='form' onSubmit={formik.handleSubmit}>
                      <label
@@ -109,6 +109,7 @@ export const Register = ({ setAuth }) => {
                         value={formik.values.name}
                         name="name"
                         id="name"
+                        autoComplete="name"
                      />
                      <label
                         htmlFor="email"
@@ -124,6 +125,7 @@ export const Register = ({ setAuth }) => {
                         value={formik.values.email}
                         name="email"
                         id="email"
+                        autoComplete="email"
                      />
                      <label
                         htmlFor="password"

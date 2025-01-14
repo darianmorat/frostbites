@@ -14,21 +14,22 @@ export const SendEmail = ({ setAuth }) => {
       setLoading(true)
 
       try {
-         const token = window.location.pathname.split("/").pop();
+         const token = window.location.pathname.split("/").pop()
 
          const res = await api.get(`/verify/send-email/${token}`)
          const data = res.data;
 
-         if (data.token) {
-            localStorage.setItem("token", data.token);
-            setAuth(true);
+         if (data.isAdmin === true) {
+            localStorage.setItem("token", data.token)
+            setAuth(true)
+            toast.success("Admin Registered Successfully")
+            return
+         }
 
-            if (data.isAdmin) {
-               localStorage.setItem("admin", data.isAdmin);
-               toast.success("Admin Registered Successfully")
-            } else {
-               toast.success("Registered Successfully");
-            }
+         if (data.token) {
+            localStorage.setItem("token", data.token)
+            setAuth(true)
+            toast.success("Registered Successfully")
          } 
 
       } catch (err) {

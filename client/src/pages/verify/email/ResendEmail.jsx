@@ -77,6 +77,7 @@ export const ResendEmail = () => {
                         value={formik.values.email}
                         name="email"
                         id="email"
+                        autoComplete="email"
                      />
                      <button 
                         type='submit' 

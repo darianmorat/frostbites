@@ -218,17 +218,21 @@ export const Profile = ({ setAuth }) => {
                         <h3 className="my-data-name">Username:
                            <input
                               type="text"
-                              name="name"
                               value={profile.name}
                               onChange={handleChange}
+                              name="name"
+                              id="name"
+                              autoComplete="name"
                            />
                         </h3>
                         <h3 className="my-data-email">Email:
                            <input
                               type="email"
-                              name="email"
                               value={profile.email}
                               onChange={handleChange}
+                              name="email"
+                              id="email"
+                              autoComplete="email"
                            />
                         </h3>
                      </div>

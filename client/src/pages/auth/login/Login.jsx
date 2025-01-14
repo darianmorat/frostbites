@@ -25,16 +25,17 @@ export const Login = ({ setAuth }) => {
             const res = await api.post('/auth/login', values)
             const data = res.data;
 
+            if (data.isAdmin === true) {
+               localStorage.setItem("token", data.token);
+               setAuth(true);
+               toast.success("Welcome Admin!")
+               return
+            }
+
             if (data.success) {
                localStorage.setItem("token", data.token);
                setAuth(true);
-
-               if (data.isAdmin) {
-                  localStorage.setItem("admin", data.isAdmin);
-                  toast.success("Welcome Admin!")
-               } else {
-                  toast.success("Logged in Successfully")
-               }
+               toast.success("Logged in Successfully")
             } 
 
          } catch (err) {
@@ -90,7 +91,7 @@ export const Login = ({ setAuth }) => {
                <div className='right-form'>
                   <div className='google-auth'>Continue with Google</div>
                   <p className='separator'>
-                     <div className='separator-line'></div> or <div className='separator-line'></div> 
+                     <span className='separator-line'></span> or <span className='separator-line'></span> 
                   </p>
                   <form className='form' onSubmit={formik.handleSubmit}>
                      <label
@@ -107,6 +108,7 @@ export const Login = ({ setAuth }) => {
                         value={formik.values.email}
                         name="email"
                         id="email"
+                        autoComplete="email"
                      />
                      <label htmlFor="password">Password:</label>
                      <div className="input-container">

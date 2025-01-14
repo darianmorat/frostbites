@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
-import { Bounce, ToastContainer } from 'react-toastify';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { Bars } from 'react-loader-spinner';
 import api from '../api/axios';
 
@@ -34,17 +34,24 @@ function App() {
    const [loading, setLoading] = useState(true);
 
    const checkAuthentication = async () => {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+         setIsAuthenticated(false);
+         setIsAdmin(false)
+         return
+      }
+
       try {
          const config = {
             headers: { 
-               token: localStorage.token,
-               admin: localStorage.admin 
+               token: localStorage.token
             }
          }
          const res = await api.get("/auth/verify", config);
          const data = res.data;
 
-         if(data.isAdmin === 'true'){
+         if(data.isAdmin === true){
             setIsAdmin(true)
          } else {
             setIsAdmin(false)
@@ -58,6 +65,7 @@ function App() {
 
       } catch (err) {
          console.error(err)
+         toast.error(err.response.data.message)
       } 
    }
 
