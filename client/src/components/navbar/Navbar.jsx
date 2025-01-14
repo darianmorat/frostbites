@@ -7,6 +7,10 @@ import { useRef, useState } from "react";
 
 export const Navbar = ({ isAuthenticated, setAuth, isAdmin, setAdmin }) => {
 
+   const scrollToTop = () => {
+      window.scrollTo(0, 0);
+   };
+
    const [dropMenu, setDropMenu] = useState(false)
    const menuRef = useRef(null)
 
@@ -42,20 +46,17 @@ export const Navbar = ({ isAuthenticated, setAuth, isAdmin, setAdmin }) => {
 
    const RenderNavLinks = () => (
       <>
-         <li><Link to="/">HOME</Link></li>
-         <li><Link to="/about">ABOUT US</Link></li>
-         <li><Link to="/contact">CONTACT</Link></li>
+         <li><Link to="/" onClick={scrollToTop}>HOME</Link></li>
+         <li><Link to="/about" onClick={scrollToTop}>ABOUT US</Link></li>
+         <li><Link to="/contact" onClick={scrollToTop}>CONTACT</Link></li>
       </>
    )
 
    const AuthenticatedNav = () => (
       <>
          <div className="navbar-right">
-            {/* && is used when we wanna check if true */}
             {isAdmin && <li><Link to="/admin">ADMIN</Link></li>} 
 
-            {/* drop menu for profile, settings and logout */}
-            {/* FIX THAT WHEN CLICK DOESN'T CLOSE AUTOMATICALY */}
             <div>
                <button className='dropmenu-btn btn' onClick={toggleDropMenu}>MENU</button>
                {dropMenu && (
@@ -82,7 +83,7 @@ export const Navbar = ({ isAuthenticated, setAuth, isAdmin, setAdmin }) => {
       <nav className="navbar">
          <div className="navbar-container">
             <div className="navbar-left">
-               <div className="logo">
+               <div className="logo" onClick={scrollToTop}>
                   <Link to="/">
                      <img src={logo} alt="Frostbites Logo" className="logo" />
                   </Link>
