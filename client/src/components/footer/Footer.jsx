@@ -10,9 +10,9 @@ export const Footer = () => {
 
    return (
       <div className='footer-page'>
-         <div className="location-links"> {/* add better class names */}
+         <div className="location-links"> 
             <div className="location-left">
-               <Link to="/" onClick={scrollToTop}> {/* Is not sending you back to the top again */}
+               <Link to="/" onClick={scrollToTop}> 
                   <img className="logo-slogan" src={logo_slogan} alt="Frostbites Logo" />
                </Link>
             </div>
