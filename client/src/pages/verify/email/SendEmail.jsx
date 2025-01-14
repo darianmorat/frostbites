@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
 
-export const Verify = ({ setAuth }) => {
+export const SendEmail = ({ setAuth }) => {
    const [loading, setLoading] = useState(false)
 
    const verifyUser = async () => {

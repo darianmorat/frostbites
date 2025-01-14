@@ -7,7 +7,7 @@ import { useState } from "react";
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
 
-export const ResendVerify = () => {
+export const ResendEmail = () => {
    const [loading, setLoading] = useState(false)
 
    const formik = useFormik({
