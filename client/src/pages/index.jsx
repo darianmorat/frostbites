@@ -12,5 +12,5 @@ export { Profile } from './auth/profile/Profile'
 
 export { ForgotPassword } from './verify/password/ForgotPassword'
 export { ResetPassword } from './verify/password/ResetPassword'
-export { Verify } from './verify/email/Verify'
-export { ResendVerify } from './verify/email/ResendVerify'
+export { SendEmail } from './verify/email/SendEmail'
+export { ResendEmail } from './verify/email/ResendEmail'

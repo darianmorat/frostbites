@@ -1,15 +1,14 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { Bounce, ToastContainer } from 'react-toastify';
-import { Bars, RotatingLines } from 'react-loader-spinner';
+import { Bars } from 'react-loader-spinner';
 import api from '../api/axios';
 
 import { Navbar, Footer, Location, Cart } from './components'
 import { 
    Home, About, Contact, Shop, 
    Register, Login, Profile, PageNotFound, Admin, 
-   ForgotPassword, ResetPassword,
-   Verify, ResendVerify
+   ForgotPassword, ResetPassword, SendEmail, ResendEmail
 } from './pages'
 
 import wave_svg from './assets/images/svg/wave.svg'
@@ -69,7 +68,7 @@ function App() {
    useEffect(() => {
       const timer = setTimeout(() => {
          setLoading(false);
-      }, 300); // set to 1800
+      }, 1800)
 
       return () => clearTimeout(timer);
    }, [loading]);
@@ -83,7 +82,6 @@ function App() {
 
    const location = useLocation();
 
-{/* && is used when we wanna check if true */}
    return (
       <>
          {loading && (
@@ -133,11 +131,11 @@ function App() {
                   <Route 
                      path='/send-email/:token' 
                      element={!isAuthenticated
-                        ? <Verify setAuth={setAuth}/>
+                        ? <SendEmail setAuth={setAuth}/>
                         : <Navigate to='/'/>
                      }/>
 
-                  <Route path='/resend-email' element={<ResendVerify/>}/>
+                  <Route path='/resend-email' element={<ResendEmail/>}/>
 
                   {/* Private routes */}
                   <Route
