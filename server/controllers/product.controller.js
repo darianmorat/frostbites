@@ -34,15 +34,11 @@ export const updateProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
    try {
-      const { image, name, price } = req.body
-
-      if (![image, name, price].every(Boolean)) {
-         return res.json({ message: 'All fields are required!'})
-      }
+      const { imageUrl, name, price } = req.body
 
       const newProduct = await pool.query(
          "INSERT INTO products (product_img, product_name, product_price) VALUES ($1, $2, $3) RETURNING *", 
-         [image, name, price]
+         [imageUrl, name, price]
       )
 
       const product = newProduct.rows[0]
