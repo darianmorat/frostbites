@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 
 import authRoute from './routes/auth.route.js'
-import passwordRoute from './routes/password.route.js'
+import verifyRoute from './routes/verify.route.js'
 
 import userRoute from './routes/user.route.js'
 import adminRoute from './routes/admin.route.js'
@@ -17,8 +17,8 @@ app.use(express.json())
 app.use(cors())
 
 // Routes 
-app.use("/authentication", authRoute)
-app.use("/password", passwordRoute)
+app.use("/auth", authRoute)
+app.use("/verify", verifyRoute)
 app.use("/user", userRoute)
 app.use("/admin", adminRoute)
 app.use("/product", productRoute)
