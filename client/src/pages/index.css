@@ -1,3 +1,6 @@
+/* WHY IF I APPLY THIS FILE TO JUST 1 OF THE PAGES... ALL THE OTHERS TAKE IT AS WELL? */
+/* HOW CAN I APPY STYLES FROM A SINGLE FILE IN A BETTER WAY WITH MORE ORDER */
+ 
 .wave-left-svg{
    position: absolute;
    top: 0;
@@ -138,5 +141,3 @@
    left: 0;
    margin: 20px;
 }
-
-/* this is being applied to all... fix */
