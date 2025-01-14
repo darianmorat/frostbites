@@ -16,7 +16,7 @@ export const Verify = ({ setAuth }) => {
       try {
          const token = window.location.pathname.split("/").pop();
 
-         const res = await api.get(`/verify/verify-email/${token}`)
+         const res = await api.get(`/verify/send-email/${token}`)
          const data = res.data;
 
          if (data.token) {

@@ -111,8 +111,8 @@ function App() {
                   location.pathname !== '/register' && 
                   location.pathname !== '/not-found' && 
 
-                  !location.pathname.startsWith('/verify-email/') &&
-                  location.pathname !== '/resend-verify-email' &&
+                  !location.pathname.startsWith('/send-email/') &&
+                  location.pathname !== '/resend-email' &&
 
                   location.pathname !== '/forgot-password' &&
                   !location.pathname.startsWith('/reset-password/') &&
@@ -131,13 +131,13 @@ function App() {
                   <Route path='/reset-password/:token' element={<ResetPassword/>}/>
 
                   <Route 
-                     path='/verify-email/:token' 
+                     path='/send-email/:token' 
                      element={!isAuthenticated
                         ? <Verify setAuth={setAuth}/>
                         : <Navigate to='/'/>
                      }/>
 
-                  <Route path='/resend-verify-email' element={<ResendVerify/>}/>
+                  <Route path='/resend-email' element={<ResendVerify/>}/>
 
                   {/* Private routes */}
                   <Route
@@ -180,8 +180,8 @@ function App() {
                   location.pathname !== '/register' && 
                   location.pathname !== '/not-found' &&
 
-                  !location.pathname.startsWith('/verify-email/') &&
-                  location.pathname !== '/resend-verify-email' &&
+                  !location.pathname.startsWith('/send-email/') &&
+                  location.pathname !== '/resend-email' &&
                    
                   location.pathname !== '/forgot-password' &&
                   !location.pathname.startsWith('/reset-password/') &&

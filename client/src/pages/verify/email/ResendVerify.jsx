@@ -21,7 +21,7 @@ export const ResendVerify = () => {
          setLoading(true)
 
          try {
-            const res = await api.post('/verify/resend-verify-email', values)
+            const res = await api.post('/verify/resend-email', values)
             const data = res.data;
 
             if (data.success){

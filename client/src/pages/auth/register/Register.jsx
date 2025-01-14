@@ -45,8 +45,8 @@ export const Register = ({ setAuth }) => {
                   toast.warning(
                      <>
                         <span>Did not receive the email? <br/>
-                        <a href="/resend-verify-email">Click here to resend</a></span>
-                     </>, 
+                        <a href="/resend-email">Click here to resend</a></span>
+                     </>,
                      {
                         autoClose: false,
                         closeOnClick: false,
