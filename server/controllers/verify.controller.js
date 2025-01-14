@@ -104,7 +104,7 @@ export const resetPassword = async (req, res) => {
    }
 };
 
-export const verifyUserEmail = async (req, res) => {
+export const sendEmail = async (req, res) => {
    try {
       const decoded = jwt.verify( req.params.token, process.env.JWT_SECRET);
 
@@ -139,7 +139,7 @@ export const verifyUserEmail = async (req, res) => {
    }
 };
 
-export const ResendVerifyEmail = async (req, res) => {
+export const resendEmail = async (req, res) => {
    const { email } = req.body
 
    const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [
@@ -173,7 +173,7 @@ export const ResendVerifyEmail = async (req, res) => {
       html: `
          <h1>Verify your email</h1>
          <p>Click the following link to verify your email:</p>
-         <a href="http://localhost:5173/verify-email/${token}">
+         <a href="http://localhost:5173/send-email/${token}">
             CLICK HERE TO VERIFY
          </a>
          <p>The link will expire in 10 minutes.</p>
