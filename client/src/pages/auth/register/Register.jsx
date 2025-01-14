@@ -10,7 +10,7 @@ import api from '../../../../api/axios'
 import { ShowPassword } from "../../../components";
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
-import './register.css'
+import '../../index.css'
 
 export const Register = ({ setAuth }) => {
    const [loading, setLoading] = useState(false)
