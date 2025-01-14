@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from "motion/react"
 import { toast } from 'react-toastify'
-import { RemoveScroll } from 'react-remove-scroll';
 import { CreateProductC } from './CreateProduct'
+import { EditProductC } from './EditProduct'
 import api from '../../../../api/axios';
 
 import select_product_img from '../../../assets/images/svg/selection-product.svg'
@@ -34,48 +34,6 @@ export const Shop = ({ isAdmin }) => {
 
    const addProductToList = (newProduct) => {
       setProducts(prevProducts => [...prevProducts, newProduct]);
-   };
-
-   // ==============
-   // UPDATE PRODUCT 
-   // ==============
-
-   // USE FORMIK HERE, BUT U NEED TO MOVE THIS SECTION TO A SINGLE FILE
-   const [newName, setNewName] = useState('')
-   const [newImage, setNewImage] = useState('')
-   const [newPrice, setNewPrice] = useState('')
-
-   const [editPopup, setEditPopup] = useState(null);
-   const [currentProduct, setCurrentProduct] = useState({});
-
-   const updateProduct = async (productId) => {
-      try {
-         const body = {
-            image: newImage, 
-            name: newName,
-            price: newPrice
-         }
-
-         const res = await api.put(`/product/update/${productId}`, body)
-         const data = res.data
-
-         if (data.success) { 
-            setEditPopup(false)
-            getProducts(); // THE POSITION IS CHANGED TO THE LAST ONE
-
-            toast.success(data.message)
-         } 
-         else {
-            toast.error(data.message)
-         }
-
-      } catch (err) {
-         console.error(err);
-      }
-   }
-
-   const editProductPopup = (productId) => {
-      setEditPopup(productId);
    };
 
    // ==============
@@ -208,103 +166,45 @@ export const Shop = ({ isAdmin }) => {
                                        <p className='product-price'>${product.product_price} <Currency/></p>
                                        <h2 className='product-name'>{product.product_name}</h2>
 
-                                       {isAdmin 
-                                          ? (
-                                             <div className='admin-actions'>
-                                                <button className='btn admin-edit-btn secondary-btn' 
-                                                   onClick={ () => {
-                                                      editProductPopup(product.product_id)
-                                                      setCurrentProduct(product.product_id)
+                                       <EditProductC 
+                                          isAdmin={isAdmin}
+                                          deleteProductPopup={deleteProductPopup}
+                                          getProducts={getProducts}
 
-                                                      setNewImage(product.product_img)
-                                                      setNewName(product.product_name)
-                                                      setNewPrice(product.product_price)
-                                                   }}
-                                                >
-                                                   Edit
-                                                </button>
-                                                {/* ADD CONFIMATION TO REMOVE THE PRODUCT */}
-                                                <button className='btn logout-btn admin-delete-btn' 
-                                                   onClick={() => deleteProductPopup(product.product_id)}
-                                                >
-                                                   Remove
-                                                </button>
-                                             </div>
-                                          ) 
-                                          : (
-                                             <div className='product-actions'>
-                                                {cartItems.find(item => item.name === product.product_name) 
-                                                   ? (
-                                                      <>
-                                                         <button className='btn add-btn' onClick={() => addProductToCart(product.product_name, product.product_price)}>+</button>
-                                                         <p className='quantity'> {cartItems.find(item => item.name === product.product_name).quantity} </p>
-                                                         <button className='btn remove-btn' onClick={() => removeProductFromCart(product.product_name)}>-</button>
-                                                      </>
-                                                   ) 
-                                                   : (
-                                                      <>
-                                                         <button className='btn add-btn no-items' onClick={() => addProductToCart(product.product_name, product.product_price)}>+</button>
-                                                         <p className='quantity'>0</p>
-                                                         <button className='btn remove-btn no-items' onClick={() => removeProductFromCart(product.product_name)}>-</button>
-                                                      </>
-                                                   )}
+                                          productId={product.product_id}
+                                          productImg={product.product_img}
+                                          productName={product.product_name}
+                                          productPrice={product.product_price}
 
-                                             </div>
-                                          )
-                                       }
+                                          cartItems={cartItems}
+                                          addProductToCart={addProductToCart}
+                                          removeProductFromCart={removeProductFromCart}
+                                       />
 
-                                       { editPopup === product.product_id && (
-                                          <div className="popup" onClick={() => editProductPopup(false)}>
-                                             <RemoveScroll>
-                                                <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                                                   <h3>Edit Product</h3>
-                                                   <button className='btn close-btn' onClick={()=> editProductPopup(false)}>&#10006;</button>
-                                                   <form className='form'>
-                                                      <label htmlFor="text">Image-url:</label>
-                                                      <input 
-                                                         type="text" 
-                                                         value={newImage}
-                                                         onChange={(e) => setNewImage(e.target.value)} 
-                                                      />
-                                                      <label htmlFor="text">Name:</label>
-                                                      <input 
-                                                         type="text" 
-                                                         value={newName}
-                                                         onChange={(e) => setNewName(e.target.value)} 
-                                                      />
-                                                      <label htmlFor="number">Price:</label>
-                                                      <input 
-                                                         type="number" 
-                                                         value={newPrice}
-                                                         onChange={(e) => setNewPrice(e.target.value)} 
-                                                      />
-                                                      {/* later add functionality for this one */}
-                                                      <label htmlFor="text">Quantity:</label>
-                                                      <input 
-                                                         type="text" 
-                                                         value="" 
-                                                         disabled
-                                                      />
-                                                      <button 
-                                                         type="submit"
-                                                         className='btn secondary-btn' 
-                                                         onClick={() => updateProduct(currentProduct)}
-                                                         disabled={newImage === product.product_img && newName === product.product_name && newPrice === product.product_price}
-                                                      >
-                                                         Save changes
-                                                      </button>
-                                                   </form>
-                                                </div>
-                                             </RemoveScroll>
-                                          </div>
-                                       )}
                                        {deletePopup === product.product_id && (
                                           <div className="popup" onClick={() => deleteProductPopup(false)}>
                                              <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                                                <p className='confirmation'>Do you wanna remove <span className='confirmation-product'>{product.product_name}?</span></p>
-                                                <button className='btn secondary-btn' onClick={() => {deleteProduct(product.product_id), deleteProductPopup(false)}}>Yes</button>
-                                                <button className='btn logout-btn' onClick={() => deleteProductPopup(false)}>No</button>
-                                                <button className='btn close-btn' onClick={()=> deleteProductPopup(false)}>&#10006;</button>
+                                                <p className='confirmation'>
+                                                   Do you wanna remove 
+                                                   <span className='confirmation-product'> {product.product_name}?</span>
+                                                </p>
+                                                <button 
+                                                   className='btn close-btn' 
+                                                   onClick={()=> deleteProductPopup(false)}>
+                                                   &#10006;
+                                                </button>
+                                                <button 
+                                                   className='btn secondary-btn' 
+                                                   onClick={() => {deleteProduct(product.product_id), deleteProductPopup(false)}}
+                                                >
+                                                   Yes
+                                                </button>
+                                                <button 
+                                                   className='btn logout-btn' 
+                                                   onClick={() => deleteProductPopup(false)}
+                                                >
+                                                   No
+                                                </button>
                                              </div>
                                           </div>
                                        )}
