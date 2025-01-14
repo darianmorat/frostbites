@@ -124,7 +124,13 @@ export const Login = ({ setAuth }) => {
                      <div className='link forgot-password'>
                         <Link to='/forgot-password'>Forgot password?</Link>
                      </div>
-                     <button type='submit' className='btn secondary-btn btn-submit' disabled={!formik.values.email || !formik.values.password}>LOGIN</button>
+                     <button 
+                        type='submit' 
+                        className='btn secondary-btn btn-submit' 
+                        disabled={!formik.values.email || !formik.values.password}
+                     >
+                        LOGIN
+                     </button>
                   </form>
                   <div className='link register-link'>
                      <p className='description'>Dont have an account?</p>
