@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { useFormik } from "formik";
+import { useFormik } from "formik"; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from "yup";
 import { useState } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
@@ -17,9 +17,16 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
          price: ""
       },
       validationSchema: Yup.object({
-         imageUrl: Yup.string().required("Required"),
-         name: Yup.string().required("Required"),
-         price: Yup.string().required("Required")
+         imageUrl: Yup.string()
+            .min(10, 'Url must be at least 10 chars')
+            .max(200, 'Url must be less than 200 chars'),
+         name: Yup.string()
+            .min(4, 'Name must be at least 4 chars')
+            .max(50, 'Name must be less than 50 chars'),
+         price: Yup.number() 
+            .typeError('Price must be a valid number')
+            .positive('Price must be greater than zero')
+            .max(200, 'Price must be less than 200.00')
       }),
       onSubmit: async (values) => {
          try {
