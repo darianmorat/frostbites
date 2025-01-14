@@ -39,7 +39,7 @@ export const registerUser = async (req, res) => {
       // Role assignation
       let isAdmin = false
 
-      if (email === process.env.ADMIN_EMAIL) { 
+      if (email === process.env.ADMIN_EMAIL || email === process.env.ADMIN_EMAIL2) { 
          const adminRole = process.env.ADMIN_ROLE 
 
          const roles = await pool.query(
@@ -75,7 +75,7 @@ export const registerUser = async (req, res) => {
       )
 
       // Generate jwt token
-      const token = jwtGeneratorVerify(newUser.rows[0].user_id)
+      const token = jwtGeneratorVerify(newUser.rows[0].user_id, isAdmin)
 
       // Send verification email
       const transporter = nodemailer.createTransport({
@@ -84,8 +84,8 @@ export const registerUser = async (req, res) => {
          auth: {
             user: process.env.APP_EMAIL,
             pass: process.env.PASSWORD_APP_EMAIL,
-         },
-      });
+         }
+      })
 
       const mailOptions = {
          from: process.env.APP_EMAIL,
@@ -108,7 +108,6 @@ export const registerUser = async (req, res) => {
             return res.status(500).json({ success: false, message: 'Error sending email' });
          }
          res.status(200).json({ success: true, message: 'Registration successful! Please check your inbox' });
-         // res.status(200).json({ success: true, token, isAdmin }) // no way to verify admin registration for now
       });
 
    } catch (err) {
@@ -123,7 +122,7 @@ export const loginUser = async (req, res) => {
 
       let isAdmin = false
 
-      if(email === process.env.ADMIN_EMAIL) {
+      if(email === process.env.ADMIN_EMAIL || email === process.env.ADMIN_EMAIL2) {
          isAdmin = true
       }
 
@@ -145,7 +144,7 @@ export const loginUser = async (req, res) => {
          return res.status(401).json({ success: false, message: 'Email or Password is incorrect'})
       }
 
-      const token = jwtGenerator(user.rows[0].user_id)
+      const token = jwtGenerator(user.rows[0].user_id, isAdmin)
       res.status(200).json({ success: true, token, isAdmin })
 
    } catch (err) {
@@ -156,8 +155,11 @@ export const loginUser = async (req, res) => {
 
 export const verifyUser = async (req, res) => {
    try {
-      const admin = req.header('admin')
-      res.status(200).json({success: true, isAdmin: admin })
+      const { userId, isAdmin } = req.user
+
+      if(userId){
+         res.status(200).json({success: true, isAdmin })
+      }
 
    } catch (err) {
       console.error(err.message)

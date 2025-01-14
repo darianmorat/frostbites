@@ -124,8 +124,10 @@ export const sendEmail = async (req, res) => {
       await pool.query('UPDATE users SET is_verified = true WHERE user_id = $1', [decoded.user]);
 
       // Give the user a jwt token
-      const token = jwtGenerator(decoded.user)
-      res.status(200).json({ success: true, message: 'Email verified successfully', token });
+      const token = jwtGenerator(decoded.user, decoded.admin)
+      const isAdmin = decoded.admin
+
+      res.status(200).json({ success: true, message: 'Email verified successfully', token, isAdmin });
 
    } catch (err) {
       // Check if the error is related to expired JWT
@@ -154,8 +156,29 @@ export const resendEmail = async (req, res) => {
       return res.status(400).json({ success: false, message: 'This email is already verified' });
    }
 
-   // const token = jwt.sign({ userId: user.rows[0].user_id }, process.env.JWT_SECRET, { expiresIn: '10m' });
-   const token = jwtGeneratorVerify(user.rows[0].user_id)
+   // Role assignation
+   let isAdmin = false
+
+   if (email === process.env.ADMIN_EMAIL || email === process.env.ADMIN_EMAIL2) { 
+      const adminRole = process.env.ADMIN_ROLE 
+
+      const roles = await pool.query(
+         "SELECT role_id FROM roles WHERE role_name = $1", 
+         [adminRole] 
+      );
+
+      const userId = newUser.rows[0].user_id
+      const roleId = roles.rows[0].role_id
+
+      await pool.query(
+         "INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2) RETURNING *",
+         [userId, roleId]
+      )
+
+      isAdmin = true
+   }
+
+   const token = jwtGeneratorVerify(user.rows[0].user_id, isAdmin)
 
    const transporter = nodemailer.createTransport({
       host: "smtp.ethereal.email",

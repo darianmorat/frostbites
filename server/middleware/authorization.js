@@ -12,7 +12,12 @@ export default async (req, res, next) => {
       }
 
       const verify = jwt.verify(token, process.env.JWT_SECRET)
-      req.user = verify.user
+
+      req.user = {
+         userId: verify.user,
+         isAdmin: verify.admin
+      }
+
       next()
 
    } catch (err) {
@@ -20,5 +25,3 @@ export default async (req, res, next) => {
       res.status(403).json({ success: false, message: 'Not authorized' })
    }
 }
-
-// sends error when is not authenticated, jwt malformed that's just because is not logged
