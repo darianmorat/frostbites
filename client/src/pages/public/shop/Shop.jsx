@@ -39,6 +39,8 @@ export const Shop = ({ isAdmin }) => {
    // ==============
    // UPDATE PRODUCT 
    // ==============
+
+   // USE FORMIK HERE, BUT U NEED TO MOVE THIS SECTION TO A SINGLE FILE
    const [newName, setNewName] = useState('')
    const [newImage, setNewImage] = useState('')
    const [newPrice, setNewPrice] = useState('')
@@ -256,31 +258,40 @@ export const Shop = ({ isAdmin }) => {
                                              <RemoveScroll>
                                                 <div className="popup-content" onClick={(e) => e.stopPropagation()}>
                                                    <h3>Edit Product</h3>
-                                                   <input 
-                                                      type="text" 
-                                                      placeholder="Product Image URL" 
-                                                      value={newImage}
-                                                      onChange={(e) => setNewImage(e.target.value)} 
-                                                   />
-                                                   <input 
-                                                      type="text" 
-                                                      placeholder="Product Name" 
-                                                      value={newName}
-                                                      onChange={(e) => setNewName(e.target.value)} 
-                                                   />
-                                                   <input 
-                                                      type="number" 
-                                                      placeholder="Product Price" 
-                                                      value={newPrice}
-                                                      onChange={(e) => setNewPrice(e.target.value)} 
-                                                   />
-
-                                                   {/* <button>Edit Quantity</button> */}
-                                                   <button className='btn secondary-btn' 
-                                                      onClick={() => updateProduct(currentProduct)}
-                                                      disabled={newImage === product.product_img && newName === product.product_name && newPrice === product.product_price}
-                                                   >Save changes</button>
                                                    <button className='btn close-btn' onClick={()=> editProductPopup(false)}>&#10006;</button>
+                                                   <form className='form'>
+                                                      <label htmlFor="text">Image-url:</label>
+                                                      <input 
+                                                         type="text" 
+                                                         value={newImage}
+                                                         onChange={(e) => setNewImage(e.target.value)} 
+                                                      />
+                                                      <label htmlFor="text">Name:</label>
+                                                      <input 
+                                                         type="text" 
+                                                         value={newName}
+                                                         onChange={(e) => setNewName(e.target.value)} 
+                                                      />
+                                                      <label htmlFor="number">Price:</label>
+                                                      <input 
+                                                         type="number" 
+                                                         value={newPrice}
+                                                         onChange={(e) => setNewPrice(e.target.value)} 
+                                                      />
+                                                      {/* later add functionality for this one */}
+                                                      <label htmlFor="text">Quantity:</label>
+                                                      <input 
+                                                         type="text" 
+                                                         value="" 
+                                                         disabled
+                                                      />
+                                                      <button className='btn secondary-btn' 
+                                                         onClick={() => updateProduct(currentProduct)}
+                                                         disabled={newImage === product.product_img && newName === product.product_name && newPrice === product.product_price}
+                                                      >
+                                                         Save changes
+                                                      </button>
+                                                   </form>
                                                 </div>
                                              </RemoveScroll>
                                           </div>
