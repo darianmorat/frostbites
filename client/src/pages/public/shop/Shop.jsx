@@ -285,7 +285,9 @@ export const Shop = ({ isAdmin }) => {
                                                          value="" 
                                                          disabled
                                                       />
-                                                      <button className='btn secondary-btn' 
+                                                      <button 
+                                                         type="submit"
+                                                         className='btn secondary-btn' 
                                                          onClick={() => updateProduct(currentProduct)}
                                                          disabled={newImage === product.product_img && newName === product.product_name && newPrice === product.product_price}
                                                       >
