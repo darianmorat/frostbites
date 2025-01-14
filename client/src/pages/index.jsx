@@ -1,18 +1,16 @@
-export {Home} from './public/home/Home'
-export {Contact} from './public/contact/Contact'
-export {About} from './public/about/About'
-export {Shop} from './public/shop/Shop'
+export { Home } from './public/home/Home'
+export { Contact } from './public/contact/Contact'
+export { About } from './public/about/About'
+export { Shop } from './public/shop/Shop'
+export { PageNotFound } from './public/missing/PageNotFound'
 
-export {PageNotFound} from './public/missing/PageNotFound'
+export { Admin } from './admin/Admin'
 
-export {Admin} from './admin/Admin'
+export { Login } from './auth/login/Login'
+export { Register } from './auth/register/Register'
+export { Profile } from './auth/profile/Profile'
 
-export {Login} from './authentication/login/Login'
-export {Register} from './authentication/register/Register'
-export {Profile} from './authentication/profile/Profile'
-
-export { ForgotPassword } from './authentication/password/ForgotPassword'
-export { ResetPassword } from './authentication/password/ResetPassword'
-
-export { Verify } from './authentication/register/Verify'
-export { ResendVerify } from './authentication/register/ResendVerify'
+export { ForgotPassword } from './verify/password/ForgotPassword'
+export { ResetPassword } from './verify/password/ResetPassword'
+export { Verify } from './verify/email/Verify'
+export { ResendVerify } from './verify/email/ResendVerify'

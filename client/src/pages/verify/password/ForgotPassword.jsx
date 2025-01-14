@@ -4,10 +4,13 @@ import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import api from "../../../../api/axios";
+import { useState } from "react";
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
 
 export const ForgotPassword = () => {
+   const [loading, setLoading] = useState(false)
+
    const formik = useFormik({
       initialValues: {
          email: "",
@@ -16,8 +19,10 @@ export const ForgotPassword = () => {
          email: Yup.string().email("Invalid email address").required("Required"),
       }),
       onSubmit: async (values) => {
+         setLoading(true)
+
          try {
-            const res = await api.post('/password/forgot-password', values)
+            const res = await api.post('/verify/forgot-password', values)
             const data = res.data;
 
             if (data.success) {
@@ -26,14 +31,14 @@ export const ForgotPassword = () => {
 
          } catch (err) {
             console.log(err.response);
-            if (err.response.status === 404) {
-               toast.error("Email not found");
-            } else {
-               toast.error("Server error");
+            if (err.response) {
+               toast.error(err.response.data.message);
             }
+         } finally {
+            setLoading(false)
          }
-      },
-   });
+      }
+   })
 
    const navigate = useNavigate()
 
@@ -77,7 +82,18 @@ export const ForgotPassword = () => {
                         name="email"
                         id="email"
                      />
-                     <button type='submit' className='btn secondary-btn btn-submit' disabled={!formik.values.email}>SEND EMAIL</button>
+                     <button 
+                        type='submit' 
+                        className='btn secondary-btn btn-submit' 
+                        disabled={loading || !formik.values.email}
+                     >
+                        {loading 
+                           ?
+                           <>SENDING...</>
+                           :
+                           <>SEND EMAIL</>
+                        }
+                     </button>
                   </form>
                </div>
             </div>

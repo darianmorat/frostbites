@@ -10,32 +10,32 @@ import api from '../../../../api/axios'
 import { ShowPassword } from "../../../components";
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
+import './register.css'
 
-export const Login = ({ setAuth }) => {
+export const Register = ({ setAuth }) => {
+   const [loading, setLoading] = useState(false)
+
    const formik = useFormik({
       initialValues: {
+         name: "",
          email: "",
          password: ""
       },
       validationSchema: Yup.object({
-         email: Yup.string().email("Invalid email address")
+         name: Yup.string().min(4, "Name must be at least 4 chars"),
+         email: Yup.string().email("Invalid email address"),
+         password: Yup.string().min(8, "Password must be at least 8 chars")
       }),
       onSubmit: async (values) => {
+         setLoading(true)
+
          try {
-            const res = await api.post('/authentication/login', values)
+            const res = await api.post('/auth/register', values)
             const data = res.data;
 
-            if (data.success) {
-               localStorage.setItem("token", data.token);
-               setAuth(true);
-
-               if (data.isAdmin) {
-                  localStorage.setItem("admin", data.isAdmin);
-                  toast.success("Welcome Admin!")
-               } else {
-                  toast.success("Logged in Successfully")
-               }
-            } 
+            if (data.success){
+               toast.success(data.message)
+            }
 
          } catch (err) {
             if (err.response) {
@@ -59,9 +59,11 @@ export const Login = ({ setAuth }) => {
                toast.error("Server error. Please try again later.");
             }
             setAuth(false);
+         } finally {
+            setLoading(false)
          }
-      },
-   });
+      }
+   })
 
    const [showPassword, setShowPassword] = useState(false)
    const navigate = useNavigate()
@@ -79,12 +81,12 @@ export const Login = ({ setAuth }) => {
          >
             <div className='form-container'>
                <div className='left-form'>
-                  <h3 className='form-title'>WELCOME BACK TO ICE CREAM SHOP</h3>
+                  <h3 className='form-title'>FEEL FREE TO JOIN FROST BITES!</h3>
                   <div className='stick-container'>
                      <div className='stick longer-stick'></div>
                      <div className='stick smaller-stick'></div>
                   </div>
-                  <p className='form-description'>Log in to continue to your account and save more BONUSES for each purchase!</p>
+                  <p className='form-description'>Register and save amazing BONUSES for you and your family together!</p>
                </div>
 
                <div className='right-form'>
@@ -94,12 +96,27 @@ export const Login = ({ setAuth }) => {
                   </p>
                   <form className='form' onSubmit={formik.handleSubmit}>
                      <label
+                        htmlFor="name"
+                        className={`${ formik.touched.name && formik.errors.name ? "label-error" : "" }`} 
+                     >
+                        {formik.touched.name && formik.errors.name ? formik.errors.name : "Name:"}
+                     </label>
+                     <input 
+                        type="name"
+                        className={`input ${ formik.touched.name && formik.errors.name ? "input-error" : "" }`}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur} 
+                        value={formik.values.name}
+                        name="name"
+                        id="name"
+                     />
+                     <label
                         htmlFor="email"
                         className={`${ formik.touched.email && formik.errors.email ? "label-error" : "" }`} 
                      >
                         {formik.touched.email && formik.errors.email ? formik.errors.email : "Email:"}
                      </label>
-                     <input
+                     <input 
                         type="email"
                         className={`input ${ formik.touched.email && formik.errors.email ? "input-error" : "" }`}
                         onChange={formik.handleChange}
@@ -108,9 +125,14 @@ export const Login = ({ setAuth }) => {
                         name="email"
                         id="email"
                      />
-                     <label htmlFor="password">Password:</label>
+                     <label
+                        htmlFor="password"
+                        className={`${ formik.touched.password && formik.errors.password ? "label-error" : "" }`} 
+                     >
+                        {formik.touched.password && formik.errors.password ? formik.errors.password : "Password:"}
+                     </label>
                      <div className="input-container">
-                        <input
+                        <input 
                            type={showPassword ? 'text' : 'password'}
                            className={`input ${ formik.touched.password && formik.errors.password ? "input-error" : "" }`}
                            onChange={formik.handleChange}
@@ -121,14 +143,22 @@ export const Login = ({ setAuth }) => {
                         />
                         <ShowPassword showPassword={showPassword} setShowPassword={setShowPassword}/>
                      </div>
-                     <div className='link forgot-password'>
-                        <Link to='/forgot-password'>Forgot password?</Link>
-                     </div>
-                     <button type='submit' className='btn secondary-btn btn-submit' disabled={!formik.values.email || !formik.values.password}>LOGIN</button>
+                     <button 
+                        type='submit' 
+                        className='btn secondary-btn btn-submit' 
+                        disabled={loading || !formik.values.name || !formik.values.email || !formik.values.password}
+                     > 
+                        {loading 
+                           ? 
+                           <>CREATING ACCOUNT...</>
+                           : 
+                           <>REGISTER</> 
+                        }
+                     </button>
                   </form>
-                  <div className='link register-link'>
-                     <p className='description'>Dont have an account?</p>
-                     <Link to='/register'>REGISTER</Link>
+                  <div className='link login-link'>
+                     <p className='description'>Already have an account?</p>
+                     <Link to='/login'>LOGIN</Link>
                   </div>
                </div>
             </div>

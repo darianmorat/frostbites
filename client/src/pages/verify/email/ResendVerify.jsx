@@ -3,11 +3,14 @@ import * as Yup from "yup";
 import { toast } from 'react-toastify'
 import { motion } from "motion/react"
 import api from '../../../../api/axios'
+import { useState } from "react";
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
-import './register.css'
+// import '../../auth/register/register.css'
 
 export const ResendVerify = () => {
+   const [loading, setLoading] = useState(false)
+
    const formik = useFormik({
       initialValues: {
          email: "",
@@ -16,8 +19,10 @@ export const ResendVerify = () => {
          email: Yup.string().email("Invalid email address"),
       }),
       onSubmit: async (values) => {
+         setLoading(true)
+
          try {
-            const res = await api.post('/authentication/resend-verify-email', values)
+            const res = await api.post('/verify/resend-verify-email', values)
             const data = res.data;
 
             if (data.success){
@@ -30,6 +35,8 @@ export const ResendVerify = () => {
             } else {
                toast.error("Server error. Please try again later.");
             }
+         } finally {
+            setLoading(false)
          }
       }
    })
@@ -72,7 +79,18 @@ export const ResendVerify = () => {
                         name="email"
                         id="email"
                      />
-                     <button type='submit' className='btn secondary-btn btn-submit' disabled={!formik.values.email}>RESEND EMAIL</button>
+                     <button 
+                        type='submit' 
+                        className='btn secondary-btn btn-submit' 
+                        disabled={loading || !formik.values.email}
+                     >
+                     {loading 
+                        ? 
+                        <>SENDING...</>
+                        : 
+                        <>RESEND EMAIL</> 
+                     }
+                     </button>
                   </form>
                </div>
             </div>

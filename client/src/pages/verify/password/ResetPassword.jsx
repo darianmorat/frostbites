@@ -4,11 +4,13 @@ import api from "../../../../api/axios.jsx";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import { ShowPassword } from "../../../components";
-
-import wave_svg from '../../../assets/images/svg/wave.svg'
 import { useState } from "react";
 
+import wave_svg from '../../../assets/images/svg/wave.svg'
+
 export const ResetPassword = () => {
+   const [loading, setLoading] = useState(false)
+
    const formik = useFormik({
       initialValues: {
          newPassword: "",
@@ -20,11 +22,13 @@ export const ResetPassword = () => {
          .oneOf([Yup.ref("newPassword"), null], "Passwords must match")
       }),
       onSubmit: async (values) => {
+         setLoading(true)
+
          try {
             const { newPassword } = values;
             const token = window.location.pathname.split("/").pop();
 
-            const res = await api.post(`/password/reset-password/${token}`, { newPassword })
+            const res = await api.post(`/verify/reset-password/${token}`, { newPassword })
             const data = res.data;
 
             if (data.success) {
@@ -35,12 +39,12 @@ export const ResetPassword = () => {
             } 
 
          } catch (err) {
-            console.log(err);
+            console.log(err.response);
             if (err.response) {
                toast.error(err.response.data.message);
-            } else {
-               toast.error("Server error");
             }
+         } finally {
+            setLoading(false)
          }
       },
    });
@@ -111,7 +115,18 @@ export const ResetPassword = () => {
                         />
                         <ShowPassword showPassword={showPassword} setShowPassword={setShowPassword}/>
                      </div>
-                     <button type='submit' className='btn secondary-btn btn-submit' disabled={!formik.values.newPassword || !formik.values.confirmPassword}>RESET PASSWORD</button>
+                     <button 
+                        type='submit' 
+                        className='btn secondary-btn btn-submit' 
+                        disabled={loading || !formik.values.newPassword || !formik.values.confirmPassword}
+                     >
+                        {loading 
+                           ?
+                           <>RESETTING...</>
+                           :
+                           <>RESET PASSWORD</>
+                        }
+                     </button>
                   </form>
                </div>
 

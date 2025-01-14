@@ -3,16 +3,21 @@
 import { toast } from 'react-toastify'
 import { motion } from "motion/react"
 import api from '../../../../api/axios'
+import { useState } from 'react'
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
-import './register.css'
+// import '../../auth/register/register.css'
 
 export const Verify = ({ setAuth }) => {
+   const [loading, setLoading] = useState(false)
+
    const verifyUser = async () => {
+      setLoading(true)
+
       try {
          const token = window.location.pathname.split("/").pop();
 
-         const res = await api.get(`/authentication/verify-email/${token}`)
+         const res = await api.get(`/verify/verify-email/${token}`)
          const data = res.data;
 
          if (data.token) {
@@ -28,11 +33,14 @@ export const Verify = ({ setAuth }) => {
          } 
 
       } catch (err) {
+         console.log(err.response);
          if (err.response) {
             toast.error(err.response.data.message);
          } else {
             toast.error("Server error. Please try again later.");
          }
+      } finally {
+         setLoading(false)
       }
    }
 
@@ -58,7 +66,19 @@ export const Verify = ({ setAuth }) => {
                </div>
 
                <div className='right-form'>
-                  <button type='submit' className='btn secondary-btn btn-submit' onClick={verifyUser}>VERIFY EMAIL</button>
+                  <button 
+                     type='submit' 
+                     className='btn secondary-btn btn-submit' 
+                     onClick={verifyUser}
+                     disabled={loading}
+                  >
+                     {loading 
+                        ? 
+                        <>VERIFYING...</>
+                        : 
+                        <>VERIFY EMAIL</> 
+                     }
+                  </button>
                </div>
             </div>
          </motion.div>

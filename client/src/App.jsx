@@ -42,7 +42,7 @@ function App() {
                admin: localStorage.admin 
             }
          }
-         const res = await api.get("/authentication/verify", config);
+         const res = await api.get("/auth/verify", config);
          const data = res.data;
 
          if(data.isAdmin === 'true'){
