@@ -15,11 +15,11 @@ export const getProducts = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
    try {
-      const { image, name, price } = req.body
+      const { imageUrl, name, price } = req.body
       const { id } = req.params
        
       const result = await pool.query('UPDATE products SET product_img = $1, product_name = $2, product_price = $3 WHERE product_id = $4 RETURNING product_img, product_name, product_price', 
-         [image, name, price, id]
+         [imageUrl, name, price, id]
       )
 
       const updatedProduct = result.rows[0]
