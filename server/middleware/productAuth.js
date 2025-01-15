@@ -13,12 +13,7 @@ export default async (req, res, next) => {
 
       const verify = jwt.verify(token, process.env.JWT_SECRET)
 
-      req.user = {
-         userId: verify.user,
-         isAdmin: verify.admin
-      }
-
-      if(req.user.isAdmin === false){
+      if(verify.admin === false){
          return res.status(403).json({ success: false, message: 'Access denied. Admins only' })
       }
 
