@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { useState } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 import { toast } from 'react-toastify'
-import api from '../../../../api/axios';
+import api from "../../../api/axios";
 
 export const CreateProductC = ({ isAdmin, addProduct }) => {
    const [createPopup, setCreatePopup] = useState(false);
@@ -30,7 +30,13 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
       }),
       onSubmit: async (values) => {
          try {
-            const res = await api.post('/product/create', values)
+            const config = {
+               headers: { 
+                  token: localStorage.token 
+               }
+            }
+
+            const res = await api.post('/product/create', values, config)
             const data = res.data;
 
             if (data.success) {
@@ -97,6 +103,7 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                            value={formik.values.imageUrl}
                            name="imageUrl"
                            id="imageUrl"
+                           autoComplete="imageUrl"
                         />
                         <label 
                            htmlFor="name"
@@ -121,6 +128,7 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                            value={formik.values.name}
                            name="name"
                            id="name"
+                           autoComplete="name"
                         />
                         <label 
                            htmlFor="price"
@@ -145,12 +153,16 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
                            value={formik.values.price}
                            name="price"
                            id="price"
+                           autoComplete="price"
                         />
                         {/* later add functionality for this one */}
-                        <label htmlFor="text">Quantity:</label>
+                        <label htmlFor="quantity">Quantity:</label>
                         <input 
                            type="text" 
                            value="" 
+                           name="quantity"
+                           id="quantity"
+                           autoComplete="quantity"
                            disabled
                         />
                         <button 
