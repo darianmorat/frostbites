@@ -19,13 +19,6 @@ export const SendEmail = ({ setAuth }) => {
          const res = await api.get(`/verify/send-email/${token}`)
          const data = res.data;
 
-         if (data.isAdmin === true) {
-            localStorage.setItem("token", data.token)
-            setAuth(true)
-            toast.success("Admin Registered Successfully")
-            return
-         }
-
          if (data.token) {
             localStorage.setItem("token", data.token)
             setAuth(true)

@@ -25,13 +25,6 @@ export const Login = ({ setAuth }) => {
             const res = await api.post('/auth/login', values)
             const data = res.data;
 
-            if (data.isAdmin === true) {
-               localStorage.setItem("token", data.token);
-               setAuth(true);
-               toast.success("Welcome Admin!")
-               return
-            }
-
             if (data.success) {
                localStorage.setItem("token", data.token);
                setAuth(true);
