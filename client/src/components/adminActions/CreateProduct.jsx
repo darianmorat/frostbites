@@ -48,7 +48,7 @@ export const CreateProductC = ({ isAdmin, addProduct }) => {
 
          } catch (err) {
             console.log(err)
-            toast.error(err.response)
+            toast.error(err.response.data.message)
          }
       }
    })

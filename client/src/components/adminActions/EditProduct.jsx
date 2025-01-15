@@ -63,6 +63,7 @@ export const EditProductC = ({
 
          } catch (err) {
             console.error(err);
+            toast.error(err.response.data.message)
          }
       }
    })
