@@ -125,9 +125,8 @@ export const sendEmail = async (req, res) => {
 
       // Give the user a jwt token
       const token = jwtGenerator(decoded.user, decoded.admin)
-      const isAdmin = decoded.admin
 
-      res.status(200).json({ success: true, message: 'Email verified successfully', token, isAdmin });
+      res.status(200).json({ success: true, message: 'Email verified successfully', token });
 
    } catch (err) {
       // Check if the error is related to expired JWT

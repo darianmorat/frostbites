@@ -107,7 +107,7 @@ export const registerUser = async (req, res) => {
          if (err) {
             return res.status(500).json({ success: false, message: 'Error sending email' });
          }
-         res.status(200).json({ success: true, message: 'Registration successful! Please check your inbox' });
+         res.status(200).json({ success: true, message: 'Registration successful! Please check your inbox', token });
       });
 
    } catch (err) {
@@ -145,7 +145,7 @@ export const loginUser = async (req, res) => {
       }
 
       const token = jwtGenerator(user.rows[0].user_id, isAdmin)
-      res.status(200).json({ success: true, token, isAdmin })
+      res.status(200).json({ success: true, token })
 
    } catch (err) {
       console.error(err.message)
