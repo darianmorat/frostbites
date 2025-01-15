@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion } from "motion/react"
 import { toast } from 'react-toastify'
-import { CreateProductC } from './CreateProduct'
-import { EditProductC } from './EditProduct'
+import { CreateProductC } from '../../../components/adminActions/CreateProduct'
+import { EditProductC } from '../../../components/adminActions/EditProduct'
 import api from '../../../../api/axios';
 
 import select_product_img from '../../../assets/images/svg/selection-product.svg'
@@ -25,6 +25,7 @@ export const Shop = ({ isAdmin }) => {
 
       } catch (err) {
          console.error(err);
+         toast.error(err.response.data.message)
       }
    }
 
@@ -43,18 +44,23 @@ export const Shop = ({ isAdmin }) => {
 
    const deleteProduct = async (productId) => {
       try {
-         const res = await api.delete(`/product/delete/${productId}`)
+         const config = {
+            headers: { 
+               token: localStorage.token 
+            }
+         }
+
+         const res = await api.delete(`/product/delete/${productId}`, config)
          const data = res.data;
 
          if (data.success) {
             toast.success(data.message)
             setProducts(products.filter(product => product.product_id !== productId));
-         } else {
-            toast.error(data.message)
-         }
+         } 
 
       } catch (err) {
          console.error(err);
+         toast.error(err.response.data.message)
       }
    }
 
