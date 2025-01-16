@@ -92,13 +92,20 @@ export const registerUser = async (req, res) => {
          to: email,
          subject: 'Email Verification',
          html: `
-            <h1>Verify your email</h1>
-            <p>Click the following link to verify your email:</p>
-            <a href="http://localhost:5173/send-email/${token}">
-               CLICK HERE TO VERIFY
-            </a>
-            <p>The link will expire in 10 minutes.</p>
-            <p>If you didn't wanted to create an account, please ignore this email.</p>
+            <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
+               <h1 style="color: #1a73e8; text-align: center;">Verify your email</h1>
+               <p>Click the following link to verify your email:</p>
+               <a href="http://localhost:5173/send-email/${token}">
+                  CLICK TO VERIFY EMAIL
+               </a>
+               <p>The link will expire in 10 minutes.</p>
+               <p>If you didn't wanted to create an account, please ignore this email.</p>
+               <br/>
+               <p style="text-align: center; color: #666;">Stay frosty, <br />The FrostBites Team </p>
+               <p style="text-align: center;">
+               <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
+               </p>
+            </div>
          `
       };
 

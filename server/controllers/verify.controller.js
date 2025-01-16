@@ -40,17 +40,24 @@ export const forgotPassword = async (req, res) => {
       const mailOptions = {
          from: process.env.APP_EMAIL,
          to: req.body.email,
-         subject: "Reset Password",
+         subject: "Reset Your Password",
          html: `
-            <h1>Reset Your Password</h1>
-            <p>Click on the following link to reset your password:</p>
-            <a href="http://localhost:5173/reset-password/${token}">
-               RESET PASSWORD
-            </a>
-            <p>The link will expire in 10 minutes.</p>
-            <p>If you didn't request a password reset, please ignore this email.</p>
+            <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
+               <h1 style="color: #1a73e8; text-align: center;">Reset Your Password</h1>
+               <p>Click on the following link to reset your password:</p>
+               <a href="http://localhost:5173/reset-password/${token}">
+                  CLICK TO RESET PASSWORD
+               </a>
+               <p>The link will expire in 10 minutes.</p>
+               <p>If you didn't request a password reset, please ignore this email.</p>
+               <br/>
+               <p style="text-align: center; color: #666;">Stay frosty, <br />The FrostBites Team </p>
+               <p style="text-align: center;">
+               <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
+               </p>
+            </div>
          `
-      }; // add a blank option to click and send u to a new tab instead
+      }; 
 
       // Send the email
       transporter.sendMail(mailOptions, (err, info) => {
@@ -110,6 +117,7 @@ export const sendEmail = async (req, res) => {
 
       // Find the user in the database based on decoded user
       const user = await pool.query('SELECT * FROM users WHERE user_id = $1', [decoded.user]);
+      const email = user.rows[0].user_email
 
       if (user.rows.length === 0) {
          return res.status(404).json({ success: false, message: 'User not found' });
@@ -126,7 +134,42 @@ export const sendEmail = async (req, res) => {
       // Give the user a jwt token
       const token = jwtGenerator(decoded.user, decoded.admin)
 
-      res.status(200).json({ success: true, message: 'Email verified successfully', token });
+      // Send welcome email
+      const transporter = nodemailer.createTransport({
+         host: "smtp.ethereal.email",
+         port: 587,
+         auth: {
+            user: process.env.APP_EMAIL,
+            pass: process.env.PASSWORD_APP_EMAIL,
+         }
+      })
+
+      const mailOptions = {
+         from: process.env.APP_EMAIL,
+         to: email,
+         subject: 'Welcome to FROSTBITES',
+         html: `
+            <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
+               <h1 style="color: #1a73e8; text-align: center;">WELCOME TO FROSTBITES!</h1>
+               <p>Hey there,</p>
+               <p>We're excited to have you join the FrostBites family. Get ready to enjoy some seriously cool treats and exclusive offers just for you.</p>
+               <p>Feel free to explore, chill, and taste the thrill. We’re here to make every bite an adventure!</p>
+               <br/>
+               <p style="text-align: center; color: #666;">Stay frosty,<br />The FrostBites Team</p>
+               <p style="text-align: center;">
+               <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
+               </p>
+            </div>
+         `
+      };
+
+      transporter.sendMail(mailOptions, (err, info) => {
+         if (err) {
+            return res.status(500).json({ success: false, message: 'Error sending email' });
+         }
+         res.status(200).json({ success: true, message: 'Email verified successfully', token });
+      });
+
 
    } catch (err) {
       // Check if the error is related to expired JWT
@@ -191,15 +234,22 @@ export const resendEmail = async (req, res) => {
    const mailOptions = {
       from: process.env.APP_EMAIL,
       to: email,
-      subject: 'RESEND Email Verification',
+      subject: 'Email Verification (Resent)',
       html: `
-         <h1>Verify your email</h1>
-         <p>Click the following link to verify your email:</p>
-         <a href="http://localhost:5173/send-email/${token}">
-            CLICK HERE TO VERIFY
-         </a>
-         <p>The link will expire in 10 minutes.</p>
-         <p>If you didn't wanted to create an account, please ignore this email.</p>
+         <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
+            <h1 style="color: #1a73e8; text-align: center;">Verify your email (Resent)</h1>
+            <p>Click the following link to verify your email:</p>
+            <a href="http://localhost:5173/send-email/${token}">
+               CLICK TO VERIFY EMAIL
+            </a>
+            <p>The link will expire in 10 minutes.</p>
+            <p>If you didn't wanted to create an account, please ignore this email.</p>
+            <br/>
+            <p style="text-align: center; color: #666;">Stay frosty, <br />The FrostBites Team </p>
+            <p style="text-align: center;">
+            <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
+            </p>
+         </div>
       `
    };
 
