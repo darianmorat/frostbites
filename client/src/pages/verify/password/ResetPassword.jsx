@@ -7,9 +7,11 @@ import { ShowPassword } from "../../../components";
 import { useState } from "react";
 
 import wave_svg from '../../../assets/images/svg/wave.svg'
+import { useNavigate } from "react-router-dom";
 
 export const ResetPassword = () => {
    const [loading, setLoading] = useState(false)
+   const navigate = useNavigate()
 
    const formik = useFormik({
       initialValues: {
@@ -32,10 +34,8 @@ export const ResetPassword = () => {
             const data = res.data;
 
             if (data.success) {
+               navigate('/login')
                toast.success(data.message);
-               setTimeout(() => {
-                  window.location.href = "/login";
-               }, 3000);
             } 
 
          } catch (err) {

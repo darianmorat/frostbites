@@ -14,3 +14,5 @@ export { ForgotPassword } from './verify/password/ForgotPassword'
 export { ResetPassword } from './verify/password/ResetPassword'
 export { SendEmail } from './verify/email/SendEmail'
 export { ResendEmail } from './verify/email/ResendEmail'
+
+export { VerifyEmail } from './verify/verifyEmail'

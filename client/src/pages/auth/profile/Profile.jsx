@@ -120,14 +120,7 @@ export const Profile = ({ setAuth }) => {
 
          if (data.success) {
             toast.success(data.message);
-
-            setTimeout(() => {
-               toast.warning('Redirecting... Please wait!');
-            }, 1000);
-
-            setTimeout(() => {
-               logoutDeletedAccount();
-            }, 4500);
+            logoutDeletedAccount();
          } else {
             toast.error(data.message);
             e.target.disabled = false;

@@ -114,6 +114,10 @@
 .forgot-password{
    align-self: flex-end;
 }
+
+.your-email {
+   font-weight: bold;
+}
 /* CHANGE THIS IN OTHER PLACE */
 /* CHANGE THIS IN OTHER PLACE */
 

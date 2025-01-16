@@ -55,10 +55,13 @@ export const SendEmail = ({ setAuth }) => {
                      <div className='stick longer-stick'></div>
                      <div className='stick smaller-stick'></div>
                   </div>
-                  <p className='form-description'>Click in the button to verify your account and continue into the app!</p>
                </div>
 
                <div className='right-form'>
+                  <p className='form-description'>
+                     One last step to unlock your account! Click the button below to verify your email.
+                  </p>
+                  <br/>
                   <button 
                      type='submit' 
                      className='btn secondary-btn btn-submit' 

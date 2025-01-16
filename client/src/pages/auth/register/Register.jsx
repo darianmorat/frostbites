@@ -14,6 +14,9 @@ import '../../index.css'
 
 export const Register = ({ setAuth }) => {
    const [loading, setLoading] = useState(false)
+   const [showPassword, setShowPassword] = useState(false)
+
+   const navigate = useNavigate()
 
    const formik = useFormik({
       initialValues: {
@@ -34,6 +37,9 @@ export const Register = ({ setAuth }) => {
             const data = res.data;
 
             if (data.success){
+               navigate('/verify-email', 
+                  { state: { email: values.email } }
+               )
                toast.success(data.message)
             }
 
@@ -64,9 +70,6 @@ export const Register = ({ setAuth }) => {
          }
       }
    })
-
-   const [showPassword, setShowPassword] = useState(false)
-   const navigate = useNavigate()
 
    return (
       <div className='form-body'>

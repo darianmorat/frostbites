@@ -8,7 +8,8 @@ import { Navbar, Footer, Location, Cart } from './components'
 import { 
    Home, About, Contact, Shop, 
    Register, Login, Profile, PageNotFound, Admin, 
-   ForgotPassword, ResetPassword, SendEmail, ResendEmail
+   ForgotPassword, ResetPassword, SendEmail, ResendEmail,
+   VerifyEmail
 } from './pages'
 
 import wave_svg from './assets/images/svg/wave.svg'
@@ -48,6 +49,7 @@ function App() {
                token: localStorage.token
             }
          }
+
          const res = await api.get("/auth/verify", config);
          const data = res.data;
 
@@ -116,6 +118,7 @@ function App() {
                {  location.pathname !== '/login' && 
                   location.pathname !== '/register' && 
                   location.pathname !== '/not-found' && 
+                  location.pathname !== '/verify-email' && 
 
                   !location.pathname.startsWith('/send-email/') &&
                   location.pathname !== '/resend-email' &&
@@ -144,6 +147,14 @@ function App() {
                      }/>
 
                   <Route path='/resend-email' element={<ResendEmail/>}/>
+
+                  <Route 
+                     path='/verify-email' 
+                     element={!isAuthenticated
+                        ? <VerifyEmail/>
+                        : <Navigate to='/'/>
+                     }
+                  />
 
                   {/* Private routes */}
                   <Route
@@ -185,6 +196,7 @@ function App() {
                {  location.pathname !== '/login' && 
                   location.pathname !== '/register' && 
                   location.pathname !== '/not-found' &&
+                  location.pathname !== '/verify-email' && 
 
                   !location.pathname.startsWith('/send-email/') &&
                   location.pathname !== '/resend-email' &&
