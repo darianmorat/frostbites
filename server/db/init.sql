@@ -2,13 +2,10 @@
 -- CMD CREATION
 -- ============
 
--- Create the database
 CREATE DATABASE frostbites;
 
--- Enable the uuid-ossp extension to generate UUIDs
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Create the tables
 CREATE TABLE users (
    user_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
    user_name VARCHAR(100) NOT NULL,

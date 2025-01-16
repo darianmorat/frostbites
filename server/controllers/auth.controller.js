@@ -4,20 +4,17 @@ import nodemailer from "nodemailer";
 import dotenv from 'dotenv'
 import { jwtGenerator, jwtGeneratorVerify } from '../utils/jwtGenerator.js'
 
-dotenv.config() // Load environment variables from .env file
+dotenv.config() 
  
 export const registerUser = async (req, res) => {
    try {
-      // Destructure the req.body
       const { name, email, password } = req.body
 
       const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [
          email
       ])
 
-      // Check if user exist
       if (user.rows.length !== 0){
-         // Check if user exist and is verified
          if (user.rows[0].is_verified === false) {
             return res.status(401).json({ success: false, isVerified: false, message: 'Your email is not verified. Please check your inbox before logging in' });
          }
@@ -25,18 +22,15 @@ export const registerUser = async (req, res) => {
          return res.status(401).json({ success: false, message: 'User already exists'})
       }
 
-      // Bcrypt the user password
       const saltRound = 10;
       const salt = await bcrypt.genSalt(saltRound)
       const bcryptPassword = await bcrypt.hash(password, salt)
 
-      // Insert new user in database
       const newUser = await pool.query(
          "INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *", 
          [name, email, bcryptPassword]
       )
 
-      // Role assignation
       let isAdmin = false
 
       if (email === process.env.ADMIN_EMAIL || email === process.env.ADMIN_EMAIL2) { 
@@ -58,7 +52,6 @@ export const registerUser = async (req, res) => {
          isAdmin = true
       }
 
-      // Add user role regarless to every user
       const userRole = process.env.USER_ROLE 
 
       const roles = await pool.query(
@@ -74,10 +67,8 @@ export const registerUser = async (req, res) => {
          [userId, roleId]
       )
 
-      // Generate jwt token
       const token = jwtGeneratorVerify(newUser.rows[0].user_id, isAdmin)
 
-      // Send verification email
       const transporter = nodemailer.createTransport({
          host: "smtp.ethereal.email",
          port: 587,
@@ -109,7 +100,6 @@ export const registerUser = async (req, res) => {
          `
       };
 
-      // Use Nodemailer to send the verification email
       transporter.sendMail(mailOptions, (err, info) => {
          if (err) {
             return res.status(500).json({ success: false, message: 'Error sending email' });

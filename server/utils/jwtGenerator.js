@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 
-dotenv.config() // Load environment variables from .env file
+dotenv.config()
 
 // There's methods such as using cookies to store long term sessions
 

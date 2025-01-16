@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 
 const { Pool } = pg;
 
-dotenv.config() // Load environment variables from .env file
+dotenv.config()
 
 const pool = new Pool({
    user: process.env.DB_USER,

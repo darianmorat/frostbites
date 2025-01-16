@@ -10,13 +10,11 @@ import adminRoute from './routes/admin.route.js'
 import productRoute from './routes/product.route.js'
 
 const app = express()
-dotenv.config() // Load environment variables from .env file
+dotenv.config()
 
-// Middleware
 app.use(express.json())
 app.use(cors())
 
-// Routes 
 app.use("/auth", authRoute)
 app.use("/verify", verifyRoute)
 app.use("/user", userRoute)

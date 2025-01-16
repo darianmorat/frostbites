@@ -18,16 +18,13 @@ export const userInfo = async (req, res) => {
 
 export const updateUserInfo = async (req, res) => {
    try {
-      // Destructure the req.body
       const { user_name, user_email } = req.body;
       const { userId } = req.user
 
-      // Get the current user information
       const currentUser = await pool.query('SELECT * FROM users WHERE user_id = $1', 
          [ userId ]
       )
 
-      // If the email is different from the current email, check if it's already in use
       if (user_email !== currentUser.rows[0].user_email) {
          const emailCheck = await pool.query('SELECT * FROM users WHERE user_email = $1', 
             [ user_email ]
@@ -38,21 +35,18 @@ export const updateUserInfo = async (req, res) => {
          }
       }
 
-      // If the user is just changing the username
       if (user_name) {
          await pool.query('UPDATE users SET user_name = $1 WHERE user_id = $2 RETURNING user_name', 
             [ user_name, userId ]
          );
       }
 
-      // If the user is changing both username and email
       if (user_name && user_email) {
          await pool.query('UPDATE users SET user_name = $1, user_email = $2 WHERE user_id = $3 RETURNING user_name, user_email', 
             [ user_name, user_email, userId ]
          );
       }
 
-      // Return success response
       res.json({ success: true, message: 'Profile updated successfully' });
 
    } catch (err) {
