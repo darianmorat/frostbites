@@ -16,12 +16,10 @@ import wave_svg from './assets/images/svg/wave.svg'
 import logo_slogan from './assets/images/logo/logoSlogan.svg'
 import './index.css'
 
-// Scroll to the top of the page when the route changes
 const Wrapper = ({ children }) => {
    const location = useLocation();
 
    useLayoutEffect(() => {
-      // Scroll to the top of the page when the route changes
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
    }, [location.pathname]);
 
@@ -73,7 +71,7 @@ function App() {
 
    useEffect(() => {
       checkAuthentication()
-   }, [isAuthenticated, isAdmin]) // reload the navbar component to show admin button
+   }, [isAuthenticated, isAdmin]) 
 
    useEffect(() => {
       const timer = setTimeout(() => {
@@ -114,7 +112,6 @@ function App() {
 
          {!loading && (
             <Wrapper>
-               {/* Hide componets for specific routes */}
                {  location.pathname !== '/login' && 
                   location.pathname !== '/register' && 
                   location.pathname !== '/not-found' && 
@@ -129,7 +126,6 @@ function App() {
                }
 
                <Routes>
-                  {/* Public routes */}
                   <Route path='/' element={<Home/>}/>
                   <Route path='/about' element={<About/>}/>
                   <Route path='/contact' element={<Contact/>}/>
@@ -156,7 +152,6 @@ function App() {
                      }
                   />
 
-                  {/* Private routes */}
                   <Route
                      path="/admin"
                      element={isAuthenticated && isAdmin 
@@ -172,7 +167,6 @@ function App() {
                      }
                   />
 
-                  {/* Auth routes */}
                   <Route 
                      path="/login" 
                      element={!isAuthenticated 
@@ -188,11 +182,9 @@ function App() {
                      }
                   />
 
-                  {/* Catch all 404 not-found pages */}
                   <Route path='*' element={<Navigate to='/not-found'/>}/> 
                </Routes>
 
-               {/* Hide componets for specific routes */}
                {  location.pathname !== '/login' && 
                   location.pathname !== '/register' && 
                   location.pathname !== '/not-found' &&
