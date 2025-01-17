@@ -4,13 +4,15 @@ import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { Bars } from 'react-loader-spinner';
 import api from '../api/axios';
 
-import { Navbar, Footer, Location, Cart } from './components'
+import {Success} from './pages/public/payment/Success'
+import {Canceled} from './pages/public/payment/Canceled'
 import { 
-   Home, About, Contact, Shop, 
-   Register, Login, Profile, PageNotFound, Admin, 
-   ForgotPassword, ResetPassword, SendEmail, ResendEmail,
-   VerifyEmail
+   Home, About, Contact, Shop, Register, 
+   Login, Profile, PageNotFound, Admin, ForgotPassword, 
+   ResetPassword, SendEmail, ResendEmail, VerifyEmail 
 } from './pages'
+
+import { Navbar, Footer, Location, Cart } from './components'
 
 import wave_svg from './assets/images/svg/wave.svg'
 import logo_slogan from './assets/images/logo/logoSlogan.svg'
@@ -90,6 +92,25 @@ function App() {
 
    const location = useLocation();
 
+   const hideComponents = (
+      location.pathname === '/login' ||
+      location.pathname === '/register' ||
+      location.pathname === '/not-found' ||
+      location.pathname === '/verify-email' ||
+
+      location.pathname.startsWith('/send-email/') ||
+      location.pathname === '/resend-email' ||
+
+      location.pathname === '/forgot-password' ||
+      location.pathname.startsWith('/reset-password/')
+   )
+
+   const hideLocation = ( 
+      location.pathname === '/shop' || 
+      location.pathname === '/profile' || 
+      location.pathname === '/admin'
+   )
+
    return (
       <>
          {loading && (
@@ -112,17 +133,14 @@ function App() {
 
          {!loading && (
             <Wrapper>
-               {  location.pathname !== '/login' && 
-                  location.pathname !== '/register' && 
-                  location.pathname !== '/not-found' && 
-                  location.pathname !== '/verify-email' && 
 
-                  !location.pathname.startsWith('/send-email/') &&
-                  location.pathname !== '/resend-email' &&
-
-                  location.pathname !== '/forgot-password' &&
-                  !location.pathname.startsWith('/reset-password/') &&
-                  (<Navbar isAuthenticated={isAuthenticated} setAuth={setAuth} isAdmin={isAdmin} setAdmin={setAdmin}/>)
+               {!hideComponents &&
+                  <Navbar 
+                     isAuthenticated={isAuthenticated} 
+                     setAuth={setAuth} 
+                     isAdmin={isAdmin} 
+                     setAdmin={setAdmin}
+                  />
                }
 
                <Routes>
@@ -132,85 +150,74 @@ function App() {
                   <Route path='/shop' element={<Shop isAdmin={isAdmin}/>}/>
                   <Route path='/not-found' element={<PageNotFound/>}/>
 
-                  <Route path='/forgot-password' element={<ForgotPassword/>}/>
-                  <Route path='/reset-password/:token' element={<ResetPassword/>}/>
+                  <Route path='/success' element={<Success/>}/>
+                  <Route path='/canceled' element={<Canceled/>}/>
 
-                  <Route 
-                     path='/send-email/:token' 
-                     element={!isAuthenticated
-                        ? <SendEmail setAuth={setAuth}/>
-                        : <Navigate to='/'/>
-                     }/>
-
-                  <Route path='/resend-email' element={<ResendEmail/>}/>
-
-                  <Route 
-                     path='/verify-email' 
-                     element={!isAuthenticated
-                        ? <VerifyEmail/>
-                        : <Navigate to='/'/>
-                     }
-                  />
-
-                  <Route
-                     path="/admin"
-                     element={isAuthenticated && isAdmin 
-                        ? <Admin /> 
-                        : <Navigate to='/not-found' />
-                     }
-                  />
-                  <Route
-                     path="/profile"
-                     element={isAuthenticated 
-                        ? <Profile setAuth={setAuth} /> 
-                        : <Navigate to='/not-found' />
-                     }
-                  />
-
-                  <Route 
-                     path="/login" 
+                  <Route path="/login" 
                      element={!isAuthenticated 
                         ? <Login setAuth={setAuth}/> 
                         : <Navigate to='/'/>
                      }
                   />
-                  <Route 
-                     path="/register" 
+                  <Route path="/register" 
                      element={!isAuthenticated 
                         ? <Register setAuth={setAuth}/> 
                         : <Navigate to='/login'/>
                      }
                   />
 
-                  <Route path='*' element={<Navigate to='/not-found'/>}/> 
+                  <Route path='/forgot-password' 
+                     element={<ForgotPassword/>}
+                  />
+                  <Route path='/reset-password/:token' 
+                     element={<ResetPassword/>}
+                  />
+
+                  <Route path='/send-email/:token' 
+                     element={!isAuthenticated
+                        ? <SendEmail setAuth={setAuth}/>
+                        : <Navigate to='/'/>
+                     }/>
+
+                  <Route path='/resend-email' 
+                     element={<ResendEmail/>}
+                  />
+
+                  <Route path='/verify-email' 
+                     element={!isAuthenticated
+                        ? <VerifyEmail/>
+                        : <Navigate to='/'/>
+                     }
+                  />
+
+                  <Route path="/admin"
+                     element={isAuthenticated && isAdmin 
+                        ? <Admin /> 
+                        : <Navigate to='/not-found' />
+                     }
+                  />
+                  <Route path="/profile"
+                     element={isAuthenticated 
+                        ? <Profile setAuth={setAuth} /> 
+                        : <Navigate to='/not-found' />
+                     }
+                  />
+
+                  <Route path='*' 
+                     element={<Navigate to='/not-found'/>}
+                  /> 
                </Routes>
 
-               {  location.pathname !== '/login' && 
-                  location.pathname !== '/register' && 
-                  location.pathname !== '/not-found' &&
-                  location.pathname !== '/verify-email' && 
+               {!hideComponents &&
+                  <>
+                     {!hideLocation && 
+                        <Location />
+                     }
+                     <Cart />
+                     <Footer />
+                  </>
+               }
 
-                  !location.pathname.startsWith('/send-email/') &&
-                  location.pathname !== '/resend-email' &&
-                   
-                  location.pathname !== '/forgot-password' &&
-                  !location.pathname.startsWith('/reset-password/') &&
-                  (
-                     <>               
-                        {location.pathname !== '/shop' && (
-                           <>
-                              {  location.pathname !== '/profile' &&
-                                 location.pathname !== '/admin' && (
-                                    <>
-                                       <Location/>
-                                    </>
-                                 )}
-                              <Cart/>
-                           </>
-                        )}
-                        <Footer/>
-                     </>
-                  )}
             </Wrapper>
          )}
 

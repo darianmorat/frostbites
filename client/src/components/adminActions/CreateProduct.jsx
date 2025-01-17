@@ -8,6 +8,7 @@ import { toast } from 'react-toastify'
 import api from "../../../api/axios";
 
 export const CreateProduct = ({ isAdmin, addProduct }) => {
+
    const [createPopup, setCreatePopup] = useState(false);
 
    const formik = useFormik({
@@ -53,32 +54,30 @@ export const CreateProduct = ({ isAdmin, addProduct }) => {
       }
    })
 
-   const createProductPopup = (bool) => {
-      setCreatePopup(bool);
-
-      if (!bool) {
-         formik.resetForm()
-      }
-   };
+   const closePopup = () => {
+      formik.resetForm()
+      setCreatePopup(false);
+   }
 
    return (
       <>
-         { isAdmin && (
+         { isAdmin &&
             <div className='admin-actions'>
                <button 
                   className='btn primary-btn primary-btn-alt admin-create-product-btn' 
-                  onClick={() => createProductPopup(true)}
+                  onClick={() => setCreatePopup(true)}
                >
                   Create Product
                </button>
             </div>
-         )}
-         { createPopup && (
-            <div className="popup" onClick={() => createProductPopup(false)}>
+         }
+
+         { createPopup && 
+            <div className="popup" onClick={closePopup}>
                <RemoveScroll>
                   <div className="popup-content" onClick={(e) => e.stopPropagation()}>
                      <h3>Create Product</h3>
-                     <button className='btn close-btn' onClick={()=> createProductPopup(false)}>&#10006;</button>
+                     <button className='btn close-btn' onClick={closePopup}>&#10006;</button>
                      <form className='form' onSubmit={formik.handleSubmit}>
                         <label 
                            htmlFor="imageUrl"
@@ -180,7 +179,7 @@ export const CreateProduct = ({ isAdmin, addProduct }) => {
                   </div>
                </RemoveScroll>
             </div>
-         )}
+         }
       </>
    )
 }

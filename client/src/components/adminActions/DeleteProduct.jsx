@@ -6,7 +6,7 @@ import api from '../../../api/axios';
 export const DeleteProduct = ({ 
    productId, productName,
    products, setProducts, 
-   deletePopup, deleteProductPopup
+   deletePopup, setDeletePopup
 }) => {
 
    const deleteProduct = async () => {
@@ -31,10 +31,14 @@ export const DeleteProduct = ({
       }
    }
 
+   const closePopup = () => {
+      setDeletePopup(false)
+   }
+
    return (
       <>
          {deletePopup === productId && (
-            <div className="popup" onClick={() => deleteProductPopup(false)}>
+            <div className="popup" onClick={closePopup}>
                <div className="popup-content" onClick={(e) => e.stopPropagation()}>
                   <p className='confirmation'>
                      Do you wanna remove 
@@ -42,18 +46,18 @@ export const DeleteProduct = ({
                   </p>
                   <button 
                      className='btn close-btn' 
-                     onClick={()=> deleteProductPopup(false)}>
+                     onClick={closePopup}>
                      &#10006;
                   </button>
                   <button 
                      className='btn secondary-btn' 
-                     onClick={() => {deleteProduct(productId), deleteProductPopup(false)}}
+                     onClick={() => {deleteProduct(productId)}}
                   >
                      Yes
                   </button>
                   <button 
                      className='btn logout-btn' 
-                     onClick={() => deleteProductPopup(false)}
+                     onClick={closePopup}
                   >
                      No
                   </button>

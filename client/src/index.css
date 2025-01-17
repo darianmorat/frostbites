@@ -17,7 +17,7 @@
    font-family: "Inter", Arial, sans-serif;
    line-height: 1.5;
    font-weight: normal;
-   font-size: 1rem;
+   font-size: 0.95rem;
    color: var(--black-color);
    padding: 0;
    margin: 0;
@@ -44,6 +44,10 @@ h2 {
    margin-bottom: 0;
    color: var(--grey-color);
    margin-bottom: -15px;
+}
+
+p {
+   text-align: justify;
 }
 
 .img {

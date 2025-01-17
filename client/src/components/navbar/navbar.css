@@ -10,21 +10,19 @@
    position: sticky;
    top: 0;
    z-index: 3;
-   box-shadow: 0 0 5px 3px #11111120;
+   box-shadow: 0 0 2px 2px #28282820;
 }
 
 .navbar-container {
    display: flex;
    justify-content: space-between;
-   padding: 20px;
-   width: 100%;
+   padding: 0 20px;
    max-width: 1200px;
    height: 10vh;
    margin: 0 auto;
 }
 
 .navbar-left, .navbar-right {
-   z-index: 2;
    display: flex;
    list-style: none;
    align-items: center;

@@ -5,14 +5,20 @@
 }
 .shop-container {
    display: flex;
-   gap: 40px;
-   padding: 40px;
-   padding-bottom: 60px;
+   gap: 20px;
+   padding: 40px 20px;
+   padding-bottom: 100px;
+   max-width: 1200px;
+   width: 100%;
+   flex-wrap: wrap;
+   justify-content: center;
 }
 
 .buttons-section{
-   margin-bottom: 60px;
+   margin-bottom: 55px;
    display: flex;
+   max-width: 650px;
+   width: 100%;
 }
 .buttons-section>button{
    flex: 1;
@@ -36,13 +42,18 @@
 }
 
 .right-section{
-   width: 700px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   flex: 2;
 }
 .left-section{
-   width: 400px;
+   flex: 1;
    margin-top: 20px;
    display: flex;
    flex-direction: column;
+   min-width: 320px;
+   max-width: 550px;
    align-items: end;
 }
 .left-section>h3{
@@ -51,24 +62,28 @@
 
 .product-list{
    display: flex;
-   gap: 60px 30px;
+   gap: 50px 25px;
    flex-wrap: wrap;
+   justify-content: center;
+   min-width: 660px;
+   max-width: 700px;
 }
 .product-list.make{
    display: flex;
    align-items: center;
    justify-content: center;
    height: 150px;
+   max-width: 700px;
+   width: 100%
 }
 .product-item {
    display: flex;
    flex-direction: column;
    align-items: center;
-
    background-color: #fff5f7;
    border: 3px solid #ffb8c9;
    border-radius: 15px;
-   width: 200px;
+   width: 195px;
 }
 .product-item:hover .product-img{
    transform: translateY(-6px);
@@ -79,8 +94,8 @@
    background-color: white;
    border: 3px solid #ffb8c9;
    border-radius: 15px;
-   width: 150px;
-   height: 150px;
+   width: 140px;
+   height: 140px;
    position: relative;
    top: -20px;
 }
@@ -94,7 +109,7 @@
 
 .product-actions {
    display: flex;
-   margin: 30px 0;
+   margin: 30px 0 25px 0;
    align-items: center;
    gap: 10px;
 }
@@ -179,6 +194,7 @@
 }
 
 .select-product-img{
+   margin-top: 15px;
    width: 200px;
 }
 

@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// USE REACT MODAL FOR POPUPS
 
 import { useState, useEffect } from 'react';
 import { motion } from "motion/react"
@@ -14,11 +13,18 @@ import { CartSection } from '../../../components/cart/CartSection'
 
 import './shop.css'
 
+// USE REACT MODAL FOR POPUPS
+
 export const Shop = ({ isAdmin }) => {
-   // ============
-   // GET PRODUCTS
-   // ============
+
    const [products, setProducts] = useState([]);
+   const [deletePopup, setDeletePopup] = useState(null)
+   const [editPopup, setEditPopup] = useState(null);
+   const [activeBtn, setActiveBtn] = useState('explore');
+
+   const toggleActive = (button) => {
+      setActiveBtn(button);
+   }
 
    const getProducts = async () => {
       try {
@@ -41,22 +47,10 @@ export const Shop = ({ isAdmin }) => {
       setProducts(prevProducts => [...prevProducts, newProduct]);
    };
 
-   // ==============
-   // DELETE PRODUCT 
-   // ==============
-
-   const [deletePopup, setDeletePopup] = useState(null)
-
-   const deleteProductPopup = (productId) => {
-      setDeletePopup(productId)
-   };
-
-   // ===================
    // ADD PRODUCT TO CART 
-   // ===================
    const [cartItems, setCartItems] = useState([]);
 
-   const addProductToCart = (productName, productPrice) => {
+   const addToCart = (productName, productPrice) => {
       setCartItems(prevCartItems => {
          const existingProduct = prevCartItems.find(item => item.name === productName)
 
@@ -72,7 +66,7 @@ export const Shop = ({ isAdmin }) => {
       })
    }
 
-   const removeProductFromCart = (productName) => {
+   const removeFromCart = (productName) => {
       setCartItems(prevCartItems => {
          const existingProduct = prevCartItems.find(item => item.name === productName)
 
@@ -94,13 +88,29 @@ export const Shop = ({ isAdmin }) => {
       return total + (item.price * item.quantity)
    }, 0).toFixed(2)
 
-   // ==================
-   // RETURN APPLICATION 
-   // ==================
-   const [activeBtn, setActiveBtn] = useState('explore');
+   // PRODUCT ACTIONS 
+   const ProductActions = ({ productName, productPrice, cartItems, addToCart, removeFromCart }) => {
 
-   const toggleActive = (button) => {
-      setActiveBtn(button);
+      const cartItem = cartItems.find((item) => item.name === productName)
+      const quantity = cartItem ? cartItem.quantity : 0
+
+      return (
+         <div className='product-actions'>
+            <button 
+               className={cartItem ? 'btn add-btn' : 'btn add-btn no-items'} 
+               onClick={() => addToCart(productName, productPrice)}
+            >
+               +
+            </button>
+            <p className='quantity'>{quantity}</p>
+            <button 
+               className={cartItem ? 'btn remove-btn' : 'btn remove-btn no-items'} 
+               onClick={() => removeFromCart(productName)}
+            >
+               -
+            </button>
+         </div>
+      )
    }
 
    return (
@@ -152,26 +162,51 @@ export const Shop = ({ isAdmin }) => {
                                     <p className='product-price'> ${product.product_price} USD</p>
                                     <h2 className='product-name'> {product.product_name}</h2>
 
+                                    {!isAdmin && 
+                                       <ProductActions
+                                          productName={product.product_name}
+                                          productPrice={product.product_price}
+                                          cartItems={cartItems}
+                                          addToCart={addToCart}
+                                          removeFromCart={removeFromCart}
+                                       />
+                                    }
+
+                                    {isAdmin &&
+                                       <>
+                                          <div className='admin-actions'>
+                                             <button 
+                                                className='btn admin-edit-btn secondary-btn' 
+                                                onClick={ () => { setEditPopup(product.product_id) }}
+                                             >
+                                                Edit
+                                             </button>
+                                             <button 
+                                                className='btn logout-btn admin-delete-btn' 
+                                                onClick={() => setDeletePopup(product.product_id)}
+                                             >
+                                                Remove
+                                             </button>
+                                          </div>
+                                       </>
+                                    }
+
                                     <EditProduct 
-                                       isAdmin={isAdmin}
-                                       deleteProductPopup={deleteProductPopup}
+                                       editPopup={editPopup}
+                                       setEditPopup={setEditPopup}
                                        getProducts={getProducts}
                                        productId={product.product_id}
                                        productImg={product.product_img}
                                        productName={product.product_name}
                                        productPrice={product.product_price}
-                                       cartItems={cartItems}
-                                       addProductToCart={addProductToCart}
-                                       removeProductFromCart={removeProductFromCart}
                                     />
-
                                     <DeleteProduct 
-                                       productId={product.product_id}
-                                       productName={product.product_name}
+                                       deletePopup={deletePopup}
+                                       setDeletePopup={setDeletePopup}
                                        products={products}
                                        setProducts={setProducts}
-                                       deletePopup={deletePopup}
-                                       deleteProductPopup={deleteProductPopup}
+                                       productId={product.product_id}
+                                       productName={product.product_name}
                                     /> 
                                  </div>
                               ))}
@@ -193,7 +228,7 @@ export const Shop = ({ isAdmin }) => {
                </div>
 
                {!isAdmin &&
-                     <CartSection cartItems={cartItems} totalPrice={totalPrice}/>
+                  <CartSection cartItems={cartItems} totalPrice={totalPrice}/>
                }
             </div>
 

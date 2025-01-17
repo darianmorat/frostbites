@@ -2,18 +2,14 @@
 
 import { useFormik } from "formik"; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from "yup";
-import { useState } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 import { toast } from 'react-toastify'
 import api from "../../../api/axios";
 
 export const EditProduct = ({ 
-   isAdmin, deleteProductPopup, getProducts,
-   productId, productImg, productName, productPrice, 
-   cartItems, addProductToCart, removeProductFromCart 
+   editPopup, setEditPopup, getProducts,
+   productId, productImg, productName, productPrice
 }) => {
-
-   const [editPopup, setEditPopup] = useState(null);
 
    const formik = useFormik({
       initialValues: {
@@ -68,66 +64,21 @@ export const EditProduct = ({
       }
    })
 
-   const editProductPopup = (productId) => {
-      setEditPopup(productId);
-
-      if (!productId) {
-         formik.resetForm()
-      }
-   };
-
-   const productInCart = cartItems.find(item => item.name === productName);
+   const closePopup = () => {
+      formik.resetForm()
+      setEditPopup(false)
+   }
 
    return (
       <>
-         {isAdmin 
-            ? (
-               <div className='admin-actions'>
-                  <button 
-                     className='btn admin-edit-btn secondary-btn' 
-                     onClick={ () => { editProductPopup(productId) }}
-                  >
-                     Edit
-                  </button>
-                  <button 
-                     className='btn logout-btn admin-delete-btn' 
-                     onClick={() => deleteProductPopup(productId)}
-                  >
-                     Remove
-                  </button>
-               </div>
-            ) 
-            : (
-               <div className='product-actions'>
-                        <>
-                           <button 
-                              className={productInCart ?'btn add-btn' :'btn add-btn no-items'} 
-                              onClick={() => addProductToCart(productName, productPrice)}
-                           >
-                              +
-                           </button>
-                           <p className='quantity'> 
-                              {productInCart ?productInCart.quantity :0 }
-                           </p>
-                           <button 
-                              className={productInCart ?'btn remove-btn' :'btn remove-btn no-items'} 
-                              onClick={() => removeProductFromCart(productName)}
-                           >
-                              -
-                           </button>
-                        </>
-               </div>
-            )
-         }
-
          { editPopup === productId && (
-            <div className="popup" onClick={() => editProductPopup(false)}>
+            <div className="popup" onClick={closePopup}>
                <RemoveScroll>
                   <div className="popup-content" onClick={(e) => e.stopPropagation()}>
                      <h3>Edit Product</h3>
                      <button 
                         className='btn close-btn' 
-                        onClick={()=> editProductPopup(false)}
+                        onClick={closePopup}
                      >
                         &#10006;
                      </button>
@@ -222,8 +173,8 @@ export const EditProduct = ({
                            className='btn secondary-btn' 
                            disabled= {
                               formik.values.imageUrl === productImg && 
-                              formik.values.name === productName && 
-                              formik.values.price === productPrice
+                                 formik.values.name === productName && 
+                                 formik.values.price === productPrice
                            }
                         >
                            Save changes

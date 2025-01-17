@@ -7,7 +7,7 @@ export const CartSection = ({ cartItems, totalPrice }) => {
    return (
       <div className='left-section'>
          <h3>
-            SELECTIONS FOR EACH ONE OF YOU, YOUR FAMILY AND ODF COURSE YOUR FRIENDS TO ENJOY! 
+            SELECTIONS FOR EACH ONE OF YOU, YOUR FAMILY AND OF COURSE YOUR FRIENDS TO ENJOY SEPARATELY! 
             <span className='max-users'> (MAX 10)</span>
          </h3>
 

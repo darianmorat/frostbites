@@ -78,7 +78,7 @@ export const Login = ({ setAuth }) => {
                      <div className='stick longer-stick'></div>
                      <div className='stick smaller-stick'></div>
                   </div>
-                  <p className='form-description'>Log in to continue to your account and save more BONUSES for each purchase!</p>
+                  <p className='form-description'>Log in to continue to your account and save more BONUSES for each of your purchases!</p>
                </div>
 
                <div className='right-form'>

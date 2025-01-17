@@ -28,6 +28,7 @@
 
 .logo-slogan{
    width: 400px;
+   z-index: 999;
 }
 
 .location-right>div>a{

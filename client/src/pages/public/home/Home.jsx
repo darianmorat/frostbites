@@ -8,6 +8,16 @@ import iceman_svg from '../../../assets/images/svg/iceman.svg'
 import with_love_svg from '../../../assets/images/svg/with-love.svg'
 import expression_svg from '../../../assets/images/svg/expression.svg'
 
+import image1 from '../../../assets/images/gallery/g1.jpeg'
+import image2 from '../../../assets/images/gallery/g2.jpg'
+import image3 from '../../../assets/images/gallery/g3.jpeg'
+import image4 from '../../../assets/images/gallery/g4.jpg'
+import image5 from '../../../assets/images/gallery/g5.jpg'
+import image6 from '../../../assets/images/gallery/g6.jpeg'
+import image7 from '../../../assets/images/gallery/g7.jpeg'
+import image8 from '../../../assets/images/gallery/g8.jpeg'
+import image9 from '../../../assets/images/gallery/g9.jpg'
+
 import { motion } from "motion/react"
 
 export function Home(){
@@ -81,7 +91,9 @@ export function Home(){
                      spreading joy through every scoop and are committed to innovation
                      and excellence in every aspect of our craft.
                   </p>
-                  <button className="btn primary-btn primary-btn-alt about-btn" onClick={() => navigate('/about')}>READ MORE</button> 
+                  <button 
+                     className="btn primary-btn primary-btn-alt about-btn" 
+                     onClick={() => navigate('/about')}>READ MORE</button> 
                </div>
             </motion.div>
          </section>
@@ -98,17 +110,17 @@ export function Home(){
          <section className="section-3">         
             <div className="gallery">
                {/* CHANGE WITH THE REAL IMAGES */}
-               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-1"/>
-               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-2"/>
-               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-3"/>
+               <img src={image1} alt="" className="gallery-img img-1"/>
+               <img src={image3} alt="" className="gallery-img img-2"/>
+               <img src={image2} alt="" className="gallery-img img-3"/>
 
-               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-4"/>
-               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-5"/>
-               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-6"/>
+               <img src={image4} alt="" className="gallery-img img-4"/>
+               <img src={image5} alt="" className="gallery-img img-5"/>
+               <img src={image6} alt="" className="gallery-img img-6"/>
 
-               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-7"/>
-               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-8"/>
-               <img src="https://thebigmansworld.com/wp-content/uploads/2024/05/strawberry-ice-cream-recipe2.jpg" alt="" className="gallery-img img-9"/>
+               <img src={image7} alt="" className="gallery-img img-7"/>
+               <img src={image8} alt="" className="gallery-img img-8"/>
+               <img src={image9} alt="" className="gallery-img img-9"/>
             </div>
 
             <div className="gallery-svg-container">
