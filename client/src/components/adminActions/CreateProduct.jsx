@@ -7,7 +7,7 @@ import { RemoveScroll } from 'react-remove-scroll';
 import { toast } from 'react-toastify'
 import api from "../../../api/axios";
 
-export const CreateProductC = ({ isAdmin, addProduct }) => {
+export const CreateProduct = ({ isAdmin, addProduct }) => {
    const [createPopup, setCreatePopup] = useState(false);
 
    const formik = useFormik({

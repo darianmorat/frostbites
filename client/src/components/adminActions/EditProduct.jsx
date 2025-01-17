@@ -7,7 +7,7 @@ import { RemoveScroll } from 'react-remove-scroll';
 import { toast } from 'react-toastify'
 import api from "../../../api/axios";
 
-export const EditProductC = ({ 
+export const EditProduct = ({ 
    isAdmin, deleteProductPopup, getProducts,
    productId, productImg, productName, productPrice, 
    cartItems, addProductToCart, removeProductFromCart 
@@ -76,6 +76,8 @@ export const EditProductC = ({
       }
    };
 
+   const productInCart = cartItems.find(item => item.name === productName);
+
    return (
       <>
          {isAdmin 
@@ -97,44 +99,23 @@ export const EditProductC = ({
             ) 
             : (
                <div className='product-actions'>
-                  {cartItems.find(item => item.name === productName) 
-                     ? (
                         <>
                            <button 
-                              className='btn add-btn' 
+                              className={productInCart ?'btn add-btn' :'btn add-btn no-items'} 
                               onClick={() => addProductToCart(productName, productPrice)}
                            >
                               +
                            </button>
                            <p className='quantity'> 
-                              {cartItems.find(item => item.name === productName).quantity} 
+                              {productInCart ?productInCart.quantity :0 }
                            </p>
                            <button 
-                              className='btn remove-btn' 
+                              className={productInCart ?'btn remove-btn' :'btn remove-btn no-items'} 
                               onClick={() => removeProductFromCart(productName)}
                            >
                               -
                            </button>
                         </>
-                     ) 
-                     : (
-                        <>
-                           <button 
-                              className='btn add-btn no-items' 
-                              onClick={() => addProductToCart(productName, productPrice)}
-                           >
-                              +
-                           </button>
-                           <p className='quantity'>0</p>
-                           <button 
-                              className='btn remove-btn no-items' 
-                              onClick={() => removeProductFromCart(productName)}
-                           >
-                              -
-                           </button>
-                        </>
-                     )}
-
                </div>
             )
          }
