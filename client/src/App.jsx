@@ -4,12 +4,12 @@ import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { Bars } from 'react-loader-spinner';
 import api from '../api/axios';
 
-import {Success} from './pages/public/payment/Success'
-import {Canceled} from './pages/public/payment/Canceled'
-import { 
-   Home, About, Contact, Shop, Register, 
-   Login, Profile, PageNotFound, Admin, ForgotPassword, 
-   ResetPassword, SendEmail, ResendEmail, VerifyEmail 
+import { Success } from './pages/public/payment/Success'
+import { Canceled } from './pages/public/payment/Canceled'
+import {
+   Home, About, Contact, Shop, Register,
+   Login, Profile, PageNotFound, Admin, ForgotPassword,
+   ResetPassword, SendEmail, ResendEmail, VerifyEmail
 } from './pages'
 
 import { Navbar, Footer, Location, Cart } from './components'
@@ -45,7 +45,7 @@ function App() {
 
       try {
          const config = {
-            headers: { 
+            headers: {
                token: localStorage.token
             }
          }
@@ -53,27 +53,27 @@ function App() {
          const res = await api.get("/auth/verify", config);
          const data = res.data;
 
-         if(data.isAdmin === true){
+         if (data.isAdmin === true) {
             setIsAdmin(true)
          } else {
             setIsAdmin(false)
          }
 
-         if(data.success === true) {
+         if (data.success === true) {
             setIsAuthenticated(true)
-         } else{
+         } else {
             setIsAuthenticated(false)
-         } 
+         }
 
       } catch (err) {
          console.error(err)
          toast.error(err.response.data.message)
-      } 
+      }
    }
 
    useEffect(() => {
       checkAuthentication()
-   }, [isAuthenticated, isAdmin]) 
+   }, [isAuthenticated, isAdmin])
 
    useEffect(() => {
       const timer = setTimeout(() => {
@@ -105,9 +105,9 @@ function App() {
       location.pathname.startsWith('/reset-password/')
    )
 
-   const hideLocation = ( 
-      location.pathname === '/shop' || 
-      location.pathname === '/profile' || 
+   const hideLocation = (
+      location.pathname === '/shop' ||
+      location.pathname === '/profile' ||
       location.pathname === '/admin'
    )
 
@@ -116,8 +116,8 @@ function App() {
          {loading && (
             <div className='loader-container'>
                <div className='loader-spinner'>
-                  <img src={wave_svg} alt="" className="wave-right-svg"/>
-                  <img src={wave_svg} alt="" className="wave-left-svg"/>
+                  <img src={wave_svg} alt="" className="wave-right-svg" />
+                  <img src={wave_svg} alt="" className="wave-left-svg" />
                   <Bars
                      color="#ec4b72"
                      strokeWidth="5"
@@ -125,7 +125,7 @@ function App() {
                      width="120"
                      visible={true}
                   />
-                  <br/>
+                  <br />
                   <img className="logo-slogan" src={logo_slogan} alt="Frostbites Logo" />
                </div>
             </div>
@@ -135,82 +135,82 @@ function App() {
             <Wrapper>
 
                {!hideComponents &&
-                  <Navbar 
-                     isAuthenticated={isAuthenticated} 
-                     setAuth={setAuth} 
-                     isAdmin={isAdmin} 
+                  <Navbar
+                     isAuthenticated={isAuthenticated}
+                     setAuth={setAuth}
+                     isAdmin={isAdmin}
                      setAdmin={setAdmin}
                   />
                }
 
                <Routes>
-                  <Route path='/' element={<Home/>}/>
-                  <Route path='/about' element={<About/>}/>
-                  <Route path='/contact' element={<Contact/>}/>
-                  <Route path='/shop' element={<Shop isAdmin={isAdmin}/>}/>
-                  <Route path='/not-found' element={<PageNotFound/>}/>
+                  <Route path='/' element={<Home />} />
+                  <Route path='/about' element={<About />} />
+                  <Route path='/contact' element={<Contact />} />
+                  <Route path='/shop' element={<Shop isAdmin={isAdmin} />} />
+                  <Route path='/not-found' element={<PageNotFound />} />
 
-                  <Route path='/success' element={<Success/>}/>
-                  <Route path='/canceled' element={<Canceled/>}/>
+                  <Route path='/success' element={<Success />} />
+                  <Route path='/canceled' element={<Canceled />} />
 
-                  <Route path="/login" 
-                     element={!isAuthenticated 
-                        ? <Login setAuth={setAuth}/> 
-                        : <Navigate to='/'/>
+                  <Route path="/login"
+                     element={!isAuthenticated
+                        ? <Login setAuth={setAuth} />
+                        : <Navigate to='/' />
                      }
                   />
-                  <Route path="/register" 
-                     element={!isAuthenticated 
-                        ? <Register setAuth={setAuth}/> 
-                        : <Navigate to='/login'/>
+                  <Route path="/register"
+                     element={!isAuthenticated
+                        ? <Register setAuth={setAuth} />
+                        : <Navigate to='/login' />
                      }
                   />
 
-                  <Route path='/forgot-password' 
-                     element={<ForgotPassword/>}
+                  <Route path='/forgot-password'
+                     element={<ForgotPassword />}
                   />
-                  <Route path='/reset-password/:token' 
-                     element={<ResetPassword/>}
+                  <Route path='/reset-password/:token'
+                     element={<ResetPassword />}
                   />
 
-                  <Route path='/send-email/:token' 
+                  <Route path='/send-email/:token'
                      element={!isAuthenticated
-                        ? <SendEmail setAuth={setAuth}/>
-                        : <Navigate to='/'/>
-                     }/>
+                        ? <SendEmail setAuth={setAuth} />
+                        : <Navigate to='/' />
+                     } />
 
-                  <Route path='/resend-email' 
-                     element={<ResendEmail/>}
+                  <Route path='/resend-email'
+                     element={<ResendEmail />}
                   />
 
-                  <Route path='/verify-email' 
+                  <Route path='/verify-email'
                      element={!isAuthenticated
-                        ? <VerifyEmail/>
-                        : <Navigate to='/'/>
+                        ? <VerifyEmail />
+                        : <Navigate to='/' />
                      }
                   />
 
                   <Route path="/admin"
-                     element={isAuthenticated && isAdmin 
-                        ? <Admin /> 
+                     element={isAuthenticated && isAdmin
+                        ? <Admin />
                         : <Navigate to='/not-found' />
                      }
                   />
                   <Route path="/profile"
-                     element={isAuthenticated 
-                        ? <Profile setAuth={setAuth} /> 
+                     element={isAuthenticated
+                        ? <Profile setAuth={setAuth} />
                         : <Navigate to='/not-found' />
                      }
                   />
 
-                  <Route path='*' 
-                     element={<Navigate to='/not-found'/>}
-                  /> 
+                  <Route path='*'
+                     element={<Navigate to='/not-found' />}
+                  />
                </Routes>
 
                {!hideComponents &&
                   <>
-                     {!hideLocation && 
+                     {!hideLocation &&
                         <Location />
                      }
                      <Cart />
@@ -221,8 +221,8 @@ function App() {
             </Wrapper>
          )}
 
-         <ToastContainer 
-            theme="colored" 
+         <ToastContainer
+            theme="colored"
             autoClose={3500}
             position='bottom-center'
             transition={Bounce}

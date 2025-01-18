@@ -40,7 +40,7 @@ export const Shop = ({ isAdmin }) => {
    }
 
    useEffect(() => {
-      getProducts(); 
+      getProducts();
    }, []);
 
    const addProductToList = (newProduct) => {
@@ -54,10 +54,10 @@ export const Shop = ({ isAdmin }) => {
       setCartItems(prevCartItems => {
          const existingProduct = prevCartItems.find(item => item.name === productName)
 
-         if(existingProduct){
+         if (existingProduct) {
             return prevCartItems.map(item =>
-               item.name === productName 
-                  ? { ...item, price:productPrice, quantity: item.quantity + 1 } 
+               item.name === productName
+                  ? { ...item, price: productPrice, quantity: item.quantity + 1 }
                   : item
             )
          } else {
@@ -70,11 +70,11 @@ export const Shop = ({ isAdmin }) => {
       setCartItems(prevCartItems => {
          const existingProduct = prevCartItems.find(item => item.name === productName)
 
-         if(existingProduct){
+         if (existingProduct) {
             return prevCartItems
                .map(item =>
-                  item.name === productName 
-                     ? (item.quantity > 1 ? { ...item,  quantity: item.quantity - 1 } : null) 
+                  item.name === productName
+                     ? (item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : null)
                      : item
                )
                .filter(item => item !== null)
@@ -96,15 +96,15 @@ export const Shop = ({ isAdmin }) => {
 
       return (
          <div className='product-actions'>
-            <button 
-               className={cartItem ? 'btn add-btn' : 'btn add-btn no-items'} 
+            <button
+               className={cartItem ? 'btn add-btn' : 'btn add-btn no-items'}
                onClick={() => addToCart(productName, productPrice)}
             >
                +
             </button>
             <p className='quantity'>{quantity}</p>
-            <button 
-               className={cartItem ? 'btn remove-btn' : 'btn remove-btn no-items'} 
+            <button
+               className={cartItem ? 'btn remove-btn' : 'btn remove-btn no-items'}
                onClick={() => removeFromCart(productName)}
             >
                -
@@ -115,44 +115,44 @@ export const Shop = ({ isAdmin }) => {
 
    return (
       <div className='shop-page'>
-         <motion.div 
-            initial={{ opacity: 0, x: -100 }} 
-            animate={{ opacity: 1, x: 0 }} 
-            exit={{ opacity: 0, x: 100 }} 
+         <motion.div
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
             transition={{ duration: 0.7 }}
          >
             <div className='shop-container'>
                <div className='right-section'>
                   <div className='buttons-section'>
-                     <button 
+                     <button
                         className={`explore-btn btn ${activeBtn === 'explore' ? 'active' : 'inactive'}`}
                         onClick={() => toggleActive('explore')}
-                     > 
-                        EXPLORE ICE CREAM CATALOG 
+                     >
+                        EXPLORE ICE CREAM CATALOG
                      </button>
-                     <button 
+                     <button
                         className={`make-btn btn ${activeBtn === 'make' ? 'active' : 'inactive'}`}
                         onClick={() => toggleActive('make')}
-                     > 
+                     >
                         MAKE YOUR OWN ICE CREAM!
                      </button>
                   </div>
 
-                  {activeBtn === 'explore' && 
+                  {activeBtn === 'explore' &&
                      <div className="product-list">
-                        { products.length === 0
-                           ? 
+                        {products.length === 0
+                           ?
                            <div className='no-product-available'>
                               <p>It seems like there&apos;s no products available</p>
 
-                              <CreateProduct 
-                                 addProduct={addProductToList} 
+                              <CreateProduct
+                                 addProduct={addProductToList}
                                  isAdmin={isAdmin}
                               />
                            </div>
                            :
                            <>
-                              { products.map((product) => (
+                              {products.map((product) => (
                                  <div key={product.product_id} className="product-item">
                                     <img
                                        src={product.product_img}
@@ -162,7 +162,7 @@ export const Shop = ({ isAdmin }) => {
                                     <p className='product-price'> ${product.product_price} USD</p>
                                     <h2 className='product-name'> {product.product_name}</h2>
 
-                                    {!isAdmin && 
+                                    {!isAdmin &&
                                        <ProductActions
                                           productName={product.product_name}
                                           productPrice={product.product_price}
@@ -175,14 +175,14 @@ export const Shop = ({ isAdmin }) => {
                                     {isAdmin &&
                                        <>
                                           <div className='admin-actions'>
-                                             <button 
-                                                className='btn admin-edit-btn secondary-btn' 
-                                                onClick={ () => { setEditPopup(product.product_id) }}
+                                             <button
+                                                className='btn admin-edit-btn secondary-btn'
+                                                onClick={() => { setEditPopup(product.product_id) }}
                                              >
                                                 Edit
                                              </button>
-                                             <button 
-                                                className='btn logout-btn admin-delete-btn' 
+                                             <button
+                                                className='btn logout-btn admin-delete-btn'
                                                 onClick={() => setDeletePopup(product.product_id)}
                                              >
                                                 Remove
@@ -191,7 +191,7 @@ export const Shop = ({ isAdmin }) => {
                                        </>
                                     }
 
-                                    <EditProduct 
+                                    <EditProduct
                                        editPopup={editPopup}
                                        setEditPopup={setEditPopup}
                                        getProducts={getProducts}
@@ -200,27 +200,27 @@ export const Shop = ({ isAdmin }) => {
                                        productName={product.product_name}
                                        productPrice={product.product_price}
                                     />
-                                    <DeleteProduct 
+                                    <DeleteProduct
                                        deletePopup={deletePopup}
                                        setDeletePopup={setDeletePopup}
                                        products={products}
                                        setProducts={setProducts}
                                        productId={product.product_id}
                                        productName={product.product_name}
-                                    /> 
+                                    />
                                  </div>
                               ))}
 
-                              <CreateProduct 
+                              <CreateProduct
                                  isAdmin={isAdmin}
-                                 addProduct={addProductToList} 
+                                 addProduct={addProductToList}
                               />
                            </>
                         }
                      </div>
                   }
 
-                  {activeBtn === 'make' && 
+                  {activeBtn === 'make' &&
                      <div className='product-list make'>
                         <p>IN PROGRESS</p>
                      </div>
@@ -228,7 +228,7 @@ export const Shop = ({ isAdmin }) => {
                </div>
 
                {!isAdmin &&
-                  <CartSection cartItems={cartItems} totalPrice={totalPrice}/>
+                  <CartSection cartItems={cartItems} totalPrice={totalPrice} />
                }
             </div>
 
