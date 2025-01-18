@@ -4,7 +4,7 @@
    right: 25px;
    z-index: 999;
 }
-.floating-cart>a {
+.floating-cart > a {
    display: flex;
    border-radius: 9px;
    justify-content: center;
@@ -15,52 +15,53 @@
    height: 70px;
    border: 1px solid #cccccc;
 }
-.floating-cart>a:hover {
+.floating-cart > a:hover {
    animation: rainbow-bg 2.5s linear;
    animation-iteration-count: infinite;
    background-color: white;
    border-radius: 50%;
 }
 
-.floating-cart>a>.bx{
+.floating-cart > a > .bx {
    box-shadow: 0 0 5px 3px #11111130;
 }
 
-@keyframes rainbow-bg{
-		100%,0%{
-			border: 3px solid rgb(255,0,0);
-		}
-		8%{
-			border: 20px solid rgb(255,127,0);
-		}
-		16%{
-			border: 3px solid rgb(255,255,0);
-		}
-		25%{
-			border: 8px solid rgb(127,255,0);
-		}
-		33%{
-			border: 3px solid rgb(0,255,0);
-		}
-		41%{
-			border: 8px solid rgb(0,255,127);
-		}
-		50%{
-			border: 25px solid rgb(0,255,255);
-		}
-		58%{
-			border: 8px solid rgb(0,127,255);
-		}
-		66%{
-			border: 3px solid rgb(0,0,255);
-		}
-		75%{
-			border: 20px solid rgb(127,0,255);
-		}
-		83%{
-			border: 3px solid rgb(255,0,255);
-		}
-		91%{
-			border: 8px solid rgb(255,0,127);
-		}
+@keyframes rainbow-bg {
+   100%,
+   0% {
+      border: 3px solid rgb(255, 0, 0);
+   }
+   8% {
+      border: 20px solid rgb(255, 127, 0);
+   }
+   16% {
+      border: 3px solid rgb(255, 255, 0);
+   }
+   25% {
+      border: 8px solid rgb(127, 255, 0);
+   }
+   33% {
+      border: 3px solid rgb(0, 255, 0);
+   }
+   41% {
+      border: 8px solid rgb(0, 255, 127);
+   }
+   50% {
+      border: 25px solid rgb(0, 255, 255);
+   }
+   58% {
+      border: 8px solid rgb(0, 127, 255);
+   }
+   66% {
+      border: 3px solid rgb(0, 0, 255);
+   }
+   75% {
+      border: 20px solid rgb(127, 0, 255);
+   }
+   83% {
+      border: 3px solid rgb(255, 0, 255);
+   }
+   91% {
+      border: 8px solid rgb(255, 0, 127);
+   }
 }

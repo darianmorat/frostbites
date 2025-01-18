@@ -1,22 +1,33 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { Bars } from 'react-loader-spinner';
 import api from '../api/axios';
 
-import { Success } from './pages/public/payment/Success'
-import { Canceled } from './pages/public/payment/Canceled'
+import { Success } from './pages/public/payment/Success';
+import { Canceled } from './pages/public/payment/Canceled';
 import {
-   Home, About, Contact, Shop, Register,
-   Login, Profile, PageNotFound, Admin, ForgotPassword,
-   ResetPassword, SendEmail, ResendEmail, VerifyEmail
-} from './pages'
+   Home,
+   About,
+   Contact,
+   Shop,
+   Register,
+   Login,
+   Profile,
+   Admin,
+   ForgotPassword,
+   ResetPassword,
+   SendEmail,
+   ResendEmail,
+   VerifyEmail,
+   PageNotFound,
+} from './pages';
 
-import { Navbar, Footer, Location, Cart } from './components'
+import { Navbar, Footer, Location, Cart } from './components';
 
-import wave_svg from './assets/images/svg/wave.svg'
-import logo_slogan from './assets/images/logo/logoSlogan.svg'
-import './index.css'
+import wave_svg from './assets/images/svg/wave.svg';
+import logo_slogan from './assets/images/logo/logoSlogan.svg';
+import './index.css';
 
 const Wrapper = ({ children }) => {
    const location = useLocation();
@@ -29,9 +40,8 @@ const Wrapper = ({ children }) => {
 };
 
 function App() {
-
-   const [isAuthenticated, setIsAuthenticated] = useState(false)
-   const [isAdmin, setIsAdmin] = useState(false)
+   const [isAuthenticated, setIsAuthenticated] = useState(false);
+   const [isAdmin, setIsAdmin] = useState(false);
    const [loading, setLoading] = useState(true);
 
    const checkAuthentication = async () => {
@@ -39,83 +49,78 @@ function App() {
 
       if (!token) {
          setIsAuthenticated(false);
-         setIsAdmin(false)
-         return
+         setIsAdmin(false);
+         return;
       }
 
       try {
          const config = {
             headers: {
-               token: localStorage.token
-            }
-         }
+               token: localStorage.token,
+            },
+         };
 
-         const res = await api.get("/auth/verify", config);
+         const res = await api.get('/auth/verify', config);
          const data = res.data;
 
          if (data.isAdmin === true) {
-            setIsAdmin(true)
+            setIsAdmin(true);
          } else {
-            setIsAdmin(false)
+            setIsAdmin(false);
          }
 
          if (data.success === true) {
-            setIsAuthenticated(true)
+            setIsAuthenticated(true);
          } else {
-            setIsAuthenticated(false)
+            setIsAuthenticated(false);
          }
-
       } catch (err) {
-         console.error(err)
-         toast.error(err.response.data.message)
+         console.error(err);
+         toast.error(err.response.data.message);
       }
-   }
+   };
 
    useEffect(() => {
-      checkAuthentication()
-   }, [isAuthenticated, isAdmin])
+      checkAuthentication();
+   }, [isAuthenticated, isAdmin]);
 
    useEffect(() => {
       const timer = setTimeout(() => {
          setLoading(false);
-      }, 1800)
+      }, 1800);
 
       return () => clearTimeout(timer);
    }, [loading]);
 
    const setAuth = (boolean) => {
-      setIsAuthenticated(boolean)
-   }
+      setIsAuthenticated(boolean);
+   };
    const setAdmin = (boolean) => {
-      setIsAdmin(boolean)
-   }
+      setIsAdmin(boolean);
+   };
 
    const location = useLocation();
 
-   const hideComponents = (
-      location.pathname === '/login' ||
+   const hideComponents =
       location.pathname === '/register' ||
-      location.pathname === '/not-found' ||
-      location.pathname === '/verify-email' ||
-
+      location.pathname === '/login' ||
+      location.pathname === '/forgot-password' ||
+      location.pathname.startsWith('/reset-password/') ||
       location.pathname.startsWith('/send-email/') ||
       location.pathname === '/resend-email' ||
+      location.pathname === '/verify-email' ||
+      location.pathname === '/not-found';
 
-      location.pathname === '/forgot-password' ||
-      location.pathname.startsWith('/reset-password/')
-   )
-
-   const hideLocation = (
+   const hideLocation =
       location.pathname === '/shop' ||
       location.pathname === '/profile' ||
-      location.pathname === '/admin'
-   )
+      location.pathname === '/admin';
 
    return (
       <>
          {loading && (
-            <div className='loader-container'>
-               <div className='loader-spinner'>
+            <div className="loader-container">
+               <div className="loader-spinner">
                   <img src={wave_svg} alt="" className="wave-right-svg" />
                   <img src={wave_svg} alt="" className="wave-left-svg" />
                   <Bars
@@ -133,103 +138,110 @@ function App() {
 
          {!loading && (
             <Wrapper>
-
-               {!hideComponents &&
+               {!hideComponents && (
                   <Navbar
                      isAuthenticated={isAuthenticated}
                      setAuth={setAuth}
                      isAdmin={isAdmin}
                      setAdmin={setAdmin}
                   />
-               }
+               )}
 
                <Routes>
-                  <Route path='/' element={<Home />} />
-                  <Route path='/about' element={<About />} />
-                  <Route path='/contact' element={<Contact />} />
-                  <Route path='/shop' element={<Shop isAdmin={isAdmin} />} />
-                  <Route path='/not-found' element={<PageNotFound />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/shop" element={<Shop isAdmin={isAdmin} />} />
+                  <Route path="/not-found" element={<PageNotFound />} />
 
-                  <Route path='/success' element={<Success />} />
-                  <Route path='/canceled' element={<Canceled />} />
+                  <Route path="/success" element={<Success />} />
+                  <Route path="/canceled" element={<Canceled />} />
 
-                  <Route path="/login"
-                     element={!isAuthenticated
-                        ? <Login setAuth={setAuth} />
-                        : <Navigate to='/' />
+                  <Route
+                     path="/login"
+                     element={
+                        !isAuthenticated ? (
+                           <Login setAuth={setAuth} />
+                        ) : (
+                           <Navigate to="/" />
+                        )
                      }
                   />
-                  <Route path="/register"
-                     element={!isAuthenticated
-                        ? <Register setAuth={setAuth} />
-                        : <Navigate to='/login' />
-                     }
-                  />
-
-                  <Route path='/forgot-password'
-                     element={<ForgotPassword />}
-                  />
-                  <Route path='/reset-password/:token'
-                     element={<ResetPassword />}
-                  />
-
-                  <Route path='/send-email/:token'
-                     element={!isAuthenticated
-                        ? <SendEmail setAuth={setAuth} />
-                        : <Navigate to='/' />
-                     } />
-
-                  <Route path='/resend-email'
-                     element={<ResendEmail />}
-                  />
-
-                  <Route path='/verify-email'
-                     element={!isAuthenticated
-                        ? <VerifyEmail />
-                        : <Navigate to='/' />
+                  <Route
+                     path="/register"
+                     element={
+                        !isAuthenticated ? (
+                           <Register setAuth={setAuth} />
+                        ) : (
+                           <Navigate to="/login" />
+                        )
                      }
                   />
 
-                  <Route path="/admin"
-                     element={isAuthenticated && isAdmin
-                        ? <Admin />
-                        : <Navigate to='/not-found' />
-                     }
-                  />
-                  <Route path="/profile"
-                     element={isAuthenticated
-                        ? <Profile setAuth={setAuth} />
-                        : <Navigate to='/not-found' />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+                  <Route
+                     path="/send-email/:token"
+                     element={
+                        !isAuthenticated ? (
+                           <SendEmail setAuth={setAuth} />
+                        ) : (
+                           <Navigate to="/" />
+                        )
                      }
                   />
 
-                  <Route path='*'
-                     element={<Navigate to='/not-found' />}
+                  <Route path="/resend-email" element={<ResendEmail />} />
+
+                  <Route
+                     path="/verify-email"
+                     element={!isAuthenticated ? <VerifyEmail /> : <Navigate to="/" />}
                   />
+
+                  <Route
+                     path="/admin"
+                     element={
+                        isAuthenticated && isAdmin ? (
+                           <Admin />
+                        ) : (
+                           <Navigate to="/not-found" />
+                        )
+                     }
+                  />
+                  <Route
+                     path="/profile"
+                     element={
+                        isAuthenticated ? (
+                           <Profile setAuth={setAuth} />
+                        ) : (
+                           <Navigate to="/not-found" />
+                        )
+                     }
+                  />
+
+                  <Route path="*" element={<Navigate to="/not-found" />} />
                </Routes>
 
-               {!hideComponents &&
+               {!hideComponents && (
                   <>
-                     {!hideLocation &&
-                        <Location />
-                     }
+                     {!hideLocation && <Location />}
                      <Cart />
                      <Footer />
                   </>
-               }
-
+               )}
             </Wrapper>
          )}
 
          <ToastContainer
             theme="colored"
             autoClose={3500}
-            position='bottom-center'
+            position="bottom-center"
             transition={Bounce}
             pauseOnHover={false}
          />
       </>
-   )
+   );
 }
 
-export default App
+export default App;

@@ -1,4 +1,4 @@
-.footer{
+.footer {
    display: flex;
    align-items: center;
    justify-content: center;
@@ -8,14 +8,15 @@
    border-top: 1px solid #cccccc;
 }
 
-.location-links{
+.location-links {
    display: flex;
    align-items: center;
    justify-content: center;
    background-color: #fff5f7;
 }
 
-.location-links, .location-right{
+.location-links,
+.location-right {
    display: flex;
    gap: 20px;
 }
@@ -26,17 +27,16 @@
    gap: 70px;
 }
 
-.logo-slogan{
+.logo-slogan {
    width: 400px;
    z-index: 999;
 }
 
-.location-right>div>a{
+.location-right > div > a {
    color: grey;
 }
 
-.location-right>div>a:hover{
+.location-right > div > a:hover {
    color: #606060;
    text-decoration: underline;
 }
-

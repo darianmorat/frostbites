@@ -1,19 +1,19 @@
-.location-page{
+.location-page {
    padding-top: 100px;
    background-color: #fff5f7;
 }
 
-.location-map{
+.location-map {
    display: flex;
    align-items: center;
    justify-content: center;
    background-color: #fff5f7;
 }
-.location-map{
+.location-map {
    flex-direction: column;
 }
 
-.location-title{
+.location-title {
    margin-bottom: 30px;
    margin-top: -10px;
 }
@@ -27,7 +27,7 @@
 }
 
 .direction-title,
-.schedule-title{
+.schedule-title {
    font-weight: bold;
 }
 
@@ -38,16 +38,16 @@
    box-shadow: 0 0 0 1.8px #28282830;
 }
 
-.map-container, 
-.location-schedule, 
-.location-direction{
+.map-container,
+.location-schedule,
+.location-direction {
    display: flex;
    flex-direction: column;
    justify-content: center;
 }
 
 .map-expand-btn,
-.map-collapse-btn{
+.map-collapse-btn {
    position: absolute;
    bottom: 0;
    right: 0;
@@ -65,11 +65,11 @@
    transition: 0.2s;
 }
 .map-expand-btn:hover,
-.map-collapse-btn:hover{
+.map-collapse-btn:hover {
    background-color: #f4f4f4;
    cursor: pointer;
 }
-.map-collapse-btn{
+.map-collapse-btn {
    z-index: 999;
 }
 

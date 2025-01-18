@@ -1,13 +1,13 @@
-.about-page{
+.about-page {
    display: flex;
    flex-direction: column;
    align-items: center;
    gap: 45px;
-   padding: 80px 0 100px 0; 
+   padding: 80px 0 100px 0;
 }
 
 .about-section-1,
-.about-section-2{
+.about-section-2 {
    display: flex;
    gap: 45px;
    align-items: center;
@@ -16,21 +16,18 @@
 }
 
 @media (width < 1035px) {
-
-   .about-page{
+   .about-page {
       gap: 70px;
    }
 
    .about-section-1,
-   .about-section-2{
+   .about-section-2 {
       flex-direction: column;
       max-width: 600px;
       gap: 25px;
    }
 
-   .about-section-1{
+   .about-section-1 {
       flex-direction: column-reverse;
    }
-
 }
-

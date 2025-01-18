@@ -1,11 +1,11 @@
-.missing-page{
+.missing-page {
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
    height: 90vh;
 }
-.page-not-found{
+.page-not-found {
    margin-bottom: 40px;
    width: 500px;
 }

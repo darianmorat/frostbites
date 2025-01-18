@@ -1,26 +1,24 @@
-import { useEffect, useState } from "react";
-import api from "../../../api/axios";
-import './admin.css'
+import { useEffect, useState } from 'react';
+import api from '../../../api/axios';
+import './admin.css';
 
-export const Admin = () => {  
-
+export const Admin = () => {
    const [users, setUsers] = useState([]);
 
-   const adminStats = async() => {
+   const adminStats = async () => {
       try {
-         const res = await api.get('/admin')
-         const data = res.data 
+         const res = await api.get('/admin');
+         const data = res.data;
 
          setUsers(data.countUsers.count);
-
       } catch (err) {
          console.error(err);
       }
-   }
+   };
 
    useEffect(() => {
-      adminStats()
-   }, [])
+      adminStats();
+   }, []);
 
    return (
       <div className="admin-page">
@@ -37,4 +35,3 @@ export const Admin = () => {
       </div>
    );
 };
-

@@ -14,7 +14,7 @@
 }
 
 * {
-   font-family: "Inter", Arial, sans-serif;
+   font-family: 'Inter', Arial, sans-serif;
    line-height: 1.5;
    font-weight: normal;
    font-size: 0.95rem;
@@ -33,14 +33,14 @@ body {
 /* general */
 h1 {
    font-size: 3.2em;
-   font-family: "Titan One", Arial, sans-serif;
+   font-family: 'Titan One', Arial, sans-serif;
    font-weight: 400;
    color: var(--black-color);
 }
 
 h2 {
    font-size: 1.6em;
-   font-family: "Titan One", Arial, sans-serif;
+   font-family: 'Titan One', Arial, sans-serif;
    font-weight: 400;
    margin-bottom: 0;
    color: var(--grey-color);
@@ -76,7 +76,7 @@ p {
 }
 
 .primary-btn::before {
-   content: "";
+   content: '';
    position: absolute;
    top: 100%;
    left: 0px;
@@ -219,7 +219,7 @@ input {
    font-size: 16px;
 }
 
-.form>.label-error {
+.form > .label-error {
    color: #e74c3c;
 }
 
@@ -248,11 +248,11 @@ a:hover {
    justify-content: center;
 }
 
-.link>a {
+.link > a {
    color: var(--red-color);
 }
 
-.link>a:hover {
+.link > a:hover {
    text-decoration: underline;
 }
 
@@ -275,7 +275,7 @@ a:hover {
 }
 
 .loader-description {
-   font-family: "Titan One", Arial, sans-serif;
+   font-family: 'Titan One', Arial, sans-serif;
    font-size: 24px;
    color: #ec4b72;
 }

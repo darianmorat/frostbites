@@ -22,14 +22,15 @@
    margin: 0 auto;
 }
 
-.navbar-left, .navbar-right {
+.navbar-left,
+.navbar-right {
    display: flex;
    list-style: none;
    align-items: center;
    gap: 50px;
 }
 
-.logo{
+.logo {
    width: 200px;
 }
 
@@ -38,7 +39,7 @@
    font-weight: bold;
    position: relative;
 }
-.dropmenu-btn:hover{
+.dropmenu-btn:hover {
    color: var(--red-color);
 }
 
@@ -51,19 +52,19 @@
    display: flex;
    flex-direction: column;
 }
-.dropdown-menu>li{
+.dropdown-menu > li {
    list-style: none;
 }
-.dropdown-menu>li>a{
+.dropdown-menu > li > a {
    display: block;
    padding: 10px;
    color: black;
    font-weight: normal;
 }
 
-.dropdown-menu>li>a:hover{
+.dropdown-menu > li > a:hover {
    background-color: #cccccc;
 }
-.dropdown-menu>li>.nav-logout-btn{
+.dropdown-menu > li > .nav-logout-btn {
    color: red;
 }

@@ -1,100 +1,98 @@
-import { useFormik } from "formik"; // USE REACT HOOK FORM LATER INSTEAD
-import * as Yup from "yup";
-import { toast } from 'react-toastify'
-import { motion } from "motion/react"
-import api from '../../../../api/axios'
-import { useState } from "react";
+import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
+import * as Yup from 'yup';
+import { toast } from 'react-toastify';
+import { motion } from 'motion/react';
+import api from '../../../../api/axios';
+import { useState } from 'react';
 
-import wave_svg from '../../../assets/images/svg/wave.svg'
+import wave_svg from '../../../assets/images/svg/wave.svg';
 
 export const ResendEmail = () => {
-   const [loading, setLoading] = useState(false)
+   const [loading, setLoading] = useState(false);
 
    const formik = useFormik({
       initialValues: {
-         email: "",
+         email: '',
       },
       validationSchema: Yup.object({
-         email: Yup.string().email("Invalid email address"),
+         email: Yup.string().email('Invalid email address'),
       }),
       onSubmit: async (values) => {
-         setLoading(true)
+         setLoading(true);
 
          try {
-            const res = await api.post('/verify/resend-email', values)
+            const res = await api.post('/verify/resend-email', values);
             const data = res.data;
 
-            if (data.success){
-               toast.success(data.message)
+            if (data.success) {
+               toast.success(data.message);
             }
-
          } catch (err) {
             if (err.response) {
                toast.error(err.response.data.message);
             } else {
-               toast.error("Server error. Please try again later.");
+               toast.error('Server error. Please try again later.');
             }
          } finally {
-            setLoading(false)
+            setLoading(false);
          }
-      }
-   })
+      },
+   });
 
    return (
-      <div className='form-body'>
-         <img src={wave_svg} alt="" className="wave-left-svg"/>
-         <img src={wave_svg} alt="" className="wave-right-svg"/>
+      <div className="form-body">
+         <img src={wave_svg} alt="" className="wave-left-svg" />
+         <img src={wave_svg} alt="" className="wave-right-svg" />
 
-         <motion.div 
-            initial={{ opacity: 0, y: -100 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            exit={{ opacity: 0, y: 100 }} 
+         <motion.div
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
             transition={{ duration: 0.4 }}
          >
-            <div className='form-container'>
-               <div className='left-form'>
-                  <h3 className='form-title'>FEEL FREE TO JOIN FROST BITES!</h3>
-                  <div className='stick-container'>
-                     <div className='stick longer-stick'></div>
-                     <div className='stick smaller-stick'></div>
+            <div className="form-container">
+               <div className="left-form">
+                  <h3 className="form-title">FEEL FREE TO JOIN FROST BITES!</h3>
+                  <div className="stick-container">
+                     <div className="stick longer-stick"></div>
+                     <div className="stick smaller-stick"></div>
                   </div>
-                  <p className='form-description'>Register and save amazing BONUSES for you and your family together!</p>
+                  <p className="form-description">
+                     Register and save amazing BONUSES for you and your family together!
+                  </p>
                </div>
 
-               <div className='right-form'>
-                  <form className='form' onSubmit={formik.handleSubmit}>
+               <div className="right-form">
+                  <form className="form" onSubmit={formik.handleSubmit}>
                      <label
                         htmlFor="email"
-                        className={`${ formik.touched.email && formik.errors.email ? "label-error" : "" }`} 
+                        className={`${formik.touched.email && formik.errors.email ? 'label-error' : ''}`}
                      >
-                        {formik.touched.email && formik.errors.email ? formik.errors.email : "Email:"}
+                        {formik.touched.email && formik.errors.email
+                           ? formik.errors.email
+                           : 'Email:'}
                      </label>
-                     <input 
+                     <input
                         type="email"
-                        className={`input ${ formik.touched.email && formik.errors.email ? "input-error" : "" }`}
+                        className={`input ${formik.touched.email && formik.errors.email ? 'input-error' : ''}`}
                         onChange={formik.handleChange}
-                        onBlur={formik.handleBlur} 
+                        onBlur={formik.handleBlur}
                         value={formik.values.email}
                         name="email"
                         id="email"
                         autoComplete="email"
                      />
-                     <button 
-                        type='submit' 
-                        className='btn secondary-btn btn-submit' 
+                     <button
+                        type="submit"
+                        className="btn secondary-btn btn-submit"
                         disabled={loading || !formik.values.email}
                      >
-                     {loading 
-                        ? 
-                        <>SENDING...</>
-                        : 
-                        <>RESEND EMAIL</> 
-                     }
+                        {loading ? <>SENDING...</> : <>RESEND EMAIL</>}
                      </button>
                   </form>
                </div>
             </div>
          </motion.div>
       </div>
-   )
-}
+   );
+};

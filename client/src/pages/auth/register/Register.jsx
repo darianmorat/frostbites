@@ -1,48 +1,45 @@
 /* eslint-disable react/prop-types */
 
-import { useFormik } from "formik"; // USE REACT HOOK FORM LATER INSTEAD
-import * as Yup from "yup";
-import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { motion } from "motion/react"
-import { useState } from "react";
-import api from '../../../../api/axios'
-import { ShowPassword } from "../../../components";
+import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
+import * as Yup from 'yup';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { motion } from 'motion/react';
+import { useState } from 'react';
+import api from '../../../../api/axios';
+import { ShowPassword } from '../../../components';
 
-import wave_svg from '../../../assets/images/svg/wave.svg'
-import '../../index.css'
+import wave_svg from '../../../assets/images/svg/wave.svg';
+import '../../index.css';
 
 export const Register = ({ setAuth }) => {
-   const [loading, setLoading] = useState(false)
-   const [showPassword, setShowPassword] = useState(false)
+   const [loading, setLoading] = useState(false);
+   const [showPassword, setShowPassword] = useState(false);
 
-   const navigate = useNavigate()
+   const navigate = useNavigate();
 
    const formik = useFormik({
       initialValues: {
-         name: "",
-         email: "",
-         password: ""
+         name: '',
+         email: '',
+         password: '',
       },
       validationSchema: Yup.object({
-         name: Yup.string().min(4, "Name must be at least 4 chars"),
-         email: Yup.string().email("Invalid email address"),
-         password: Yup.string().min(8, "Password must be at least 8 chars")
+         name: Yup.string().min(4, 'Name must be at least 4 chars'),
+         email: Yup.string().email('Invalid email address'),
+         password: Yup.string().min(8, 'Password must be at least 8 chars'),
       }),
       onSubmit: async (values) => {
-         setLoading(true)
+         setLoading(true);
 
          try {
-            const res = await api.post('/auth/register', values)
+            const res = await api.post('/auth/register', values);
             const data = res.data;
 
-            if (data.success){
-               navigate('/verify-email', 
-                  { state: { email: values.email } }
-               )
-               toast.success(data.message)
+            if (data.success) {
+               navigate('/verify-email', { state: { email: values.email } });
+               toast.success(data.message);
             }
-
          } catch (err) {
             if (err.response) {
                toast.error(err.response.data.message);
@@ -50,65 +47,72 @@ export const Register = ({ setAuth }) => {
                if (err.response.data.isVerified === false) {
                   toast.warning(
                      <>
-                        <span>Did not receive the email? <br/>
-                        <a href="/resend-email">Click here to resend</a></span>
+                        <span>
+                           Did not receive the email? <br />
+                           <a href="/resend-email">Click here to resend</a>
+                        </span>
                      </>,
                      {
                         autoClose: false,
                         closeOnClick: false,
                         draggable: false,
-                        position: "top-right",
-                     }
-                  )
+                        position: 'top-right',
+                     },
+                  );
                }
             } else {
-               toast.error("Server error. Please try again later.");
+               toast.error('Server error. Please try again later.');
             }
             setAuth(false);
          } finally {
-            setLoading(false)
+            setLoading(false);
          }
-      }
-   })
+      },
+   });
 
    return (
-      <div className='form-body'>
-         <img src={wave_svg} alt="" className="wave-left-svg"/>
-         <img src={wave_svg} alt="" className="wave-right-svg"/>
+      <div className="form-body">
+         <img src={wave_svg} alt="" className="wave-left-svg" />
+         <img src={wave_svg} alt="" className="wave-right-svg" />
 
-         <motion.div 
-            initial={{ opacity: 0, y: -100 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            exit={{ opacity: 0, y: 100 }} 
+         <motion.div
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
             transition={{ duration: 0.4 }}
          >
-            <div className='form-container'>
-               <div className='left-form'>
-                  <h3 className='form-title'>FEEL FREE TO JOIN FROST BITES!</h3>
-                  <div className='stick-container'>
-                     <div className='stick longer-stick'></div>
-                     <div className='stick smaller-stick'></div>
+            <div className="form-container">
+               <div className="left-form">
+                  <h3 className="form-title">FEEL FREE TO JOIN FROST BITES!</h3>
+                  <div className="stick-container">
+                     <div className="stick longer-stick"></div>
+                     <div className="stick smaller-stick"></div>
                   </div>
-                  <p className='form-description'>Register and save amazing BONUSES for you and your family together!</p>
+                  <p className="form-description">
+                     Register and save amazing BONUSES for you and your family together!
+                  </p>
                </div>
 
-               <div className='right-form'>
-                  <div className='google-auth'>Continue with Google</div>
-                  <p className='separator'>
-                     <span className='separator-line'></span> or <span className='separator-line'></span> 
+               <div className="right-form">
+                  <div className="google-auth">Continue with Google</div>
+                  <p className="separator">
+                     <span className="separator-line"></span> or{' '}
+                     <span className="separator-line"></span>
                   </p>
-                  <form className='form' onSubmit={formik.handleSubmit}>
+                  <form className="form" onSubmit={formik.handleSubmit}>
                      <label
                         htmlFor="name"
-                        className={`${ formik.touched.name && formik.errors.name ? "label-error" : "" }`} 
+                        className={`${formik.touched.name && formik.errors.name ? 'label-error' : ''}`}
                      >
-                        {formik.touched.name && formik.errors.name ? formik.errors.name : "Name:"}
+                        {formik.touched.name && formik.errors.name
+                           ? formik.errors.name
+                           : 'Name:'}
                      </label>
-                     <input 
+                     <input
                         type="name"
-                        className={`input ${ formik.touched.name && formik.errors.name ? "input-error" : "" }`}
+                        className={`input ${formik.touched.name && formik.errors.name ? 'input-error' : ''}`}
                         onChange={formik.handleChange}
-                        onBlur={formik.handleBlur} 
+                        onBlur={formik.handleBlur}
                         value={formik.values.name}
                         name="name"
                         id="name"
@@ -116,15 +120,17 @@ export const Register = ({ setAuth }) => {
                      />
                      <label
                         htmlFor="email"
-                        className={`${ formik.touched.email && formik.errors.email ? "label-error" : "" }`} 
+                        className={`${formik.touched.email && formik.errors.email ? 'label-error' : ''}`}
                      >
-                        {formik.touched.email && formik.errors.email ? formik.errors.email : "Email:"}
+                        {formik.touched.email && formik.errors.email
+                           ? formik.errors.email
+                           : 'Email:'}
                      </label>
-                     <input 
+                     <input
                         type="email"
-                        className={`input ${ formik.touched.email && formik.errors.email ? "input-error" : "" }`}
+                        className={`input ${formik.touched.email && formik.errors.email ? 'input-error' : ''}`}
                         onChange={formik.handleChange}
-                        onBlur={formik.handleBlur} 
+                        onBlur={formik.handleBlur}
                         value={formik.values.email}
                         name="email"
                         id="email"
@@ -132,45 +138,52 @@ export const Register = ({ setAuth }) => {
                      />
                      <label
                         htmlFor="password"
-                        className={`${ formik.touched.password && formik.errors.password ? "label-error" : "" }`} 
+                        className={`${formik.touched.password && formik.errors.password ? 'label-error' : ''}`}
                      >
-                        {formik.touched.password && formik.errors.password ? formik.errors.password : "Password:"}
+                        {formik.touched.password && formik.errors.password
+                           ? formik.errors.password
+                           : 'Password:'}
                      </label>
                      <div className="input-container">
-                        <input 
+                        <input
                            type={showPassword ? 'text' : 'password'}
-                           className={`input ${ formik.touched.password && formik.errors.password ? "input-error" : "" }`}
+                           className={`input ${formik.touched.password && formik.errors.password ? 'input-error' : ''}`}
                            onChange={formik.handleChange}
-                           onBlur={formik.handleBlur} 
+                           onBlur={formik.handleBlur}
                            value={formik.values.password}
                            name="password"
                            id="password"
                         />
-                        <ShowPassword showPassword={showPassword} setShowPassword={setShowPassword}/>
+                        <ShowPassword
+                           showPassword={showPassword}
+                           setShowPassword={setShowPassword}
+                        />
                      </div>
-                     <button 
-                        type='submit' 
-                        className='btn secondary-btn btn-submit' 
-                        disabled={loading || !formik.values.name || !formik.values.email || !formik.values.password}
-                     > 
-                        {loading 
-                           ? 
-                           <>CREATING ACCOUNT...</>
-                           : 
-                           <>REGISTER</> 
+                     <button
+                        type="submit"
+                        className="btn secondary-btn btn-submit"
+                        disabled={
+                           loading ||
+                           !formik.values.name ||
+                           !formik.values.email ||
+                           !formik.values.password
                         }
+                     >
+                        {loading ? <>CREATING ACCOUNT...</> : <>REGISTER</>}
                      </button>
                   </form>
-                  <div className='link login-link'>
-                     <p className='description'>Already have an account?</p>
-                     <Link to='/login'>LOGIN</Link>
+                  <div className="link login-link">
+                     <p className="description">Already have an account?</p>
+                     <Link to="/login">LOGIN</Link>
                   </div>
                </div>
             </div>
          </motion.div>
 
          {/* SEND BACK TO WHERE THE USER WAS, NOT TO THE HOME */}
-         <button className='btn primary-btn back-btn' onClick={() => navigate('/')}>↩ Go back</button>
+         <button className="btn primary-btn back-btn" onClick={() => navigate('/')}>
+            ↩ Go back
+         </button>
       </div>
-   )
-}
+   );
+};
