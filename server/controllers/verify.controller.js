@@ -1,29 +1,29 @@
 import pool from '../db/pool.js';
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
-import nodemailer from "nodemailer";
-import dotenv from 'dotenv'
-import { jwtGenerator, jwtGeneratorVerify } from '../utils/jwtGenerator.js'
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+import { jwtGenerator, jwtGeneratorVerify } from '../utils/jwtGenerator.js';
 
-dotenv.config()
+dotenv.config();
 
 export const forgotPassword = async (req, res) => {
    try {
-      const { email } = req.body
+      const { email } = req.body;
 
-      const result = await pool.query('SELECT * FROM users WHERE user_email = $1', 
-         [ email ]
-      )
+      const result = await pool.query('SELECT * FROM users WHERE user_email = $1', [
+         email,
+      ]);
 
       if (result.rows.length === 0) {
-         return res.status(404).json({ success: false, message: "Email not found" });
+         return res.status(404).json({ success: false, message: 'Email not found' });
       }
 
-      const user = result.rows[0]
-      const token = jwtGeneratorVerify(user.user_id)
+      const user = result.rows[0];
+      const token = jwtGeneratorVerify(user.user_id);
 
       const transporter = nodemailer.createTransport({
-         host: "smtp.ethereal.email",
+         host: 'smtp.ethereal.email',
          port: 587,
          auth: {
             user: process.env.APP_EMAIL,
@@ -34,7 +34,7 @@ export const forgotPassword = async (req, res) => {
       const mailOptions = {
          from: process.env.APP_EMAIL,
          to: req.body.email,
-         subject: "Reset Your Password",
+         subject: 'Reset Your Password',
          html: `
             <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
                <h1 style="color: #1a73e8; text-align: center;">Reset Your Password</h1>
@@ -50,16 +50,15 @@ export const forgotPassword = async (req, res) => {
                <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
                </p>
             </div>
-         `
-      }; 
+         `,
+      };
 
       transporter.sendMail(mailOptions, (err, info) => {
          if (err) {
             return res.status(500).json({ success: false, message: err.message });
          }
-         res.status(200).json({ success: true, message: "Email sent", token: token });
+         res.status(200).json({ success: true, message: 'Email sent', token: token });
       });
-
    } catch (err) {
       res.status(500).json({ message: err.message });
    }
@@ -67,63 +66,70 @@ export const forgotPassword = async (req, res) => {
 
 export const resetPassword = async (req, res) => {
    try {
-      const decodedToken = jwt.verify(
-         req.params.token,
-         process.env.JWT_SECRET
-      );
+      const decodedToken = jwt.verify(req.params.token, process.env.JWT_SECRET);
 
-      const result = await pool.query('SELECT * FROM users WHERE user_id = $1', [decodedToken.userId]);
-      const user = result.rows[0]; 
+      const result = await pool.query('SELECT * FROM users WHERE user_id = $1', [
+         decodedToken.userId,
+      ]);
+      const user = result.rows[0];
 
-      const { newPassword } = req.body
+      const { newPassword } = req.body;
 
       const saltRound = 10;
-      const salt = await bcrypt.genSalt(saltRound)
+      const salt = await bcrypt.genSalt(saltRound);
       const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-      await pool.query('UPDATE users SET user_password = $1 WHERE user_id = $2', 
-         [hashedPassword, user.user_id]
-      );
+      await pool.query('UPDATE users SET user_password = $1 WHERE user_id = $2', [
+         hashedPassword,
+         user.user_id,
+      ]);
 
-      res.status(200).json({ success: true, message: "Password updated" });
-
+      res.status(200).json({ success: true, message: 'Password updated' });
    } catch (err) {
       if (err.name === 'TokenExpiredError') {
-         return res.status(401).json({ success: false, message: 'Link has already expired' })
+         return res
+            .status(401)
+            .json({ success: false, message: 'Link has already expired' });
       }
 
-      console.error(err.message)
+      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
 
 export const sendEmail = async (req, res) => {
    try {
-      const decoded = jwt.verify( req.params.token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(req.params.token, process.env.JWT_SECRET);
 
-      const user = await pool.query('SELECT * FROM users WHERE user_id = $1', [decoded.user]);
-      const email = user.rows[0].user_email
+      const user = await pool.query('SELECT * FROM users WHERE user_id = $1', [
+         decoded.user,
+      ]);
+      const email = user.rows[0].user_email;
 
       if (user.rows.length === 0) {
          return res.status(404).json({ success: false, message: 'User not found' });
       }
 
       if (user.rows[0].is_verified) {
-         return res.status(400).json({ success: false, message: 'Email already verified' });
+         return res
+            .status(400)
+            .json({ success: false, message: 'Email already verified' });
       }
 
-      await pool.query('UPDATE users SET is_verified = true WHERE user_id = $1', [decoded.user]);
+      await pool.query('UPDATE users SET is_verified = true WHERE user_id = $1', [
+         decoded.user,
+      ]);
 
-      const token = jwtGenerator(decoded.user, decoded.admin)
+      const token = jwtGenerator(decoded.user, decoded.admin);
 
       const transporter = nodemailer.createTransport({
-         host: "smtp.ethereal.email",
+         host: 'smtp.ethereal.email',
          port: 587,
          auth: {
             user: process.env.APP_EMAIL,
             pass: process.env.PASSWORD_APP_EMAIL,
-         }
-      })
+         },
+      });
 
       const mailOptions = {
          from: process.env.APP_EMAIL,
@@ -141,67 +147,74 @@ export const sendEmail = async (req, res) => {
                <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
                </p>
             </div>
-         `
+         `,
       };
 
       transporter.sendMail(mailOptions, (err, info) => {
          if (err) {
-            return res.status(500).json({ success: false, message: 'Error sending email' });
+            return res
+               .status(500)
+               .json({ success: false, message: 'Error sending email' });
          }
-         res.status(200).json({ success: true, message: 'Email verified successfully', token });
+         res.status(200).json({
+            success: true,
+            message: 'Email verified successfully',
+            token,
+         });
       });
-
-
    } catch (err) {
       if (err.name === 'TokenExpiredError') {
-         return res.status(401).json({ success: false, message: 'Link has already expired' })
+         return res
+            .status(401)
+            .json({ success: false, message: 'Link has already expired' });
       }
 
-      console.error(err.message)
+      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
 
 export const resendEmail = async (req, res) => {
-   const { email } = req.body
+   const { email } = req.body;
 
-   const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [
-      email
-   ])
+   const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
 
-   if (user.rows.length === 0){
-      return res.status(400).json({ success: false, message: 'This email is not registered' });
+   if (user.rows.length === 0) {
+      return res
+         .status(400)
+         .json({ success: false, message: 'This email is not registered' });
    }
 
-   if (user.rows[0].is_verified === true){
-      return res.status(400).json({ success: false, message: 'This email is already verified' });
+   if (user.rows[0].is_verified === true) {
+      return res
+         .status(400)
+         .json({ success: false, message: 'This email is already verified' });
    }
 
-   let isAdmin = false
+   let isAdmin = false;
 
-   if (email === process.env.ADMIN_EMAIL || email === process.env.ADMIN_EMAIL2) { 
-      const adminRole = process.env.ADMIN_ROLE 
+   if (email === process.env.ADMIN_EMAIL || email === process.env.ADMIN_EMAIL2) {
+      const adminRole = process.env.ADMIN_ROLE;
 
-      const roles = await pool.query(
-         "SELECT role_id FROM roles WHERE role_name = $1", 
-         [adminRole] 
-      );
+      const roles = await pool.query('SELECT role_id FROM roles WHERE role_name = $1', [
+         adminRole,
+      ]);
 
-      const userId = newUser.rows[0].user_id
-      const roleId = roles.rows[0].role_id
+      const userId = newUser.rows[0].user_id;
+      const roleId = roles.rows[0].role_id;
 
       await pool.query(
-         "INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2) RETURNING *",
-         [userId, roleId]
-      )
+         'INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2) RETURNING *',
+         [userId, roleId],
+      );
 
-      isAdmin = true
+      isAdmin = true;
    }
 
-   const token = jwtGeneratorVerify(user.rows[0].user_id, isAdmin)
+   const token = jwtGeneratorVerify(user.rows[0].user_id, isAdmin);
 
    const transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
+      host: 'smtp.ethereal.email',
       port: 587,
       auth: {
          user: process.env.APP_EMAIL,
@@ -228,13 +241,16 @@ export const resendEmail = async (req, res) => {
             <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
             </p>
          </div>
-      `
+      `,
    };
 
    transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
          return res.status(500).json({ success: false, message: 'Error sending email' });
       }
-      res.status(200).json({ success: true, message: 'Verification email resent. Please check your inbox' });
+      res.status(200).json({
+         success: true,
+         message: 'Verification email resent. Please check your inbox',
+      });
    });
-}
+};

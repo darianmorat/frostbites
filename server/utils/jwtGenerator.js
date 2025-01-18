@@ -1,24 +1,24 @@
-import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
 // There's methods such as using cookies to store long term sessions
 
-export function jwtGenerator( user_id, isAdmin ){
+export function jwtGenerator(user_id, isAdmin) {
    const payload = {
       user: user_id,
-      admin: isAdmin
-   }
+      admin: isAdmin,
+   };
 
-   return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '1hr'})
+   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1hr' });
 }
 
-export function jwtGeneratorVerify( user_id, isAdmin ){
+export function jwtGeneratorVerify(user_id, isAdmin) {
    const payload = {
       user: user_id,
-      admin: isAdmin
-   }
+      admin: isAdmin,
+   };
 
-   return jwt.sign(payload, process.env.JWT_SECRET, {expiresIn: '10m'})
+   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '10m' });
 }
