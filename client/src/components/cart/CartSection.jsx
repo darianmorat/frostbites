@@ -3,12 +3,16 @@
 import { toast } from 'react-toastify';
 import api from '../../../api/axios';
 import select_product_img from '../../assets/images/svg/selection-product.svg';
+import { useState } from 'react';
 
 export const CartSection = ({ cartItems, totalPrice }) => {
-   const payment = async () => {
+   const [loading, setLoading] = useState(false);
+
+   const handlePayment = async () => {
+      setLoading(true);
       try {
          const body = {
-            cartItems
+            cartItems,
          };
 
          const config = {
@@ -20,9 +24,8 @@ export const CartSection = ({ cartItems, totalPrice }) => {
          const res = await api.post('/payment/check-session', body, config);
          const data = res.data;
 
-         if (data.success === true) {
-            const url = data.url;
-            window.location.href = url;
+         if (data.success && data.url) {
+            window.location.href = data.url;
          }
       } catch (err) {
          toast.error(err.response.data.message);
@@ -65,9 +68,10 @@ export const CartSection = ({ cartItems, totalPrice }) => {
                      </div>
                      <button
                         className="secondary-btn cart-buy-btn btn"
-                        onClick={() => payment()}
+                        onClick={() => handlePayment()}
+                        disabled={loading}
                      >
-                        BUY NOW
+                        {!loading ? <>BUY NOW</> : <>PROCESSING...</>}
                      </button>
                   </>
                )}
