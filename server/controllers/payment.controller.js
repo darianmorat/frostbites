@@ -1,14 +1,11 @@
 import Stripe from 'stripe';
 import pool from '../db/pool.js';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
-// users logged in, procced inmediately to the payment with their email
 // guests need to type their email before going forward
-// we will receive here the data and destructure it?
-
 // const { email } = req.body;
 // if (!email) return res.status(400).send({ message: 'Please enter the email' });
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const handlePayment = async (req, res) => {
    try {
@@ -37,8 +34,8 @@ export const handlePayment = async (req, res) => {
          mode: 'payment',
          line_items: lineItems,
          customer_email: email,
-         success_url: `http://localhost:5173/success`, // send email when payment completed
-         cancel_url: `http://localhost:5173/shop`, // what to do here?
+         success_url: `${process.env.BASE_URL}/success`, // send email when payment completed
+         cancel_url: `${process.env.BASE_URL}/shop`, // what to do here?
          // cancel_url: `http://localhost:5173/canceled`,
       });
 

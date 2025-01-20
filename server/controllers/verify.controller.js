@@ -36,7 +36,7 @@ export const forgotPassword = async (req, res) => {
             <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
                <h1 style="color: #1a73e8; text-align: center;">Reset Your Password</h1>
                <p>Click on the following link to reset your password:</p>
-               <a href="http://localhost:5173/reset-password/${token}">
+               <a href="${process.env.BASE_URL}/reset-password/${token}">
                   CLICK TO RESET PASSWORD
                </a>
                <p>The link will expire in 10 minutes.</p>
@@ -44,7 +44,7 @@ export const forgotPassword = async (req, res) => {
                <br/>
                <p style="text-align: center; color: #666;">Stay frosty, <br />The FrostBites Team </p>
                <p style="text-align: center;">
-               <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
+               <a href="${process.env.BASE_URL}" style="color: #1a73e8;">Visit FrostBites</a>
                </p>
             </div>
          `,
@@ -140,7 +140,7 @@ export const sendEmail = async (req, res) => {
                <br/>
                <p style="text-align: center; color: #666;">Stay frosty,<br />The FrostBites Team</p>
                <p style="text-align: center;">
-               <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
+               <a href="${process.env.BASE_URL}" style="color: #1a73e8;">Visit FrostBites</a>
                </p>
             </div>
          `,
@@ -225,7 +225,7 @@ export const resendEmail = async (req, res) => {
          <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
             <h1 style="color: #1a73e8; text-align: center;">Verify your email (Resent)</h1>
             <p>Click the following link to verify your email:</p>
-            <a href="http://localhost:5173/send-email/${token}">
+            <a href="${process.env.BASE_URL}/send-email/${token}">
                CLICK TO VERIFY EMAIL
             </a>
             <p>The link will expire in 10 minutes.</p>
@@ -233,7 +233,7 @@ export const resendEmail = async (req, res) => {
             <br/>
             <p style="text-align: center; color: #666;">Stay frosty, <br />The FrostBites Team </p>
             <p style="text-align: center;">
-            <a href="http://localhost:5173" style="color: #1a73e8;">Visit FrostBites</a>
+            <a href="${process.env.BASE_URL}" style="color: #1a73e8;">Visit FrostBites</a>
             </p>
          </div>
       `,
