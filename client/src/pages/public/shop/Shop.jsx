@@ -66,7 +66,13 @@ export const Shop = ({ isAdmin }) => {
 
          setCartItems(data.order);
       } catch (err) {
-         toast.error(err.response.data.message);
+         const toastId = 'unique-toast';
+
+         if (!toast.isActive(toastId)) {
+            toast.error(err.response.data.message, {
+               toastId: toastId,
+            });
+         }
       }
    };
 
