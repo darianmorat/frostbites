@@ -207,21 +207,30 @@ input {
    display: block;
    outline: none;
 }
-
 .input:focus {
    box-shadow: 0 0 5px #28282850;
 }
-
 .input-error {
    padding: 10px;
    border: 2px solid #e74c3c;
    border-radius: 4px;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+   transition:
+      background-color 600000s 0s,
+      color 600000s 0s;
+}
+input[data-autocompleted] {
+   background-color: transparent !important;
+}
+
 .form > .label-error {
    color: #e74c3c;
 }
-.form > .red-text { /*  fix this cause is label instead of the other */
+.form > .red-text {
+   /*  fix this cause is label instead of the other */
    color: #e74c3c;
 }
 
