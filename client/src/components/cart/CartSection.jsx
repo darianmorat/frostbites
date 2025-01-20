@@ -1,8 +1,34 @@
 /* eslint-disable react/prop-types */
 
+import { toast } from 'react-toastify';
+import api from '../../../api/axios';
 import select_product_img from '../../assets/images/svg/selection-product.svg';
 
 export const CartSection = ({ cartItems, totalPrice }) => {
+   const payment = async () => {
+      try {
+         const body = {
+            cartItems
+         };
+
+         const config = {
+            headers: {
+               token: localStorage.token,
+            },
+         };
+
+         const res = await api.post('/payment/check-session', body, config);
+         const data = res.data;
+
+         if (data.success === true) {
+            const url = data.url;
+            window.location.href = url;
+         }
+      } catch (err) {
+         toast.error(err.response.data.message);
+      }
+   };
+
    return (
       <div className="left-section">
          <h3>
@@ -27,9 +53,9 @@ export const CartSection = ({ cartItems, totalPrice }) => {
                      {cartItems.map((item, index) => (
                         <div className="cart-items" key={index}>
                            <p>
-                              x{item.quantity} {item.name}
+                              x{item.quantity} {item.product_name}
                            </p>
-                           <p>${item.price} USD</p>
+                           <p>${item.product_price} USD</p>
                         </div>
                      ))}
                      <hr />
@@ -37,7 +63,12 @@ export const CartSection = ({ cartItems, totalPrice }) => {
                         <p>TOTAL AMOUNT:</p>
                         <p>${totalPrice} USD</p>
                      </div>
-                     <button className="secondary-btn cart-buy-btn btn">BUY NOW</button>
+                     <button
+                        className="secondary-btn cart-buy-btn btn"
+                        onClick={() => payment()}
+                     >
+                        BUY NOW
+                     </button>
                   </>
                )}
             </div>

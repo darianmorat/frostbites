@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import './home.css';
-import about_img from '../../../assets/images/about-us.jpg';
+import about_img from '../../../assets/images/about-us.jpeg';
 import wave_svg from '../../../assets/images/svg/wave.svg';
 import circle_svg from '../../../assets/images/svg/circle.svg';
 import iceman_svg from '../../../assets/images/svg/iceman.svg';
@@ -37,7 +37,7 @@ export function Home() {
                      <h2 className="hero-title-small">A NEW WAY TO IMAGE</h2>
                      <h1 className="hero-title">ICE CREAM</h1>
                      <button
-                        className="btn primary-btn hero-btn"
+                        className="btn primary-btn"
                         onClick={() => navigate('/shop')}
                      >
                         BUY NOW
@@ -100,7 +100,7 @@ export function Home() {
                      excellence in every aspect of our craft.
                   </p>
                   <button
-                     className="btn primary-btn primary-btn-alt about-btn"
+                     className="btn primary-btn primary-btn-alt"
                      onClick={() => navigate('/about')}
                   >
                      READ MORE

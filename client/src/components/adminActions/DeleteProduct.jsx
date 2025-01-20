@@ -27,7 +27,6 @@ export const DeleteProduct = ({
             setProducts(products.filter((product) => product.product_id !== productId));
          }
       } catch (err) {
-         console.error(err);
          toast.error(err.response.data.message);
       }
    };

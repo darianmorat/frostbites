@@ -2,12 +2,12 @@
 
 import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from 'yup';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ShowPassword, BackBtn } from '../../../components';
 import api from '../../../../api/axios';
-import { ShowPassword } from '../../../components';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
 import '../../index.css';
@@ -17,6 +17,12 @@ export const Register = ({ setAuth }) => {
    const [showPassword, setShowPassword] = useState(false);
 
    const navigate = useNavigate();
+
+   const location = useLocation();
+   const toastId = 'unique-toast';
+   useEffect(() => {
+      toast.dismiss(toastId);
+   }, [location]);
 
    const formik = useFormik({
       initialValues: {
@@ -38,27 +44,34 @@ export const Register = ({ setAuth }) => {
 
             if (data.success) {
                navigate('/verify-email', { state: { email: values.email } });
-               toast.success(data.message);
+               toast.info(data.message);
             }
          } catch (err) {
             if (err.response) {
                toast.error(err.response.data.message);
 
+               if (err.response.data.message === 'User already exists') {
+                  toast.dismiss(toastId);
+               }
+               
                if (err.response.data.isVerified === false) {
-                  toast.warning(
-                     <>
-                        <span>
-                           Did not receive the email? <br />
-                           <a href="/resend-email">Click here to resend</a>
-                        </span>
-                     </>,
-                     {
-                        autoClose: false,
-                        closeOnClick: false,
-                        draggable: false,
-                        position: 'top-right',
-                     },
-                  );
+                  if (!toast.isActive(toastId)) {
+                     toast.warning(
+                        <>
+                           <span>
+                              Did not receive the email? <br />
+                              <a href="/resend-email">Click here to resend</a>
+                           </span>
+                        </>,
+                        {
+                           toastId: toastId,
+                           autoClose: false,
+                           closeOnClick: false,
+                           draggable: false,
+                           position: 'top-right',
+                        },
+                     );
+                  }
                }
             } else {
                toast.error('Server error. Please try again later.');
@@ -74,6 +87,8 @@ export const Register = ({ setAuth }) => {
       <div className="form-body">
          <img src={wave_svg} alt="" className="wave-left-svg" />
          <img src={wave_svg} alt="" className="wave-right-svg" />
+         <img src={wave_svg} alt="" className="wave-left-svg base" />
+         <img src={wave_svg} alt="" className="wave-right-svg base" />
 
          <motion.div
             initial={{ opacity: 0, y: -100 }}
@@ -83,6 +98,7 @@ export const Register = ({ setAuth }) => {
          >
             <div className="form-container">
                <div className="left-form">
+                  <BackBtn />
                   <h3 className="form-title">FEEL FREE TO JOIN FROST BITES!</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
@@ -179,11 +195,6 @@ export const Register = ({ setAuth }) => {
                </div>
             </div>
          </motion.div>
-
-         {/* SEND BACK TO WHERE THE USER WAS, NOT TO THE HOME */}
-         <button className="btn primary-btn back-btn" onClick={() => navigate('/')}>
-            ↩ Go back
-         </button>
       </div>
    );
 };

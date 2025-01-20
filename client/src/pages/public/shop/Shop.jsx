@@ -32,7 +32,6 @@ export const Shop = ({ isAdmin }) => {
 
          setProducts(data.products);
       } catch (err) {
-         console.error(err);
          toast.error(err.response.data.message);
       }
    };
@@ -45,77 +44,105 @@ export const Shop = ({ isAdmin }) => {
       setProducts((prevProducts) => [...prevProducts, newProduct]);
    };
 
-   // ADD PRODUCT TO CART
+   // CART ACTIONS
    const [cartItems, setCartItems] = useState([]);
 
-   const addToCart = (productName, productPrice) => {
-      setCartItems((prevCartItems) => {
-         const existingProduct = prevCartItems.find((item) => item.name === productName);
+   const getCartInfo = async () => {
+      const token = localStorage.getItem('token');
 
-         if (existingProduct) {
-            return prevCartItems.map((item) =>
-               item.name === productName
-                  ? { ...item, price: productPrice, quantity: item.quantity + 1 }
-                  : item,
-            );
-         } else {
-            return [
-               ...prevCartItems,
-               { name: productName, price: productPrice, quantity: 1 },
-            ];
-         }
-      });
+      if (!token) {
+         return;
+      }
+
+      try {
+         const config = {
+            headers: {
+               token: localStorage.token,
+            },
+         };
+
+         const res = await api.get('/cart', config);
+         const data = res.data;
+
+         setCartItems(data.order);
+      } catch (err) {
+         toast.error(err.response.data.message);
+      }
    };
 
-   const removeFromCart = (productName) => {
-      setCartItems((prevCartItems) => {
-         const existingProduct = prevCartItems.find((item) => item.name === productName);
+   useEffect(() => {
+      getCartInfo();
+   }, []);
 
-         if (existingProduct) {
-            return prevCartItems
-               .map((item) =>
-                  item.name === productName
-                     ? item.quantity > 1
-                        ? { ...item, quantity: item.quantity - 1 }
-                        : null
-                     : item,
-               )
-               .filter((item) => item !== null);
-         } else {
-            return [...prevCartItems];
-         }
-      });
+   const addToCart = async (productId) => {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+         toast.info('Login to save bonuses');
+         return;
+      }
+
+      try {
+         const body = { productId };
+
+         const config = {
+            headers: {
+               token: localStorage.token,
+            },
+         };
+
+         await api.post('/cart/add', body, config);
+         getCartInfo();
+      } catch (err) {
+         toast.error(err.response.data.message);
+      }
+   };
+
+   const removeFromCart = async (productId) => {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+         toast.info('Login to save bonuses');
+         return;
+      }
+
+      try {
+         const config = {
+            headers: {
+               token: localStorage.token,
+            },
+         };
+
+         await api.delete(`/cart/delete/${productId}`, config);
+         getCartInfo();
+      } catch (err) {
+         toast.error(err.response.data.message);
+      }
    };
 
    const totalPrice = cartItems
       .reduce((total, item) => {
-         return total + item.price * item.quantity;
+         return total + item.product_price * item.quantity;
       }, 0)
       .toFixed(2);
 
    // PRODUCT ACTIONS
-   const ProductActions = ({
-      productName,
-      productPrice,
-      cartItems,
-      addToCart,
-      removeFromCart,
-   }) => {
-      const cartItem = cartItems.find((item) => item.name === productName);
+   const ProductActions = ({ productId, cartItems, addToCart, removeFromCart }) => {
+      const cartItem = cartItems.find((item) => item.product_id === productId);
       const quantity = cartItem ? cartItem.quantity : 0;
 
       return (
          <div className="product-actions">
             <button
                className={cartItem ? 'btn add-btn' : 'btn add-btn no-items'}
-               onClick={() => addToCart(productName, productPrice)}
+               onClick={() => addToCart(productId)}
             >
                +
             </button>
             <p className="quantity">{quantity}</p>
             <button
                className={cartItem ? 'btn remove-btn' : 'btn remove-btn no-items'}
-               onClick={() => removeFromCart(productName)}
+               onClick={() => removeFromCart(productId)}
             >
                -
             </button>
@@ -124,7 +151,7 @@ export const Shop = ({ isAdmin }) => {
    };
 
    return (
-      <div className="shop-page">
+      <div className="shop">
          <motion.div
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
@@ -179,8 +206,7 @@ export const Shop = ({ isAdmin }) => {
 
                                     {!isAdmin && (
                                        <ProductActions
-                                          productName={product.product_name}
-                                          productPrice={product.product_price}
+                                          productId={product.product_id}
                                           cartItems={cartItems}
                                           addToCart={addToCart}
                                           removeFromCart={removeFromCart}

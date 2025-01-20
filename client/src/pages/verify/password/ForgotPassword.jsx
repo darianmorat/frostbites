@@ -2,14 +2,15 @@ import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import api from '../../../../api/axios';
 import { useState } from 'react';
+import { BackBtn } from '../../../components';
+import api from '../../../../api/axios';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
 
 export const ForgotPassword = () => {
    const [loading, setLoading] = useState(false);
+   const [confirmation, setConfirmation] = useState(false);
 
    const formik = useFormik({
       initialValues: {
@@ -26,10 +27,10 @@ export const ForgotPassword = () => {
             const data = res.data;
 
             if (data.success) {
-               toast.success(data.message);
+               toast.info(data.message);
+               setConfirmation(true);
             }
          } catch (err) {
-            console.log(err.response);
             if (err.response) {
                toast.error(err.response.data.message);
             }
@@ -39,12 +40,12 @@ export const ForgotPassword = () => {
       },
    });
 
-   const navigate = useNavigate();
-
    return (
       <div className="form-body">
          <img src={wave_svg} alt="" className="wave-left-svg" />
          <img src={wave_svg} alt="" className="wave-right-svg" />
+         <img src={wave_svg} alt="" className="wave-left-svg base" />
+         <img src={wave_svg} alt="" className="wave-right-svg base" />
 
          <motion.div
             initial={{ opacity: 0, y: -100 }}
@@ -54,6 +55,7 @@ export const ForgotPassword = () => {
          >
             <div className="form-container">
                <div className="left-form">
+                  <BackBtn />
                   <h3 className="form-title">EASY WAY TO RESET YOUR PASSWORD</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
@@ -67,40 +69,62 @@ export const ForgotPassword = () => {
 
                <div className="right-form">
                   <form onSubmit={formik.handleSubmit} className="form">
-                     <label
-                        htmlFor="email"
-                        className={`${formik.touched.email && formik.errors.email ? 'label-error' : ''}`}
-                     >
-                        {formik.touched.email && formik.errors.email
-                           ? formik.errors.email
-                           : 'Email:'}
-                     </label>
-                     <input
-                        type="email"
-                        className={`input ${formik.touched.email && formik.errors.email ? 'input-error' : ''}`}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        value={formik.values.email}
-                        name="email"
-                        id="email"
-                        autoComplete="email"
-                     />
-                     <button
-                        type="submit"
-                        className="btn secondary-btn btn-submit"
-                        disabled={loading || !formik.values.email}
-                     >
-                        {loading ? <>SENDING...</> : <>SEND EMAIL</>}
-                     </button>
+                     {!confirmation ? (
+                        <>
+                           {' '}
+                           <label
+                              htmlFor="email"
+                              className={`${formik.touched.email && formik.errors.email ? 'label-error' : ''}`}
+                           >
+                              {formik.touched.email && formik.errors.email
+                                 ? formik.errors.email
+                                 : 'Email:'}
+                           </label>
+                           <input
+                              type="email"
+                              className={`input ${formik.touched.email && formik.errors.email ? 'input-error' : ''}`}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={formik.values.email}
+                              name="email"
+                              id="email"
+                              autoComplete="email"
+                           />
+                           <button
+                              type="submit"
+                              className="btn secondary-btn btn-submit"
+                              disabled={loading || !formik.values.email}
+                           >
+                              {loading ? <>SENDING...</> : <>SEND EMAIL</>}
+                           </button>
+                        </>
+                     ) : (
+                        <>
+                           <p className="form-description">
+                              Check{' '}
+                              <span className="your-email">{formik.values.email}</span>{' '}
+                              for instructions to reset your password.
+                           </p>
+                           <button
+                              type="submit"
+                              className="btn secondary-btn btn-submit"
+                              disabled={loading || !formik.values.email}
+                           >
+                              {loading ? <>RESENDING...</> : <>RESEND EMAIL</>}
+                           </button>
+                           <button
+                              type="submit"
+                              className="btn secondary-btn-alt btn-submit"
+                              onClick={() => setConfirmation(false)}
+                           >
+                              CHANGE EMAIL
+                           </button>
+                        </>
+                     )}
                   </form>
                </div>
             </div>
          </motion.div>
-
-         {/* SEND BACK TO WHERE THE USER WAS, NOT TO THE HOME */}
-         <button className="btn primary-btn back-btn" onClick={() => navigate('/login')}>
-            ↩ Go back
-         </button>
       </div>
    );
 };

@@ -90,33 +90,38 @@ p {
 .primary-btn:hover {
    color: var(--red-color);
 }
-
 .primary-btn:hover::before {
    top: 0;
 }
-
 .primary-btn-alt {
    color: var(--red-color);
    border-bottom: solid 6px var(--red-color);
 }
-
 .primary-btn-alt::before {
    background-color: var(--red-color);
 }
-
 .primary-btn-alt:hover {
    color: var(--white-color);
 }
 
 .secondary-btn {
    background-color: var(--green-btn);
+   border: 2px solid #399123;
    color: var(--white-color);
    padding: 10px;
 }
-
 .secondary-btn:hover {
    background-color: var(--green-btn-hover);
    color: var(--white-color);
+}
+.secondary-btn-alt {
+   border: 2px solid var(--green-btn);
+   color: var(--green-btn);
+   padding: 10px;
+}
+.secondary-btn-alt:hover {
+   border: 2px solid #6cc75a;
+   color: #6cc75a;
 }
 
 .logout-btn {
@@ -124,7 +129,6 @@ p {
    padding: 10px;
    color: var(--white-color);
 }
-
 .logout-btn:hover {
    background-color: var(--red-btn-hover);
 }
@@ -141,8 +145,8 @@ p {
    opacity: 0.6;
    cursor: not-allowed;
    background-color: grey;
+   border: 2px solid grey;
 }
-
 .btn:disabled:hover {
    background-color: grey;
 }
@@ -153,19 +157,15 @@ p {
    height: 45px;
    color: var(--white-color);
 }
-
 .add-btn {
    background-color: var(--green-btn);
 }
-
 .add-btn:hover {
    background-color: var(--green-btn-hover);
 }
-
 .remove-btn {
    background-color: var(--red-btn);
 }
-
 .remove-btn:hover {
    background-color: var(--red-btn-hover);
 }
@@ -219,6 +219,9 @@ input {
 }
 
 .form > .label-error {
+   color: #e74c3c;
+}
+.form > .red-text { /*  fix this cause is label instead of the other */
    color: #e74c3c;
 }
 
@@ -290,4 +293,10 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-track {
    background-color: #424242;
+}
+
+/* notifications */
+.Toastify__toast {
+   padding-right: 50px;
+   margin: 5px;
 }

@@ -46,7 +46,7 @@ export const Profile = ({ setAuth }) => {
          setProfile(newProfile);
          setOriginalProfile(newProfile);
       } catch (err) {
-         console.error(err);
+         toast.error(err.response.data.message);
       }
    };
 
@@ -81,12 +81,10 @@ export const Profile = ({ setAuth }) => {
          if (data.success) {
             toast.success(data.message);
 
-            // Update original profile after a successful save
             setOriginalProfile(profile);
             setIsChanged(false);
          }
       } catch (err) {
-         console.error(err);
          toast.error(err.response.data.message);
       }
    };
@@ -102,6 +100,12 @@ export const Profile = ({ setAuth }) => {
    // ==============
    // DELETE PROFILE
    // ==============
+   const [deletePopup, setDeletePopup] = useState(false);
+
+   const closePopup = () => {
+      setDeletePopup(false);
+   };
+
    const deleteProfile = async (e) => {
       try {
          e.target.disabled = true;
@@ -123,8 +127,7 @@ export const Profile = ({ setAuth }) => {
             e.target.disabled = false;
          }
       } catch (err) {
-         console.error(err);
-         toast.error('Error deleting profile');
+         toast.error(err.response.data.message);
          e.target.disabled = false;
       }
    };
@@ -132,24 +135,24 @@ export const Profile = ({ setAuth }) => {
    // logout management
    const navigate = useNavigate();
 
-   const logout = async (e) => {
+   const logout = (e) => {
       e.preventDefault();
       try {
          localStorage.removeItem('token');
          localStorage.removeItem('admin');
          setAuth(false);
          toast.success('Logout successfully');
-         navigate('/'); // redirect to this route after logout
+         navigate('/');
       } catch (err) {
-         console.error(err);
+         console.log(err);
       }
    };
 
-   const logoutDeletedAccount = async () => {
+   const logoutDeletedAccount = () => {
       try {
          localStorage.removeItem('token');
          setAuth(false);
-         navigate('/'); // redirect to this route after logout
+         navigate('/');
       } catch (err) {
          console.error(err);
       }
@@ -167,7 +170,7 @@ export const Profile = ({ setAuth }) => {
 
    return (
       <>
-         <div className="profile-page">
+         <div className="profile">
             <div className="profile-banner"> </div>
             <div className="profile-container">
                <div className="profile-picture-container">
@@ -267,9 +270,36 @@ export const Profile = ({ setAuth }) => {
                         permanently from our databases:
                      </p>
                      <br />
-                     <button className="btn logout-btn" onClick={(e) => deleteProfile(e)}>
+                     <button
+                        className="btn logout-btn"
+                        onClick={() => setDeletePopup(true)}
+                     >
                         Delete account
                      </button>
+                  </div>
+               )}
+
+               {deletePopup && (
+                  <div className="popup" onClick={closePopup}>
+                     <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                        <p className="confirmation">
+                           Are you sure you want to proceed?
+                        </p>
+                        <button className="btn close-btn" onClick={closePopup}>
+                           &#10006;
+                        </button>
+                        <button
+                           className="btn secondary-btn"
+                           onClick={(e) => {
+                              deleteProfile(e);
+                           }}
+                        >
+                           Yes
+                        </button>
+                        <button className="btn logout-btn" onClick={closePopup}>
+                           No
+                        </button>
+                     </div>
                   </div>
                )}
             </div>

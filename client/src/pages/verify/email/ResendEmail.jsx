@@ -2,8 +2,9 @@ import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { motion } from 'motion/react';
-import api from '../../../../api/axios';
 import { useState } from 'react';
+import { BackBtn } from '../../../components';
+import api from '../../../../api/axios';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
 
@@ -25,7 +26,7 @@ export const ResendEmail = () => {
             const data = res.data;
 
             if (data.success) {
-               toast.success(data.message);
+               toast.info(data.message);
             }
          } catch (err) {
             if (err.response) {
@@ -43,6 +44,8 @@ export const ResendEmail = () => {
       <div className="form-body">
          <img src={wave_svg} alt="" className="wave-left-svg" />
          <img src={wave_svg} alt="" className="wave-right-svg" />
+         <img src={wave_svg} alt="" className="wave-left-svg base" />
+         <img src={wave_svg} alt="" className="wave-right-svg base" />
 
          <motion.div
             initial={{ opacity: 0, y: -100 }}
@@ -52,13 +55,15 @@ export const ResendEmail = () => {
          >
             <div className="form-container">
                <div className="left-form">
-                  <h3 className="form-title">FEEL FREE TO JOIN FROST BITES!</h3>
+                  <BackBtn/>
+                  <h3 className="form-title">DID NOT RECEIVE OUR EMAIL?</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
                      <div className="stick smaller-stick"></div>
                   </div>
                   <p className="form-description">
-                     Register and save amazing BONUSES for you and your family together!
+                     Do not worry, we will send you a sencond one to confirm your
+                     verification!
                   </p>
                </div>
 

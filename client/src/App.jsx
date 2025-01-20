@@ -25,7 +25,6 @@ import {
 
 import { Navbar, Footer, Location, Cart } from './components';
 
-import wave_svg from './assets/images/svg/wave.svg';
 import logo_slogan from './assets/images/logo/logoSlogan.svg';
 import './index.css';
 
@@ -75,7 +74,6 @@ function App() {
             setIsAuthenticated(false);
          }
       } catch (err) {
-         console.error(err);
          toast.error(err.response.data.message);
       }
    };
@@ -101,28 +99,28 @@ function App() {
 
    const location = useLocation();
 
+   const hiddentPaths = [
+      '/register',
+      '/login',
+      '/forgot-password',
+      '/resend-email',
+      '/verify-email',
+      '/success',
+      '/not-found',
+   ];
+   const dinamicPrefixes = ['/reset-password', '/send-email'];
    const hideComponents =
-      location.pathname === '/register' ||
-      location.pathname === '/login' ||
-      location.pathname === '/forgot-password' ||
-      location.pathname.startsWith('/reset-password/') ||
-      location.pathname.startsWith('/send-email/') ||
-      location.pathname === '/resend-email' ||
-      location.pathname === '/verify-email' ||
-      location.pathname === '/not-found';
+      hiddentPaths.includes(location.pathname) ||
+      dinamicPrefixes.some((prefix) => location.pathname.startsWith(prefix));
 
-   const hideLocation =
-      location.pathname === '/shop' ||
-      location.pathname === '/profile' ||
-      location.pathname === '/admin';
+   const hiddenLocation = ['/shop', '/profile', '/admin'];
+   const hideLocation = hiddenLocation.includes(location.pathname);
 
    return (
       <>
          {loading && (
             <div className="loader-container">
                <div className="loader-spinner">
-                  <img src={wave_svg} alt="" className="wave-right-svg" />
-                  <img src={wave_svg} alt="" className="wave-left-svg" />
                   <Bars
                      color="#ec4b72"
                      strokeWidth="5"
@@ -235,8 +233,8 @@ function App() {
 
          <ToastContainer
             theme="colored"
-            autoClose={3500}
-            position="bottom-center"
+            autoClose={4000}
+            position="bottom-left"
             transition={Bounce}
             pauseOnHover={false}
          />

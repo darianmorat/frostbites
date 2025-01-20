@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../../../api/axios';
 import './admin.css';
+import { toast } from 'react-toastify';
 
 export const Admin = () => {
    const [users, setUsers] = useState([]);
@@ -12,7 +13,7 @@ export const Admin = () => {
 
          setUsers(data.countUsers.count);
       } catch (err) {
-         console.error(err);
+         toast.info(err.response.data.message)
       }
    };
 
@@ -21,17 +22,35 @@ export const Admin = () => {
    }, []);
 
    return (
-      <div className="admin-page">
-         <h1>Admin page</h1>
+      <div className="admin">
+         <div className="admin-title">
+            <h2>Control panel</h2>
+            <h1>Dashboard</h1>
+         </div>
 
-         <h3>Website views</h3>
-         <p>0</p>
+         <div className="admin-stats-container">
+            <div className="admin-stats">
+               <p className="admin-stats-number">
+                  {users ? String(users).padStart(2, '0') : '00'}
+               </p>
+               <h3 className="admin-stats-description">Registered users</h3>
+            </div>
 
-         <h3>Users registered:</h3>
-         <p>{users}</p>
+            <div className="admin-stats">
+               <p className="admin-stats-number">--</p>
+               <h3 className="admin-stats-description">Total sales</h3>
+            </div>
 
-         <h3>Total sales:</h3>
-         <p>0</p>
+            <div className="admin-stats">
+               <p className="admin-stats-number">--</p>
+               <h3 className="admin-stats-description">Website views</h3>
+            </div>
+
+            <div className="admin-stats">
+               <p className="admin-stats-number">--</p>
+               <h3 className="admin-stats-description">Another value</h3>
+            </div>
+         </div>
       </div>
    );
 };

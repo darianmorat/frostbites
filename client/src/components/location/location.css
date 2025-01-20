@@ -24,6 +24,7 @@
    display: flex;
    gap: 40px;
    border-radius: 10px;
+   border: 2px solid #28282830;
 }
 
 .direction-title,
@@ -35,7 +36,7 @@
    border-radius: 10px;
    overflow: hidden;
    position: relative;
-   box-shadow: 0 0 0 1.8px #28282830;
+   border: 2px solid #28282830;
 }
 
 .map-container,

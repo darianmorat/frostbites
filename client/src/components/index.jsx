@@ -3,4 +3,5 @@ export { Footer } from './footer/Footer';
 export { Location } from './location/Location';
 export { Cart } from './cart/Cart';
 
-export { ShowPassword } from './showPassword/ShowPassword';
+export { ShowPassword } from './inputActions/ShowPassword';
+export { BackBtn } from './inputActions/BackBtn';

@@ -42,7 +42,6 @@ export const ResetPassword = () => {
                toast.success(data.message);
             }
          } catch (err) {
-            console.log(err.response);
             if (err.response) {
                toast.error(err.response.data.message);
             }
@@ -149,9 +148,6 @@ export const ResetPassword = () => {
                </div>
             </div>
          </motion.div>
-
-         {/* SEND BACK TO WHERE THE USER WAS, NOT TO THE HOME */}
-         {/* <button className='btn primary-btn back-btn' onClick={() => navigate('/login')}>↩ Go back</button> */}
       </div>
    );
 };

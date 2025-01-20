@@ -25,7 +25,6 @@ export const SendEmail = ({ setAuth }) => {
             toast.success('Registered Successfully');
          }
       } catch (err) {
-         console.log(err.response);
          if (err.response) {
             toast.error(err.response.data.message);
          } else {

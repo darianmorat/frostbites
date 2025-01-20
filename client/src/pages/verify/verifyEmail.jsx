@@ -13,6 +13,8 @@ export const VerifyEmail = () => {
       <div className="form-body">
          <img src={wave_svg} alt="" className="wave-left-svg" />
          <img src={wave_svg} alt="" className="wave-right-svg" />
+         <img src={wave_svg} alt="" className="wave-left-svg base" />
+         <img src={wave_svg} alt="" className="wave-right-svg base" />
 
          <motion.div
             initial={{ opacity: 0, y: -100 }}
@@ -47,7 +49,7 @@ export const VerifyEmail = () => {
                   <br />
                   <button
                      type="submit"
-                     className="btn secondary-btn btn-submit"
+                     className="btn secondary-btn-alt btn-submit"
                      onClick={() => navigate('/resend-email')}
                   >
                      RESEND EMAIL

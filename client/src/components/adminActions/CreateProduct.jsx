@@ -46,7 +46,6 @@ export const CreateProduct = ({ isAdmin, addProduct }) => {
                formik.resetForm();
             }
          } catch (err) {
-            console.log(err);
             toast.error(err.response.data.message);
          }
       },

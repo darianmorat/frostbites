@@ -1,5 +1,5 @@
-import who_we_are_img from '../../../assets/images/who-we-are.jpg';
-import our_team_img from '../../../assets/images/our-team.jpg';
+import who_we_are_img from '../../../assets/images/who-we-are.jpeg';
+import our_team_img from '../../../assets/images/our-team.jpeg';
 import './about.css';
 import { motion } from 'motion/react';
 
@@ -11,7 +11,7 @@ export function About() {
          exit={{ opacity: 0, x: 100 }}
          transition={{ duration: 0.7 }}
       >
-         <div className="about-page">
+         <div className="about">
             <section className="about-section-1">
                <div className="about-left">
                   <h2 className="about-title-small">KNOW MORE</h2>
