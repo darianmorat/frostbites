@@ -11,7 +11,6 @@ export const userInfo = async (req, res) => {
 
       res.json(user.rows[0]);
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
@@ -54,7 +53,6 @@ export const updateUserInfo = async (req, res) => {
 
       res.json({ success: true, message: 'Profile updated successfully' });
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
@@ -67,7 +65,6 @@ export const deleteUserInfo = async (req, res) => {
 
       res.json({ success: true, message: 'Profile deleted successfully' });
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };

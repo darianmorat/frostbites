@@ -11,7 +11,7 @@ export function jwtGenerator(user_id, isAdmin) {
       admin: isAdmin,
    };
 
-   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1hr' });
+   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
 
 export function jwtGeneratorVerify(user_id, isAdmin) {

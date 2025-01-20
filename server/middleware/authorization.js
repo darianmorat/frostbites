@@ -20,7 +20,12 @@ export default async (req, res, next) => {
 
       next();
    } catch (err) {
-      console.error(err.message);
+      if (err.name === 'TokenExpiredError') {
+         return res.status(403).json({
+            success: false,
+            message: 'Your session has expired. Please log in again.',
+         });
+      }
       res.status(403).json({ success: false, message: 'Not authorized' });
    }
 };

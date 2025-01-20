@@ -7,7 +7,6 @@ export const adminPanel = async (req, res) => {
 
       res.json({ success: true, countUsers });
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };

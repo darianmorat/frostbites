@@ -2,10 +2,7 @@ import pool from '../db/pool.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
 import { jwtGenerator, jwtGeneratorVerify } from '../utils/jwtGenerator.js';
-
-dotenv.config();
 
 export const forgotPassword = async (req, res) => {
    try {
@@ -57,7 +54,7 @@ export const forgotPassword = async (req, res) => {
          if (err) {
             return res.status(500).json({ success: false, message: err.message });
          }
-         res.status(200).json({ success: true, message: 'Email sent', token: token });
+         res.status(200).json({ success: true, message: 'Email sent, please check your inbox', token: token });
       });
    } catch (err) {
       res.status(500).json({ message: err.message });
@@ -69,7 +66,7 @@ export const resetPassword = async (req, res) => {
       const decodedToken = jwt.verify(req.params.token, process.env.JWT_SECRET);
 
       const result = await pool.query('SELECT * FROM users WHERE user_id = $1', [
-         decodedToken.userId,
+         decodedToken.user,
       ]);
       const user = result.rows[0];
 
@@ -92,7 +89,6 @@ export const resetPassword = async (req, res) => {
             .json({ success: false, message: 'Link has already expired' });
       }
 
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
@@ -169,7 +165,6 @@ export const sendEmail = async (req, res) => {
             .json({ success: false, message: 'Link has already expired' });
       }
 
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };

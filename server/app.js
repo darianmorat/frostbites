@@ -8,7 +8,8 @@ import verifyRoute from './routes/verify.route.js';
 import userRoute from './routes/user.route.js';
 import adminRoute from './routes/admin.route.js';
 import productRoute from './routes/product.route.js';
-// import paymentRoute from './routes/payment.route.js';
+import cartRoute from './routes/cart.route.js';
+import paymentRoute from './routes/payment.route.js';
 
 const app = express();
 dotenv.config();
@@ -21,7 +22,8 @@ app.use('/verify', verifyRoute);
 app.use('/user', userRoute);
 app.use('/admin', adminRoute);
 app.use('/product', productRoute);
-// app.use('/payment', paymentRoute);
+app.use('/cart', cartRoute);
+app.use('/payment', paymentRoute);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

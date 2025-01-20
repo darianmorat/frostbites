@@ -1,10 +1,7 @@
 import pool from '../db/pool.js';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
 import { jwtGenerator, jwtGeneratorVerify } from '../utils/jwtGenerator.js';
-
-dotenv.config();
 
 export const registerUser = async (req, res) => {
    try {
@@ -117,7 +114,6 @@ export const registerUser = async (req, res) => {
          });
       });
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
@@ -147,7 +143,7 @@ export const loginUser = async (req, res) => {
                success: false,
                isVerified: false,
                message:
-                  'Your email is not verified. Please check your inbox before logging in',
+                     'Your email is not verified. Please check your inbox before logging in',
             });
       }
 
@@ -162,7 +158,6 @@ export const loginUser = async (req, res) => {
       const token = jwtGenerator(user.rows[0].user_id, isAdmin);
       res.status(200).json({ success: true, token });
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
@@ -175,7 +170,6 @@ export const verifyUser = async (req, res) => {
          res.status(200).json({ success: true, isAdmin });
       }
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };

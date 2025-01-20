@@ -1,7 +1,3 @@
--- ============
--- CMD CREATION
--- ============
-
 CREATE DATABASE frostbites;
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -32,26 +28,13 @@ CREATE TABLE products (
    product_name VARCHAR(100) NOT NULL,
    product_price DECIMAL(10, 2) NOT NULL
 );
- 
--- ============
--- DATA EXAMPLE
--- ============
- 
--- INSERT INTO users (user_name, user_email, user_password)
--- VALUES 
---    ('Alice', 'alice21@example.com', 'securepassword1');
---
--- INSERT INTO roles (role_name) 
--- VALUES 
---    ('admin'), 
---    ('user');
---
--- INSERT INTO user_roles (user_id, role_id)
--- VALUES
---    ((SELECT user_id FROM users WHERE user_name = 'Alice'), (SELECT role_id FROM roles WHERE role_name = 'admin')),
---    ((SELECT user_id FROM users WHERE user_name = 'Alice'), (SELECT role_id FROM roles WHERE role_name = 'user'));
---
--- INSERT INTO products (product_img, product_name, product_price)
--- VALUES
---    ('https://picsum.photos/200/200', 'strawberry', '15.99'),
---    ('https://picsum.photos/200/200', 'chocolate', '12.99');
+
+CREATE TABLE orders (
+   order_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+   user_id uuid REFERENCES users(user_id) ON DELETE CASCADE,
+   product_id uuid REFERENCES products(product_id) ON DELETE CASCADE,   
+   product_name VARCHAR(100),
+   product_price DECIMAL(10, 2),
+   quantity INT,
+   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

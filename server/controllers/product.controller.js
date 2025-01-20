@@ -7,7 +7,6 @@ export const getProducts = async (req, res) => {
 
       res.status(200).json({ success: true, products });
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
@@ -16,6 +15,8 @@ export const updateProduct = async (req, res) => {
    try {
       const { imageUrl, name, price } = req.body;
       const { id } = req.params;
+
+      await pool.query('DELETE FROM orders WHERE product_id = $1', [id])
 
       const result = await pool.query(
          'UPDATE products SET product_img = $1, product_name = $2, product_price = $3 WHERE product_id = $4 RETURNING product_img, product_name, product_price',
@@ -30,7 +31,6 @@ export const updateProduct = async (req, res) => {
          updatedProduct,
       });
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
@@ -52,7 +52,6 @@ export const createProduct = async (req, res) => {
          product,
       });
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
@@ -65,7 +64,6 @@ export const deleteProduct = async (req, res) => {
 
       res.status(200).json({ success: true, message: 'Product deleted successfully' });
    } catch (err) {
-      console.error(err.message);
       res.status(500).json({ success: false, message: 'Server error' });
    }
 };
