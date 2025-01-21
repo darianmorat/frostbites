@@ -36,6 +36,7 @@ export const Register = ({ setAuth }) => {
          password: Yup.string().min(8, 'Password must be at least 8 chars'),
       }),
       onSubmit: async (values) => {
+         values.email = values.email.toLowerCase()
          setLoading(true);
 
          try {

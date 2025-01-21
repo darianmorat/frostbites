@@ -23,14 +23,14 @@ export const Footer = () => {
                      Get to know our team
                   </Link>
                   <br />
-                  <Link to="/contact" onClick={scrollToTop}>
-                     Send us a message
+                  <Link to="/shop" onClick={scrollToTop}>
+                     Browse our products
                   </Link>
                   <br />
                </div>
                <div className="contact-links">
                   <h3>Contact</h3>
-                  <Link to="mailto:frostbites@gmail.com">frostbites@gmail.com</Link>
+                  <Link to="mailto:frostbites@gmail.com">Email frost support</Link>
                   <br />
                   <a
                      href="https://web.whatsapp.com/send?phone=3205000000&text=Hello%2C%20I%20am%20interested%20in%20your%20services%21"

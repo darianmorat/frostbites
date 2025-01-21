@@ -27,11 +27,34 @@
    display: flex;
    list-style: none;
    align-items: center;
-   gap: 50px;
+   gap: 45px;
 }
 
 .logo {
    width: 200px;
+}
+
+.navbar-left > li > a {
+   padding: 5px;
+}
+
+.active > a {
+   padding: 5px;
+   color: var(--red-color);
+   position: relative;
+   display: flex;
+   justify-content: center;
+}
+
+.active > a::after {
+   content: "";
+   display: block;
+   width: 30%;
+   height: 3px;
+   background-color: var(--red-color);
+   position: absolute;
+   bottom: 0;
+   transition: 1s;
 }
 
 .dropmenu-btn {
@@ -43,28 +66,94 @@
    color: var(--red-color);
 }
 
+.navbar-right{
+   position: relative;
+}
 .dropdown-menu {
    background-color: white;
-   box-shadow: 0 0 5px 3px #11111120;
+   box-shadow: 0 0 2px 2px #28282820;
    position: absolute;
-   top: 60px;
+   top: 100%;
+   right: 0;
    border-radius: 5px;
-   display: flex;
-   flex-direction: column;
 }
+.dropdown-menu::after {
+   content: "";
+   height: 19px;
+   width: 19px;
+   position: absolute;
+   box-shadow: 0 0 2px 2px #28282825;
+   top: -8px;
+   transform: rotate(45deg);
+   z-index: -1;
+   right: 43%;
+}
+.dropdown-menu::before {
+   content: "";
+   display: block;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+   border-bottom: 15px solid white;
+   position: absolute;
+   top: -12px;
+   right: 40%;
+}
+
 .dropdown-menu > li {
    list-style: none;
 }
 .dropdown-menu > li > a {
    display: block;
-   padding: 10px;
+   padding: 13px 70px 13px 20px;
    color: black;
    font-weight: normal;
+   transition: 0.1s;
+}
+.dropdown-menu > hr {
+   width: 80%;
+   margin: 0 auto;
+   border-radius: 80%;
 }
 
 .dropdown-menu > li > a:hover {
-   background-color: #cccccc;
+   transform: scale(1.07);
+   background-color: #e6e6e6;
+   border-radius: 5px;
+   box-shadow: 0 0 2px 2px #28282830;
 }
 .dropdown-menu > li > .nav-logout-btn {
    color: red;
+}
+
+#admin-icon,
+#user-icon,
+#cart-icon {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: white;
+   transform: scale(1.2);
+}
+
+#admin-icon:hover,
+#user-icon:hover,
+#cart-icon:hover {
+   color: var(--red-color);
+   cursor: pointer;
+}
+
+.cart-count{
+   background-color: #d41442;
+   border-radius: 50%;
+   width: 15px;
+   height: 15px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: white;
+   font-size: 12px;
+   position: absolute;
+   font-family: consolas;
+   top: -8px;
+   left: -5px;
 }

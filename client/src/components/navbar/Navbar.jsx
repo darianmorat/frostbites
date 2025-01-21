@@ -1,11 +1,16 @@
 /* eslint-disable react/prop-types */
 import { Link, useNavigate } from 'react-router-dom';
-import './navbar.css';
-import logo from '../../assets/images/logo/logo.svg';
 import { toast } from 'react-toastify';
 import { useRef, useState } from 'react';
+import { useCartStore } from '../../stores/useCartStore';
+import 'boxicons';
+
+import logo from '../../assets/images/logo/logo.svg';
+import './navbar.css';
 
 export const Navbar = ({ isAuthenticated, setAuth, isAdmin, setAdmin }) => {
+   const { cartCount } = useCartStore();
+
    const scrollToTop = () => {
       window.scrollTo(0, 0);
    };
@@ -26,6 +31,15 @@ export const Navbar = ({ isAuthenticated, setAuth, isAdmin, setAdmin }) => {
 
    document.addEventListener('click', closeOpenMenus);
 
+   // document.querySelectorAll('.navbar-left > li').forEach((li) => {
+   //    li.addEventListener('click', function () {
+   //       document.querySelectorAll('.navbar-left > li').forEach((item) => {
+   //          item.classList.remove('active');
+   //       });
+   //       this.classList.add('active');
+   //    });
+   // });
+
    // LOGOUT
    const navigate = useNavigate();
 
@@ -37,27 +51,29 @@ export const Navbar = ({ isAuthenticated, setAuth, isAdmin, setAdmin }) => {
          setAuth(false);
          setAdmin(false);
          toast.success('Logout successfully');
-         navigate('/'); // REDIRECT TO THIS ROUTE AFTER LOGOUT
+         navigate('/'); 
       } catch (err) {
          console.error(err);
       }
    };
 
+   const url = window.location.href.split('/').pop()
+
    const RenderNavLinks = () => (
       <>
-         <li>
+         <li className={url === '' ? 'active' : ''}>
             <Link to="/" onClick={scrollToTop}>
-               HOME
+               HOMEPAGE
             </Link>
          </li>
-         <li>
+         <li className={url === 'about' ? 'active' : ''}>
             <Link to="/about" onClick={scrollToTop}>
                ABOUT US
             </Link>
          </li>
-         <li>
-            <Link to="/contact" onClick={scrollToTop}>
-               CONTACT
+         <li className={url === 'shop' ? 'active' : ''}>
+            <Link to="/shop" onClick={scrollToTop}>
+               SHOPPING
             </Link>
          </li>
       </>
@@ -66,31 +82,63 @@ export const Navbar = ({ isAuthenticated, setAuth, isAdmin, setAdmin }) => {
    const AuthenticatedNav = () => (
       <>
          <div className="navbar-right">
-            {isAdmin && (
-               <li>
-                  <Link to="/admin">ADMIN</Link>
-               </li>
+            {isAdmin ? (
+               <>
+                  <i
+                     className="bx bx-shield bx-sm"
+                     id="admin-icon"
+                     onClick={() => navigate('/admin')}
+                  ></i>
+                  <i
+                     className="bx bx-user bx-sm"
+                     id="user-icon"
+                     onClick={toggleDropMenu}
+                  ></i>
+               </>
+            ) : (
+               <>
+                  <i
+                     className="bx bx-user bx-sm"
+                     id="user-icon"
+                     onClick={toggleDropMenu}
+                  ></i>
+                  <i
+                     className="bx bx-cart-alt bx-sm"
+                     id="cart-icon"
+                     onClick={() => navigate('/shop')}
+                  >
+                     {cartCount === 0 ? (
+                        <></>
+                     ) : (
+                        <span className="cart-count">{cartCount}</span>
+                     )}
+                  </i>
+               </>
             )}
 
-            <div>
-               <button className="dropmenu-btn btn" onClick={toggleDropMenu}>
-                  MENU
-               </button>
-               {dropMenu && (
-                  <ul className="dropdown-menu" ref={menuRef}>
-                     <li>
-                        <Link to="/profile" onClick={() => setDropMenu(false)}>
-                           PROFILE
-                        </Link>
-                     </li>
-                     <li>
-                        <Link className="nav-logout-btn" onClick={logout}>
-                           LOGOUT
-                        </Link>
-                     </li>
-                  </ul>
-               )}
-            </div>
+            {dropMenu && (
+               <ul className="dropdown-menu" ref={menuRef}>
+                  <li>
+                     <Link to="/profile" onClick={() => setDropMenu(false)}>
+                        PROFILE
+                     </Link>
+                  </li>
+                  <hr />
+                  <li>
+                     <Link to="#">SETTINGS</Link>
+                  </li>
+                  <hr />
+                  <li>
+                     <Link to="#">SECURITY</Link>
+                  </li>
+                  <hr />
+                  <li>
+                     <Link className="nav-logout-btn" onClick={logout}>
+                        LOG OUT
+                     </Link>
+                  </li>
+               </ul>
+            )}
          </div>
       </>
    );
@@ -101,9 +149,11 @@ export const Navbar = ({ isAuthenticated, setAuth, isAdmin, setAdmin }) => {
             <li>
                <Link to="/login">LOGIN</Link>
             </li>
-            <li>
-               <Link to="/register">REGISTER</Link>
-            </li>
+            <i
+               className="bx bx-cart-alt bx-sm"
+               id="cart-icon"
+               onClick={() => navigate('/shop')}
+            ></i>
          </div>
       </>
    );

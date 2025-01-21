@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { toast } from 'react-toastify';
 import api from '../../../../api/axios';
+import { useCartStore } from '../../../stores/useCartStore';
 
 // Move components to index.jsx
 import { CreateProduct } from '../../../components/adminActions/CreateProduct';
@@ -44,97 +45,16 @@ export const Shop = ({ isAdmin }) => {
       setProducts((prevProducts) => [...prevProducts, newProduct]);
    };
 
-   // CART ACTIONS
-   const [cartItems, setCartItems] = useState([]);
-
-   const getCartInfo = async () => {
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-         return;
-      }
-
-      try {
-         const config = {
-            headers: {
-               token: localStorage.token,
-            },
-         };
-
-         const res = await api.get('/cart', config);
-         const data = res.data;
-
-         setCartItems(data.order);
-      } catch (err) {
-         const toastId = 'unique-toast';
-
-         if (!toast.isActive(toastId)) {
-            toast.error(err.response.data.message, {
-               toastId: toastId,
-            });
-         }
-      }
-   };
+   // CART DATA
+   const { cart, fetchCart, addToCart, removeFromCart, total } = useCartStore();
 
    useEffect(() => {
-      getCartInfo();
-   }, []);
-
-   const addToCart = async (productId) => {
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-         toast.info('Login to save bonuses');
-         return;
-      }
-
-      try {
-         const body = { productId };
-
-         const config = {
-            headers: {
-               token: localStorage.token,
-            },
-         };
-
-         await api.post('/cart/add', body, config);
-         getCartInfo();
-      } catch (err) {
-         toast.error(err.response.data.message);
-      }
-   };
-
-   const removeFromCart = async (productId) => {
-      const token = localStorage.getItem('token');
-
-      if (!token) {
-         toast.info('Login to save bonuses');
-         return;
-      }
-
-      try {
-         const config = {
-            headers: {
-               token: localStorage.token,
-            },
-         };
-
-         await api.delete(`/cart/delete/${productId}`, config);
-         getCartInfo();
-      } catch (err) {
-         toast.error(err.response.data.message);
-      }
-   };
-
-   const totalPrice = cartItems
-      .reduce((total, item) => {
-         return total + item.product_price * item.quantity;
-      }, 0)
-      .toFixed(2);
+      fetchCart()
+   }, [fetchCart]);
 
    // PRODUCT ACTIONS
-   const ProductActions = ({ productId, cartItems, addToCart, removeFromCart }) => {
-      const cartItem = cartItems.find((item) => item.product_id === productId);
+   const ProductActions = ({ productId, cart }) => {
+      const cartItem = cart.find((item) => item.product_id === productId);
       const quantity = cartItem ? cartItem.quantity : 0;
 
       return (
@@ -213,8 +133,7 @@ export const Shop = ({ isAdmin }) => {
                                     {!isAdmin && (
                                        <ProductActions
                                           productId={product.product_id}
-                                          cartItems={cartItems}
-                                          addToCart={addToCart}
+                                          cart={cart}
                                           removeFromCart={removeFromCart}
                                        />
                                     )}
@@ -278,7 +197,7 @@ export const Shop = ({ isAdmin }) => {
                   )}
                </div>
 
-               {!isAdmin && <CartSection cartItems={cartItems} totalPrice={totalPrice} />}
+               {!isAdmin && <CartSection cart={cart} total={total} />}
             </div>
          </motion.div>
       </div>

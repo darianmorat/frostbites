@@ -1,5 +1,4 @@
 export { Home } from './public/home/Home';
-export { Contact } from './public/contact/Contact';
 export { About } from './public/about/About';
 export { Shop } from './public/shop/Shop';
 export { PageNotFound } from './public/missing/PageNotFound';

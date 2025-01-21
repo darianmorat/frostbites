@@ -31,6 +31,7 @@ export const Admin = () => {
          <div className="admin-stats-container">
             <div className="admin-stats">
                <p className="admin-stats-number">
+                  {/* should exclude admins registrations */}
                   {users ? String(users).padStart(2, '0') : '00'}
                </p>
                <h3 className="admin-stats-description">Registered users</h3>

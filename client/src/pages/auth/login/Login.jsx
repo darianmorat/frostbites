@@ -27,6 +27,8 @@ export const Login = ({ setAuth }) => {
          email: Yup.string().email('Invalid email address'),
       }),
       onSubmit: async (values) => {
+         values.email = values.email.toLowerCase()
+
          try {
             const res = await api.post('/auth/login', values);
             const data = res.data;

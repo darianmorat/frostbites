@@ -5,14 +5,14 @@ import api from '../../../api/axios';
 import select_product_img from '../../assets/images/svg/selection-product.svg';
 import { useState } from 'react';
 
-export const CartSection = ({ cartItems, totalPrice }) => {
+export const CartSection = ({ cart, total }) => {
    const [loading, setLoading] = useState(false);
 
    const handlePayment = async () => {
       setLoading(true);
       try {
          const body = {
-            cartItems,
+            cart,
          };
 
          const config = {
@@ -44,7 +44,7 @@ export const CartSection = ({ cartItems, totalPrice }) => {
          <div className="purchase-container">
             <h3 className="purchase-title">PURCHASE DETAILS</h3>
             <div className="cart-list">
-               {cartItems.length === 0 ? (
+               {cart.length === 0 ? (
                   <>
                      <p>It looks like there&apos;s nothing here, get some!</p>
                      <button className="secondary-btn cart-buy-btn btn" disabled>
@@ -53,7 +53,7 @@ export const CartSection = ({ cartItems, totalPrice }) => {
                   </>
                ) : (
                   <>
-                     {cartItems.map((item, index) => (
+                     {cart.map((item, index) => (
                         <div className="cart-items" key={index}>
                            <p>
                               x{item.quantity} {item.product_name}
@@ -64,7 +64,7 @@ export const CartSection = ({ cartItems, totalPrice }) => {
                      <hr />
                      <div className="purchase-total">
                         <p>TOTAL AMOUNT:</p>
-                        <p>${totalPrice} USD</p>
+                        <p>${total} USD</p>
                      </div>
                      <button
                         className="secondary-btn cart-buy-btn btn"
