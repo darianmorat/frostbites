@@ -53,7 +53,7 @@ p {
 
 .img {
    background-size: contain;
-   border-radius: 10px;
+   border-radius: 5px;
 }
 
 /* buttons */
@@ -213,7 +213,6 @@ input {
 .input-error {
    padding: 10px;
    border: 2px solid #e74c3c;
-   border-radius: 4px;
 }
 
 input:-webkit-autofill,
