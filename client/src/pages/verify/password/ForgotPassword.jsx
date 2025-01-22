@@ -3,8 +3,9 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { BackBtn } from '../../../components';
 import api from '../../../../api/axios';
+
+import { BackBtn } from '../../../components/inputActions/BackBtn';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
 

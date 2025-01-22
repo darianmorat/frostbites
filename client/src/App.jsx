@@ -4,26 +4,28 @@ import { Bounce, toast, ToastContainer } from 'react-toastify';
 import { Bars } from 'react-loader-spinner';
 import api from '../api/axios';
 
+import { Login } from './pages/auth/login/Login';
+import { Register } from './pages/auth/register/Register';
+import { Home } from './pages/public/home/Home';
+import { About } from './pages/public/about/About';
+import { Shop } from './pages/public/shop/Shop';
+import { Profile } from './pages/auth/profile/Profile';
+import { Admin } from './pages/admin/Admin';
+import { ForgotPassword } from './pages/verify/password/ForgotPassword';
+import { ResetPassword } from './pages/verify/password/ResetPassword';
+import { SendEmail } from './pages/verify/email/SendEmail';
+import { ResendEmail } from './pages/verify/email/ResendEmail';
+import { VerifyEmail } from './pages/verify/verifyEmail';
 import { Success } from './pages/public/payment/Success';
 import { Canceled } from './pages/public/payment/Canceled';
-import {
-   Home,
-   About,
-   Contact,
-   Shop,
-   Register,
-   Login,
-   Profile,
-   Admin,
-   ForgotPassword,
-   ResetPassword,
-   SendEmail,
-   ResendEmail,
-   VerifyEmail,
-   PageNotFound,
-} from './pages';
+import { PageNotFound } from './pages/public/missing/PageNotFound';
 
-import { Navbar, Footer, Location, Cart } from './components';
+import { Navbar } from './components/navbar/Navbar';
+import { Footer } from './components/footer/Footer';
+import { Location } from './components/location/Location';
+import { Cart } from './components/cart/Cart';
+
+import { useCartStore } from './stores/useCartStore';
 
 import logo_slogan from './assets/images/logo/logoSlogan.svg';
 import './index.css';
@@ -43,12 +45,15 @@ function App() {
    const [isAdmin, setIsAdmin] = useState(false);
    const [loading, setLoading] = useState(true);
 
+   const { fetchCart } = useCartStore();
+
    const checkAuthentication = async () => {
       const token = localStorage.getItem('token');
 
       if (!token) {
          setIsAuthenticated(false);
          setIsAdmin(false);
+         useCartStore.setState({ cart: [], cartCount: 0, total: 0 });
          return;
       }
 
@@ -80,6 +85,7 @@ function App() {
 
    useEffect(() => {
       checkAuthentication();
+      fetchCart();
    }, [isAuthenticated, isAdmin]);
 
    useEffect(() => {
@@ -148,7 +154,6 @@ function App() {
                <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/contact" element={<Contact />} />
                   <Route path="/shop" element={<Shop isAdmin={isAdmin} />} />
                   <Route path="/not-found" element={<PageNotFound />} />
 

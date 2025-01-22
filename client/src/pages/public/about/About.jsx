@@ -3,7 +3,7 @@ import our_team_img from '../../../assets/images/our-team.jpeg';
 import './about.css';
 import { motion } from 'motion/react';
 
-export function About() {
+export const About = () => {
    return (
       <motion.div
          initial={{ opacity: 0, x: -100 }}

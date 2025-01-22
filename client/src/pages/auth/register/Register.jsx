@@ -6,8 +6,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { ShowPassword, BackBtn } from '../../../components';
 import api from '../../../../api/axios';
+
+import { ShowPassword } from '../../../components/inputActions/ShowPassword';
+import { BackBtn } from '../../../components/inputActions/BackBtn';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
 import '../../index.css';
@@ -36,7 +38,7 @@ export const Register = ({ setAuth }) => {
          password: Yup.string().min(8, 'Password must be at least 8 chars'),
       }),
       onSubmit: async (values) => {
-         values.email = values.email.toLowerCase()
+         values.email = values.email.toLowerCase();
          setLoading(true);
 
          try {
@@ -54,7 +56,7 @@ export const Register = ({ setAuth }) => {
                if (err.response.data.message === 'User already exists') {
                   toast.dismiss(toastId);
                }
-               
+
                if (err.response.data.isVerified === false) {
                   if (!toast.isActive(toastId)) {
                      toast.warning(

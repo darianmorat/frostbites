@@ -20,7 +20,7 @@ import image9 from '../../../assets/images/gallery/g9.jpg';
 
 import { motion } from 'motion/react';
 
-export function Home() {
+export const Home = () => {
    const navigate = useNavigate();
 
    return (
@@ -127,17 +127,17 @@ export function Home() {
          <section className="section-3">
             <div className="gallery">
                {/* CHANGE WITH THE REAL IMAGES */}
-               <img src={image1} alt="" className="gallery-img img-1" />
-               <img src={image3} alt="" className="gallery-img img-2" />
-               <img src={image2} alt="" className="gallery-img img-3" />
+               <img src={image1} alt="" className="img gallery-img img-1" />
+               <img src={image3} alt="" className="img gallery-img img-2" />
+               <img src={image2} alt="" className="img gallery-img img-3" />
 
-               <img src={image4} alt="" className="gallery-img img-4" />
-               <img src={image5} alt="" className="gallery-img img-5" />
-               <img src={image6} alt="" className="gallery-img img-6" />
+               <img src={image4} alt="" className="img gallery-img img-4" />
+               <img src={image5} alt="" className="img gallery-img img-5" />
+               <img src={image6} alt="" className="img gallery-img img-6" />
 
-               <img src={image7} alt="" className="gallery-img img-7" />
-               <img src={image8} alt="" className="gallery-img img-8" />
-               <img src={image9} alt="" className="gallery-img img-9" />
+               <img src={image7} alt="" className="img gallery-img img-7" />
+               <img src={image8} alt="" className="img gallery-img img-8" />
+               <img src={image9} alt="" className="img gallery-img img-9" />
             </div>
 
             <div className="gallery-svg-container">

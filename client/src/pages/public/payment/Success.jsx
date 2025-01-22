@@ -4,7 +4,7 @@ import success_payment from '../../../assets/images/svg/success_payment.svg'
 import wave_svg from '../../../assets/images/svg/wave.svg';
 import './success.css'
 
-export function Success() {
+export const Success = () => {
    return (
       <div className='success'>
          <img src={success_payment} alt="" className="success-payment-svg" />

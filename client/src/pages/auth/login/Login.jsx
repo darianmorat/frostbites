@@ -7,7 +7,9 @@ import { toast } from 'react-toastify';
 import { motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import api from '../../../../api/axios';
-import { ShowPassword, BackBtn } from '../../../components';
+
+import { ShowPassword } from '../../../components/inputActions/ShowPassword';
+import { BackBtn } from '../../../components/inputActions/BackBtn';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
 
@@ -27,7 +29,7 @@ export const Login = ({ setAuth }) => {
          email: Yup.string().email('Invalid email address'),
       }),
       onSubmit: async (values) => {
-         values.email = values.email.toLowerCase()
+         values.email = values.email.toLowerCase();
 
          try {
             const res = await api.post('/auth/login', values);

@@ -1,13 +1,14 @@
 import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from 'yup';
-import api from '../../../../api/axios.jsx';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
-import { ShowPassword } from '../../../components';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import api from '../../../../api/axios.jsx';
+
+import { ShowPassword } from '../../../components/inputActions/ShowPassword';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
-import { useNavigate } from 'react-router-dom';
 
 export const ResetPassword = () => {
    const [loading, setLoading] = useState(false);

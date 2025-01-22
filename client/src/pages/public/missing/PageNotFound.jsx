@@ -4,7 +4,7 @@ import page_not_found from '../../../assets/images/svg/page-not-found.svg';
 import wave_svg from '../../../assets/images/svg/wave.svg';
 import './PageNotFound.css';
 
-export function PageNotFound() {
+export const PageNotFound = () => {
    return (
       <div className="page-not-found">
          <img src={page_not_found} alt="" className="page-not-found-img" />
