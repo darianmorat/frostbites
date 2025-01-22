@@ -2,10 +2,17 @@ import pool from '../db/pool.js';
 
 export const getOrder = async (req, res) => {
    try {
-      const { userId } = req.user
+      const { userId } = req.user;
 
-      const result = await pool.query('SELECT * FROM orders WHERE user_id = $1', [ userId]);
+      const result = await pool.query('SELECT * FROM orders WHERE user_id = $1', [
+         userId,
+      ]);
       const order = result.rows;
+
+      await pool.query('UPDATE users SET cart_items = $1 WHERE user_id = $2', [
+         order.length,
+         userId,
+      ]);
 
       res.status(200).json({ success: true, order });
    } catch (err) {
@@ -88,10 +95,6 @@ export const deleteFromCart = async (req, res) => {
          return res
             .status(200)
             .json({ sucess: true, message: 'Product - quantity updated in cart' });
-      } else {
-         return res
-            .status(404)
-            .json({ success: false, message: 'Product not found in cart' });
       }
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });
