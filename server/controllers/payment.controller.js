@@ -9,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const handlePayment = async (req, res) => {
    try {
-      const { cartItems } = req.body;
+      const { cart } = req.body;
       const { userId } = req.user;
 
       const response = await pool.query(
@@ -18,7 +18,7 @@ export const handlePayment = async (req, res) => {
       );
       const email = response.rows[0].user_email;
 
-      const lineItems = cartItems.map((item) => ({
+      const lineItems = cart.map((item) => ({
          price_data: {
             currency: 'usd',
             product_data: {
