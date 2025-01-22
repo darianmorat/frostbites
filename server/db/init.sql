@@ -8,7 +8,8 @@ CREATE TABLE users (
    user_email VARCHAR(255) NOT NULL,
    user_password VARCHAR(255) NOT NULL,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   is_verified BOOLEAN DEFAULT FALSE
+   is_verified BOOLEAN DEFAULT FALSE,
+   cart_items INT DEFAULT 0,
 );
 
 CREATE TABLE roles (
@@ -35,6 +36,6 @@ CREATE TABLE orders (
    product_id uuid REFERENCES products(product_id) ON DELETE CASCADE,   
    product_name VARCHAR(100),
    product_price DECIMAL(10, 2),
-   quantity INT,
+   quantity INT DEFAULT 0,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
