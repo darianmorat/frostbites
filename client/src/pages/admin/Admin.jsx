@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 
 export const Admin = () => {
    const [users, setUsers] = useState([]);
+   const [products, setProducts] = useState([]);
 
    const adminStats = async () => {
       try {
@@ -12,8 +13,9 @@ export const Admin = () => {
          const data = res.data;
 
          setUsers(data.countUsers.count);
+         setProducts(data.countProducts.count);
       } catch (err) {
-         toast.info(err.response.data.message)
+         toast.info(err.response.data.message);
       }
    };
 
@@ -34,7 +36,14 @@ export const Admin = () => {
                   {/* should exclude admins registrations */}
                   {users ? String(users).padStart(2, '0') : '00'}
                </p>
-               <h3 className="admin-stats-description">Registered users</h3>
+               <h3 className="admin-stats-description">Total users</h3>
+            </div>
+
+            <div className="admin-stats">
+               <p className="admin-stats-number">
+                  {products ? String(products).padStart(2, '0') : '00'}
+               </p>
+               <h3 className="admin-stats-description">Total products</h3>
             </div>
 
             <div className="admin-stats">
@@ -44,12 +53,12 @@ export const Admin = () => {
 
             <div className="admin-stats">
                <p className="admin-stats-number">--</p>
-               <h3 className="admin-stats-description">Website views</h3>
+               <h3 className="admin-stats-description">Total revenue</h3>
             </div>
 
             <div className="admin-stats">
                <p className="admin-stats-number">--</p>
-               <h3 className="admin-stats-description">Another value</h3>
+               <h3 className="admin-stats-description">Website views</h3>
             </div>
          </div>
       </div>
