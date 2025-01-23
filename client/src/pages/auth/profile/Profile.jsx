@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import api from '../../../../api/axios';
+
+import { AnimatedContainer } from '../../../components/animations/AnimatedContainer';
 import './profile.css';
 
 export const Profile = ({ setAuth }) => {
@@ -172,137 +174,142 @@ export const Profile = ({ setAuth }) => {
       <>
          <div className="profile">
             <div className="profile-banner"> </div>
-            <div className="profile-container">
-               <div className="profile-picture-container">
-                  <div className="profile-picture"> </div>
-                  <h2>Profile</h2>
-               </div>
-               <nav className="profile-nav">
-                  <button
-                     className={`my-data btn ${activeBtn === 'my-data' ? 'active' : 'inactive'}`}
-                     onClick={() => toggleActive('my-data')}
-                  >
-                     My data
-                  </button>
-                  <button
-                     className={`preferences btn ${activeBtn === 'preferences' ? 'active' : 'inactive'}`}
-                     onClick={() => toggleActive('preferences')}
-                  >
-                     Preferences
-                  </button>
-                  <button
-                     className={`notifications btn ${activeBtn === 'notifications' ? 'active' : 'inactive'}`}
-                     onClick={() => toggleActive('notifications')}
-                  >
-                     Notifications
-                  </button>
-                  <button
-                     className={`danger-zone btn ${activeBtn === 'danger-zone' ? 'active' : 'inactive'}`}
-                     onClick={() => toggleActive('danger-zone')}
-                  >
-                     Danger zone
-                  </button>
-               </nav>
-
-               {activeBtn === 'my-data' && (
-                  <div className="my-data">
-                     <div className="my-data-inputs">
-                        <h3 className="my-data-name">
-                           Username:
-                           <input
-                              type="text"
-                              value={profile.name}
-                              onChange={handleChange}
-                              name="name"
-                              id="name"
-                              autoComplete="name"
-                           />
-                        </h3>
-                        <h3 className="my-data-email">
-                           Email:
-                           <input
-                              type="email"
-                              value={profile.email}
-                              onChange={handleChange}
-                              name="email"
-                              id="email"
-                              autoComplete="email"
-                           />
-                        </h3>
-                     </div>
-                     <h3 className="my-data-created">
-                        Created at:
-                        <br />
-                        {profile.created}
-                     </h3>
+            <AnimatedContainer>
+               <div className="profile-container">
+                  <div className="profile-picture-container">
+                     <div className="profile-picture"> </div>
+                     <h2>Profile</h2>
+                  </div>
+                  <nav className="profile-nav">
                      <button
-                        className="secondary-btn my-data-save-btn btn"
-                        onClick={updateProfile}
-                        disabled={!isChanged}
+                        className={`my-data btn ${activeBtn === 'my-data' ? 'active' : 'inactive'}`}
+                        onClick={() => toggleActive('my-data')}
                      >
-                        Save Changes
+                        My data
                      </button>
-                     <button className="btn logout-btn" onClick={logout}>
-                        Logout
-                     </button>
-                  </div>
-               )}
-
-               {activeBtn === 'preferences' && (
-                  <div className="my-data">
-                     <h3>IN PROGRESS</h3>
-                     <p>Preferences</p>
-                  </div>
-               )}
-
-               {activeBtn === 'notifications' && (
-                  <div className="my-data">
-                     <h3>IN PROGRESS</h3>
-                     <p>Notifications</p>
-                  </div>
-               )}
-
-               {activeBtn === 'danger-zone' && (
-                  <div className="my-data danger-zone">
-                     <h3>DELETE MY ACCOUNT</h3>
-                     <p>
-                        By clicking the button down below, you will remove your account
-                        permanently from our databases:
-                     </p>
-                     <br />
                      <button
-                        className="btn logout-btn"
-                        onClick={() => setDeletePopup(true)}
+                        className={`preferences btn ${activeBtn === 'preferences' ? 'active' : 'inactive'}`}
+                        onClick={() => toggleActive('preferences')}
                      >
-                        Delete account
+                        Preferences
                      </button>
-                  </div>
-               )}
+                     <button
+                        className={`notifications btn ${activeBtn === 'notifications' ? 'active' : 'inactive'}`}
+                        onClick={() => toggleActive('notifications')}
+                     >
+                        Notifications
+                     </button>
+                     <button
+                        className={`danger-zone btn ${activeBtn === 'danger-zone' ? 'active' : 'inactive'}`}
+                        onClick={() => toggleActive('danger-zone')}
+                     >
+                        Danger zone
+                     </button>
+                  </nav>
 
-               {deletePopup && (
-                  <div className="popup" onClick={closePopup}>
-                     <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-                        <p className="confirmation">
-                           Are you sure you want to proceed?
-                        </p>
-                        <button className="btn close-btn" onClick={closePopup}>
-                           &#10006;
-                        </button>
+                  {activeBtn === 'my-data' && (
+                     <div className="my-data">
+                        <div className="my-data-inputs">
+                           <h3 className="my-data-name">
+                              Username:
+                              <input
+                                 type="text"
+                                 value={profile.name}
+                                 onChange={handleChange}
+                                 name="name"
+                                 id="name"
+                                 autoComplete="name"
+                              />
+                           </h3>
+                           <h3 className="my-data-email">
+                              Email:
+                              <input
+                                 type="email"
+                                 value={profile.email}
+                                 onChange={handleChange}
+                                 name="email"
+                                 id="email"
+                                 autoComplete="email"
+                              />
+                           </h3>
+                        </div>
+                        <h3 className="my-data-created">
+                           Created at:
+                           <br />
+                           {profile.created}
+                        </h3>
                         <button
-                           className="btn secondary-btn"
-                           onClick={(e) => {
-                              deleteProfile(e);
-                           }}
+                           className="secondary-btn my-data-save-btn btn"
+                           onClick={updateProfile}
+                           disabled={!isChanged}
                         >
-                           Yes
+                           Save Changes
                         </button>
-                        <button className="btn logout-btn" onClick={closePopup}>
-                           No
+                        <button className="btn logout-btn" onClick={logout}>
+                           Logout
                         </button>
                      </div>
-                  </div>
-               )}
-            </div>
+                  )}
+
+                  {activeBtn === 'preferences' && (
+                     <div className="my-data">
+                        <h3>IN PROGRESS</h3>
+                        <p>Preferences</p>
+                     </div>
+                  )}
+
+                  {activeBtn === 'notifications' && (
+                     <div className="my-data">
+                        <h3>IN PROGRESS</h3>
+                        <p>Notifications</p>
+                     </div>
+                  )}
+
+                  {activeBtn === 'danger-zone' && (
+                     <div className="my-data danger-zone">
+                        <h3>DELETE MY ACCOUNT</h3>
+                        <p>
+                           By clicking the button down below, you will remove your account
+                           permanently from our databases:
+                        </p>
+                        <br />
+                        <button
+                           className="btn logout-btn"
+                           onClick={() => setDeletePopup(true)}
+                        >
+                           Delete account
+                        </button>
+                     </div>
+                  )}
+
+                  {deletePopup && (
+                     <div className="popup" onClick={closePopup}>
+                        <div
+                           className="popup-content"
+                           onClick={(e) => e.stopPropagation()}
+                        >
+                           <p className="confirmation">
+                              Are you sure you want to proceed?
+                           </p>
+                           <button className="btn close-btn" onClick={closePopup}>
+                              &#10006;
+                           </button>
+                           <button
+                              className="btn secondary-btn"
+                              onClick={(e) => {
+                                 deleteProfile(e);
+                              }}
+                           >
+                              Yes
+                           </button>
+                           <button className="btn logout-btn" onClick={closePopup}>
+                              No
+                           </button>
+                        </div>
+                     </div>
+                  )}
+               </div>
+            </AnimatedContainer>
          </div>
       </>
    );
