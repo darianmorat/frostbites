@@ -9,10 +9,12 @@ export const getOrder = async (req, res) => {
       ]);
       const order = result.rows;
 
-      await pool.query('UPDATE users SET cart_items = $1 WHERE user_id = $2', [
-         order.length,
-         userId,
-      ]);
+      // DO I REALLY NEED THIS? OR IS NOT IMPORTANT IN THE SQL MODEL?
+       
+      // await pool.query('UPDATE users SET cart_items = $1 WHERE user_id = $2', [
+      //    order.length,
+      //    userId,
+      // ]);
 
       res.status(200).json({ success: true, order });
    } catch (err) {
