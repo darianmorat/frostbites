@@ -1,16 +1,12 @@
+import { AnimatedContainer } from '../../../components/animations/AnimatedContainer';
+
 import who_we_are_img from '../../../assets/images/who-we-are.jpeg';
 import our_team_img from '../../../assets/images/our-team.jpeg';
 import './about.css';
-import { motion } from 'motion/react';
 
 export const About = () => {
    return (
-      <motion.div
-         initial={{ opacity: 0, x: -100 }}
-         animate={{ opacity: 1, x: 0 }}
-         exit={{ opacity: 0, x: 100 }}
-         transition={{ duration: 0.7 }}
-      >
+      <AnimatedContainer>
          <div className="about">
             <section className="about-section-1">
                <div className="about-left">
@@ -74,6 +70,6 @@ export const About = () => {
                </div>
             </section>
          </div>
-      </motion.div>
+      </AnimatedContainer>
    );
-}
+};

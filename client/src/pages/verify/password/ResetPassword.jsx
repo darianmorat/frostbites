@@ -1,12 +1,12 @@
 import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from 'yup';
-import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import api from '../../../../api/axios.jsx';
 
 import { ShowPassword } from '../../../components/inputActions/ShowPassword';
+import { AnimatedContainer } from '../../../components/animations/AnimatedContainer.jsx';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
 
@@ -59,12 +59,7 @@ export const ResetPassword = () => {
          <img src={wave_svg} alt="" className="wave-left-svg" />
          <img src={wave_svg} alt="" className="wave-right-svg" />
 
-         <motion.div
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 0.4 }}
-         >
+         <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
                   <h3 className="form-title">EASY WAY TO RESET YOUR PASSWORD</h3>
@@ -148,7 +143,7 @@ export const ResetPassword = () => {
                   </form>
                </div>
             </div>
-         </motion.div>
+         </AnimatedContainer>
       </div>
    );
 };

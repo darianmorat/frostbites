@@ -1,11 +1,11 @@
 import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { motion } from 'motion/react';
 import { useState } from 'react';
 import api from '../../../../api/axios';
 
 import { BackBtn } from '../../../components/inputActions/BackBtn';
+import { AnimatedContainer } from '../../../components/animations/AnimatedContainer';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
 
@@ -48,15 +48,10 @@ export const ResendEmail = () => {
          <img src={wave_svg} alt="" className="wave-left-svg base" />
          <img src={wave_svg} alt="" className="wave-right-svg base" />
 
-         <motion.div
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 0.4 }}
-         >
+         <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
-                  <BackBtn/>
+                  <BackBtn />
                   <h3 className="form-title">DID NOT RECEIVE OUR EMAIL?</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
@@ -98,7 +93,7 @@ export const ResendEmail = () => {
                   </form>
                </div>
             </div>
-         </motion.div>
+         </AnimatedContainer>
       </div>
    );
 };

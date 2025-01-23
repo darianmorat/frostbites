@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 
 import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
 import { toast } from 'react-toastify';
 import api from '../../../../api/axios';
 import { useCartStore } from '../../../stores/useCartStore';
+import { AnimatedContainer } from '../../../components/animations/AnimatedContainer';
 
 // Move components to index.jsx
 import { CreateProduct } from '../../../components/adminActions/CreateProduct';
@@ -49,7 +49,7 @@ export const Shop = ({ isAdmin }) => {
    const { cart, fetchCart, addToCart, removeFromCart, total } = useCartStore();
 
    useEffect(() => {
-      fetchCart()
+      fetchCart();
    }, [fetchCart]);
 
    // PRODUCT ACTIONS
@@ -78,12 +78,7 @@ export const Shop = ({ isAdmin }) => {
 
    return (
       <div className="shop">
-         <motion.div
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 100 }}
-            transition={{ duration: 0.7 }}
-         >
+         <AnimatedContainer>
             <div className="shop-container">
                <div className="right-section">
                   <div className="buttons-section">
@@ -199,7 +194,7 @@ export const Shop = ({ isAdmin }) => {
 
                {!isAdmin && <CartSection cart={cart} total={total} />}
             </div>
-         </motion.div>
+         </AnimatedContainer>
       </div>
    );
 };

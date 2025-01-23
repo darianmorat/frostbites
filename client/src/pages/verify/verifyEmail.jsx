@@ -1,5 +1,5 @@
-import { motion } from 'motion/react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { AnimatedContainer } from '../../components/animations/AnimatedContainer';
 
 import wave_svg from '../../assets/images/svg/wave.svg';
 
@@ -16,12 +16,7 @@ export const VerifyEmail = () => {
          <img src={wave_svg} alt="" className="wave-left-svg base" />
          <img src={wave_svg} alt="" className="wave-right-svg base" />
 
-         <motion.div
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 0.4 }}
-         >
+         <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
                   <h3 className="form-title">VERIFY YOUR FROST BITES ACCOUNT!</h3>
@@ -56,7 +51,7 @@ export const VerifyEmail = () => {
                   </button>
                </div>
             </div>
-         </motion.div>
+         </AnimatedContainer>
       </div>
    );
 };

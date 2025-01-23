@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 
 import { toast } from 'react-toastify';
-import { motion } from 'motion/react';
 import api from '../../../../api/axios';
 import { useState } from 'react';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
+import { AnimatedContainer } from '../../../components/animations/AnimatedContainer';
 
 export const SendEmail = ({ setAuth }) => {
    const [loading, setLoading] = useState(false);
@@ -40,12 +40,7 @@ export const SendEmail = ({ setAuth }) => {
          <img src={wave_svg} alt="" className="wave-left-svg" />
          <img src={wave_svg} alt="" className="wave-right-svg" />
 
-         <motion.div
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 0.4 }}
-         >
+         <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
                   <h3 className="form-title">VERIFY YOUR FROST BITES ACCOUNT!</h3>
@@ -71,7 +66,7 @@ export const SendEmail = ({ setAuth }) => {
                   </button>
                </div>
             </div>
-         </motion.div>
+         </AnimatedContainer>
       </div>
    );
 };

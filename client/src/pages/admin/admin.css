@@ -21,11 +21,64 @@
 
 .admin-stats {
    background-color: #8d8d8d;
-   border: 2px solid #28282830;
-   width: 200px;
+   /* border: 2px solid #282828; */
+   width: 300px;
    height: 150px;
    border-radius: 5px;
-   padding: 20px;
+   flex: 1 auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   overflow: hidden;
+}
+.admin-stats.first {
+   background-color: #da5d5c;
+}
+.admin-stats-right.first {
+   background-color: #c6314080;
+}
+.admin-stats-right.first:hover{
+   background-color: #c63140b9;
+   cursor: pointer;
+}
+
+.admin-stats.second {
+   background-color: #38ad53;
+}
+.admin-stats-right.second {
+   background-color: #27974090;
+}
+.admin-stats-right.second:hover{
+   background-color: #279740;
+   cursor: pointer;
+}
+
+.admin-stats.third {
+   background-color: #28a8bd;
+}
+.admin-stats-right.third {
+   background-color: #1792a690;
+}
+.admin-stats-right.third:hover{
+   background-color: #1792a6;
+   cursor: pointer;
+}
+
+.admin-stats-left{
+   padding: 18px 20px;
+   height: 100%;
+}
+.admin-stats-right{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 8px;
+   padding: 5px;
+   color: white;
+}
+
+#show-more-icon{
+   color: white;
 }
 
 .admin-stats-number {

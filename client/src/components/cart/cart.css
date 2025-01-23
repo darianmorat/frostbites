@@ -6,7 +6,7 @@
 }
 .floating-cart > a {
    display: flex;
-   border-radius: 9px;
+   border-radius: 5px;
    justify-content: center;
    align-items: center;
    background-color: white;

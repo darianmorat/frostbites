@@ -1,11 +1,11 @@
 import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import api from '../../../../api/axios';
 
 import { BackBtn } from '../../../components/inputActions/BackBtn';
+import { AnimatedContainer } from '../../../components/animations/AnimatedContainer';
 
 import wave_svg from '../../../assets/images/svg/wave.svg';
 
@@ -48,12 +48,7 @@ export const ForgotPassword = () => {
          <img src={wave_svg} alt="" className="wave-left-svg base" />
          <img src={wave_svg} alt="" className="wave-right-svg base" />
 
-         <motion.div
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ duration: 0.4 }}
-         >
+         <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
                   <BackBtn />
@@ -125,7 +120,7 @@ export const ForgotPassword = () => {
                   </form>
                </div>
             </div>
-         </motion.div>
+         </AnimatedContainer>
       </div>
    );
 };

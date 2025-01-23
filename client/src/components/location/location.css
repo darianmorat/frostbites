@@ -23,8 +23,8 @@
    padding: 20px;
    display: flex;
    gap: 40px;
-   border-radius: 10px;
-   border: 2px solid #28282830;
+   border-radius: 5px;
+   border: 1px solid #28282830;
 }
 
 .direction-title,
@@ -33,7 +33,7 @@
 }
 
 .map-container {
-   border-radius: 10px;
+   border-radius: 5px;
    overflow: hidden;
    position: relative;
    border: 2px solid #28282830;
@@ -77,6 +77,6 @@
 .map-popup-content {
    position: relative;
    overflow: hidden;
-   border-radius: 8px;
+   border-radius: 5px;
    border: 8px double white;
 }
