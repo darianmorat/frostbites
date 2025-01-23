@@ -82,6 +82,7 @@ export const Home = () => {
                </p>
                <button
                   className="btn primary-btn primary-btn-alt"
+                  id='btn'
                   onClick={() => navigate('/about')}
                >
                   READ MORE

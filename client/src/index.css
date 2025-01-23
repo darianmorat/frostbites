@@ -175,6 +175,10 @@ p {
    background-color: grey;
 }
 
+#btn{
+   margin-top: 15px;
+}
+
 /* inputs */
 .input-container {
    position: relative;

@@ -23,6 +23,16 @@ export const About = () => {
                      by offering beautifully designed, user-friendly websites that enhance
                      their online presence. Join us on our journey to spread the love of
                      ice cream and support local businesses in their quest for success.
+                     <br />
+                     We are also committed to helping other ice cream businesses succeed
+                     by offering beautifully designed, user-friendly websites that enhance
+                     their online presence. Join us on our journey to spread the love of
+                     ice cream and support local businesses in their quest for success.
+                     <br />
+                     We are also committed to helping other ice cream businesses succeed
+                     by offering beautifully designed, user-friendly websites that enhance
+                     their online presence. Join us on our journey to spread the love of
+                     ice cream and support local businesses in their quest for success.
                   </p>
                </div>
 
@@ -61,6 +71,16 @@ export const About = () => {
                      bring joy to people of all ages. Our mission is to craft the most
                      delightful and unique flavors, using the best ingredients, to ensure
                      every bite is a burst of happiness.
+                     <br />
+                     We are also committed to helping other ice cream businesses succeed
+                     by offering beautifully designed, user-friendly websites that enhance
+                     their online presence. Join us on our journey to spread the love of
+                     ice cream and support local businesses in their quest for success.
+                     <br />
+                     We are also committed to helping other ice cream businesses succeed
+                     by offering beautifully designed, user-friendly websites that enhance
+                     their online presence. Join us on our journey to spread the love of
+                     ice cream and support local businesses in their quest for success.
                      <br />
                      We are also committed to helping other ice cream businesses succeed
                      by offering beautifully designed, user-friendly websites that enhance

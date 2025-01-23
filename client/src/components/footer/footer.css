@@ -2,7 +2,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
-   height: 80px;
+   height: 70px;
    background-color: #fff5f7;
    color: black;
    border-top: 1px solid #28282830;
@@ -22,7 +22,7 @@
 }
 
 .location-links {
-   padding: 100px 20px;
+   padding: 80px 20px;
    flex-flow: wrap;
    gap: 70px;
 }
