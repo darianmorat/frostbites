@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { adminPanel } from '../controllers/admin.controller.js';
+import { getStats } from '../controllers/admin.controller.js';
+import { protectedRoute } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
-router.get('/', adminPanel);
+router.get('/stats', protectedRoute, getStats);
 
 export default router;

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import authorization from '../middleware/authorization.js';
+import { privateRoute } from '../middleware/auth.middleware.js';
 import {
    userInfo,
    updateUserInfo,
@@ -8,8 +8,8 @@ import {
 
 const router = Router();
 
-router.get('/', authorization, userInfo);
-router.put('/update', authorization, updateUserInfo);
-router.delete('/delete', authorization, deleteUserInfo);
+router.get('/', privateRoute, userInfo);
+router.put('/update', privateRoute, updateUserInfo);
+router.delete('/delete', privateRoute, deleteUserInfo);
 
 export default router;

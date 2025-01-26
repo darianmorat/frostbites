@@ -1,47 +1,22 @@
 import pool from '../db/pool.js';
 
-export const adminPanel = async (req, res) => {
+export const getStats = async (req, res) => {
    try {
-      // Counters
-      const resultUsers = await pool.query('SELECT COUNT(*) FROM users');
-      const totalUsers = resultUsers.rows[0];
-
-      const resultVerified = await pool.query(
-         'SELECT COUNT(*) FROM users WHERE is_verified = true',
+      const resultUsers = await pool.query(
+         'SELECT user_id, user_name, user_email, created_at, is_verified FROM users',
       );
-      const totalVerifiedUsers = resultVerified.rows[0];
-
-      const resultUnverified = await pool.query(
-         'SELECT COUNT(*) FROM users WHERE is_verified = false',
+      const totalUsers = resultUsers.rows.filter(
+         (user) =>
+            user.user_email !== process.env.ADMIN_EMAIL &&
+            user.user_email !== process.env.ADMIN_EMAIL2,
       );
-      const totalUnverifiedUsers = resultUnverified.rows[0];
 
-      const resultProducts = await pool.query('SELECT COUNT(*) FROM products');
-      const totalProducts = resultProducts.rows[0];
-
-      // Data
-      const resultVerifiedEmail = await pool.query(
-         'SELECT user_name, user_email FROM users WHERE is_verified = true',
+      const resultProducts = await pool.query(
+         'SELECT product_id, product_name, product_price, product_img FROM products',
       );
-      const verifiedEmails = resultVerifiedEmail.rows;
+      const totalProducts = resultProducts.rows;
 
-      const resultUnverifiedEmails = await pool.query(
-         'SELECT user_name, user_email FROM users WHERE is_verified = false',
-      );
-      const unverifiedEmails = resultUnverifiedEmails.rows;
-
-      res.json({
-         success: true,
-         // Counters
-         totalUsers,
-         totalVerifiedUsers,
-         totalUnverifiedUsers,
-         totalProducts,
-
-         // Data
-         verifiedEmails,
-         unverifiedEmails,
-      });
+      res.json({ success: true, totalUsers, totalProducts });
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });
    }
