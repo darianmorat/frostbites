@@ -32,7 +32,7 @@ export const Location = () => {
             <h2 className="location-title">Our location</h2>
             <div className="location-container">
                <div className="location-direction">
-                  <p className="direction-title">Colombia, Huila</p>
+                  <h3 className="direction-title">Colombia, Huila</h3>
                   <p>Calle 29c #8W-03 Central</p>
                   <br />
                   <p>
@@ -40,10 +40,10 @@ export const Location = () => {
                   </p>
                </div>
                <div className="location-schedule">
-                  <p className="schedule-title">Monday - Friday</p>
+                  <h3 className="schedule-title">Monday - Friday</h3>
                   <p>06:00 AM - 10:00 PM</p>
                   <br />
-                  <p className="schedule-title">Saturday - Sunday</p>
+                  <h3 className="schedule-title">Saturday - Sunday</h3>
                   <p>08:00 AM - 08:00 PM</p>
                </div>
                <div className="map-container">

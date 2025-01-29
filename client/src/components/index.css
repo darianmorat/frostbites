@@ -230,9 +230,13 @@
    border: 1px solid #28282830;
 }
 
+.location-container>div>p{
+   color: var(--grey-color);
+}
+
 .direction-title,
 .schedule-title {
-   font-weight: bold;
+   font-weight: 600;
 }
 
 .map-container {
@@ -323,7 +327,8 @@
 }
 
 .location-right > div > a {
-   color: grey;
+   font-weight: normal;
+   color: var(--grey-color);
 }
 
 .location-right > div > a:hover {
