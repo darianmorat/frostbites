@@ -1,0 +1,250 @@
+/* =================================================================================== */
+/* SUCCESS PAGE */
+.success {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   height: 90vh;
+}
+
+.success > p {
+   text-align: center;
+}
+
+.success-payment-svg {
+   margin-bottom: 40px;
+   width: 280px;
+}
+
+/* WHICH PAGE IS THIS FIX THIS NAMES */
+.profile-page,
+.settings-page {
+   flex-grow: 1;
+   display: flex;
+   justify-content: center;
+   background-color: #f9e0e5;
+   padding: 20px;
+}
+
+.profile-container,
+.settings-container {
+   max-width: 1200px;
+   width: 100%;
+}
+/* SUCCESS PAGE */
+/* =================================================================================== */
+
+/* =================================================================================== */
+/* PROFILE PAGE */
+/* banner */
+.profile-banner {
+   border-radius: 5px 5px 0 0;
+   height: 200px;
+   background-image: linear-gradient(
+         to right,
+         rgba(0, 0, 0, 0.8),
+         rgba(0, 0, 0, 0.6),
+         rgba(0, 0, 0, 0)
+      ),
+      url('https://wallpapers.com/images/hd/5120x1440-dual-screen-nr8t7hd5ljw5pfxn.jpg');
+   background-size: cover;
+   background-repeat: no-repeat;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 50px;
+}
+.profile-picture {
+   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxN0CVyuA0ITmZizYvxwFGq-XaJl_hMlHhnA&s');
+   background-size: cover;
+   background-repeat: no-repeat;
+   height: 110px;
+   width: 110px;
+   background-color: black;
+   border-radius: 5px;
+   border: 2px solid white;
+}
+
+.profile-info-container {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+}
+.profile-name {
+   color: #ffffff;
+   font-size: 1.4rem;
+   font-weight: bold;
+}
+.profile-country {
+   color: #ffffff80;
+}
+
+.profile-stats {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+}
+.stats-number {
+   font-size: 1.4rem;
+   font-weight: bold;
+}
+.profile-stats > div > p {
+   color: white;
+}
+
+/* contact info */
+.profile-data-container {
+   background-color: #fff5f7;
+   padding: 20px;
+   border-radius: 0 0 5px 5px;
+}
+.profile-data {
+   border: 2px solid #aaaaaa;
+}
+
+.profile-data > div > h3 {
+   font-weight: bold;
+   font-size: 1rem;
+}
+.profile-contact-info > div {
+   display: flex;
+   gap: 8px;
+}
+.profile-links {
+   display: flex;
+   flex-direction: column;
+}
+.profile-links > a {
+   color: blue;
+   font-weight: normal;
+   text-decoration: underline;
+}
+/* PROFILE PAGE */
+/* =================================================================================== */
+
+/* =================================================================================== */
+/* SETTINGS PAGE */
+/* navigator */
+.profile-nav {
+   display: flex;
+   border: 3px solid #fff5f7;
+   border-radius: 5px;
+   margin-bottom: 20px;
+   height: 55px;
+   overflow: hidden;
+}
+.profile-nav > button {
+   font-weight: bold;
+   padding: 0 20px;
+   display: block;
+   border-radius: 0;
+   color: #282828;
+}
+
+.profile-nav > .active {
+   background-color: #fff5f7;
+}
+.profile-nav > .inactive {
+   color: #28282850;
+}
+.profile-nav > .inactive:hover {
+   color: #28282870;
+   background-color: #fff5f750;
+}
+
+.profile-nav > .danger-zone.active {
+   color: #ff4c77;
+}
+.profile-nav > .danger-zone {
+   color: #ff4c7760;
+}
+.profile-nav > .danger-zone:hover {
+   color: #ff4c7790;
+}
+
+/* section: personal data */
+.my-data {
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   border-radius: 5px;
+   background-color: #fff5f7;
+}
+.my-data-img {
+   display: flex;
+   flex-direction: row-reverse;
+   gap: 20px;
+   width: 100%;
+   margin-bottom: 25px;
+}
+.my-data-img > div {
+   display: flex;
+   flex-direction: column;
+   border: 2px solid #aaaaaa;
+   padding: 10px;
+   border-radius: 5px;
+   background-color: #ffffff;
+   gap: 10px;
+}
+.my-data-img > .my-data-banner-container {
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   min-width: 170px;
+}
+.my-data-banner,
+.my-data-profile-picture {
+   border-radius: 5px;
+   height: 170px;
+   background-size: cover;
+   background-repeat: no-repeat;
+}
+.my-data-banner {
+   background-image: url('https://wallpapers.com/images/hd/5120x1440-dual-screen-nr8t7hd5ljw5pfxn.jpg');
+}
+.my-data-profile-picture {
+   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxN0CVyuA0ITmZizYvxwFGq-XaJl_hMlHhnA&s');
+   width: 170px;
+}
+.my-data-btns-2 {
+   display: flex;
+   gap: 15px;
+}
+
+/* form input */
+.settings-form {
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   margin-bottom: 20px;
+}
+.settings-form > .form {
+   flex: 1;
+   min-width: 380px;
+}
+.settings-form > .form > label {
+   background-color: #fff5f7;
+}
+
+textarea {
+   width: 100%;
+   resize: none;
+   border-radius: 5px;
+   padding: 10px;
+   background-color: transparent;
+   border: 2px solid #aaaaaa;
+}
+
+.my-data-btns {
+   display: flex;
+   gap: 20px;
+   justify-content: flex-end;
+}
+
+/* section: danger zone */
+.danger-zone > h3 {
+   font-weight: bold;
+}
+/* SETTINGS PAGE */
+/* =================================================================================== */

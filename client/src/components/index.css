@@ -1,0 +1,335 @@
+/* =================================================================================== */
+/* NAVBAR COMPONENT */
+:root {
+   --red-color: #ff4c77;
+   --white-color: #ffffff;
+   --black-color: #282828;
+   --grey-color: #8d8d8d;
+}
+
+.navbar {
+   background-color: #ffb8c9;
+   position: sticky;
+   top: 0;
+   z-index: 3;
+   box-shadow: 0 0 7px 1px #28282820;
+   padding: 0 20px;
+}
+
+.navbar-admin {
+   background-color: #393838;
+}
+
+.navbar-container {
+   display: flex;
+   justify-content: space-between;
+   max-width: 1200px;
+   height: 70px;
+   margin: 0 auto;
+}
+
+.navbar-left,
+.navbar-right {
+   display: flex;
+   list-style: none;
+   align-items: center;
+   gap: 45px;
+}
+
+.logo {
+   width: 200px;
+}
+
+.navbar-left > li > a {
+   padding: 5px;
+}
+
+.active > a {
+   padding: 5px;
+   color: var(--red-color);
+   position: relative;
+   display: flex;
+   justify-content: center;
+}
+
+.active > a::after {
+   content: '';
+   display: block;
+   width: 30%;
+   height: 3px;
+   background-color: var(--red-color);
+   position: absolute;
+   bottom: 0;
+   transition: 1s;
+}
+
+.dropmenu-btn {
+   color: white;
+   font-weight: bold;
+   position: relative;
+}
+.dropmenu-btn:hover {
+   color: var(--red-color);
+}
+
+.navbar-right {
+   position: relative;
+}
+.dropdown-menu {
+   background-color: white;
+   box-shadow: 0 0 2px 2px #28282820;
+   position: absolute;
+   top: 100%;
+   right: 0;
+   border-radius: 5px;
+}
+.dropdown-menu::after {
+   content: '';
+   height: 19px;
+   width: 19px;
+   position: absolute;
+   box-shadow: 0 0 2px 2px #28282825;
+   top: -8px;
+   transform: rotate(45deg);
+   z-index: -1;
+   right: 43%;
+}
+.dropdown-menu::before {
+   content: '';
+   display: block;
+   border-left: 15px solid transparent;
+   border-right: 15px solid transparent;
+   border-bottom: 15px solid white;
+   position: absolute;
+   top: -12px;
+   right: 40%;
+}
+
+.dropdown-menu > li {
+   list-style: none;
+}
+.dropdown-menu > li > a {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   padding: 13px 40px 13px 20px;
+   color: black;
+   font-weight: normal;
+   transition: 0.1s;
+}
+.dropdown-menu > hr {
+   width: 80%;
+   margin: 0 auto;
+   border-radius: 80%;
+}
+
+.dropdown-menu > li > a:hover {
+   transform: scale(1.07);
+   background-color: #e6e6e6;
+   border-radius: 5px;
+   box-shadow: 0 0 2px 2px #28282830;
+}
+.dropdown-menu > li > .nav-logout-btn {
+   color: red;
+}
+
+#nav-icon {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: white;
+   transform: scale(1.1);
+}
+#nav-icon:hover {
+   color: var(--red-color);
+   cursor: pointer;
+}
+#log-out-icon {
+   color: red;
+}
+
+.cart-count {
+   background-color: #cc3c5f;
+   border-radius: 50%;
+   width: 15px;
+   height: 15px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: white;
+   font-size: 12px;
+   position: absolute;
+   font-family: consolas;
+   top: -8px;
+   left: -5px;
+}
+
+.nav-profile {
+   display: flex;
+   flex-direction: row-reverse;
+   align-items: center;
+   gap: 15px;
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+}
+.name,
+.admin-name {
+   color: white;
+   font-weight: bold;
+}
+.role,
+.admin-role {
+   color: #ffffffd9;
+   font-size: 13.5px;
+   margin-top: -5px;
+   font-weight: 300;
+}
+.nav-profile-picture {
+   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxN0CVyuA0ITmZizYvxwFGq-XaJl_hMlHhnA&s');
+   background-size: cover;
+   background-repeat: no-repeat;
+   height: 37px;
+   width: 37px;
+   background-color: black;
+   position: absolute;
+   position: relative;
+   border-radius: 5px;
+   border: 2px solid white;
+}
+/* NAVBAR COMPONENT */
+/* =================================================================================== */
+
+/* =================================================================================== */
+/* LOCATION COMPONENT */
+.location-page {
+   padding-top: 75px;
+   background-color: #fff5f7;
+}
+
+.location-map {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #fff5f7;
+}
+.location-map {
+   flex-direction: column;
+}
+
+.location-title {
+   margin-bottom: 30px;
+   margin-top: -10px;
+}
+
+.location-container {
+   background-color: white;
+   padding: 20px;
+   display: flex;
+   gap: 40px;
+   border-radius: 5px;
+   border: 1px solid #28282830;
+}
+
+.direction-title,
+.schedule-title {
+   font-weight: bold;
+}
+
+.map-container {
+   border-radius: 5px;
+   overflow: hidden;
+   position: relative;
+   border: 2px solid #28282830;
+}
+
+.map-container,
+.location-schedule,
+.location-direction {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.map-expand-btn,
+.map-collapse-btn {
+   position: absolute;
+   bottom: 0;
+   right: 0;
+   border-radius: 2px;
+   background-color: #fff;
+
+   width: 30px;
+   height: 30px;
+   margin: 10px;
+   box-shadow: 0 0 0 1.8px #28282830;
+   border: none;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   transition: 0.2s;
+}
+.map-expand-btn:hover,
+.map-collapse-btn:hover {
+   background-color: #f4f4f4;
+   cursor: pointer;
+}
+.map-collapse-btn {
+   z-index: 999;
+}
+
+.map-popup-content {
+   position: relative;
+   overflow: hidden;
+   border-radius: 5px;
+   border: 8px double white;
+}
+/* LOCATION COMPONENT */
+/* =================================================================================== */
+
+/* =================================================================================== */
+/* FOOTER COMPONENT */
+.footer {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 70px;
+   background-color: #fff5f7;
+   color: black;
+   border-top: 1px solid #28282830;
+}
+
+.location-links {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: #fff5f7;
+}
+
+.location-links,
+.location-right {
+   display: flex;
+   gap: 35px;
+}
+
+.location-links {
+   padding: 80px 20px;
+   flex-flow: wrap;
+   gap: 70px;
+}
+
+.logo-slogan {
+   width: 400px;
+   z-index: 999;
+}
+
+.location-right > div > a {
+   color: grey;
+}
+
+.location-right > div > a:hover {
+   color: #606060;
+   text-decoration: underline;
+}
+/* FOOTER COMPONENT */
+/* =================================================================================== */

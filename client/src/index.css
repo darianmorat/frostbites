@@ -24,8 +24,9 @@
    box-sizing: border-box;
 }
 
-body {
-   margin: 0;
+#root {
+   display: flex;
+   flex-direction: column;
    min-width: 320px;
    min-height: 100vh;
 }
@@ -123,6 +124,9 @@ p {
    border: 2px solid #6cc75a;
    color: #6cc75a;
 }
+.secondary-btn-alt:disabled{
+   color: var(--white-color);
+}
 
 .logout-btn {
    background-color: var(--red-btn);
@@ -151,10 +155,31 @@ p {
    background-color: grey;
 }
 
+.add-to-cart {
+   background-color: var(--green-btn);
+   color: var(--white-color);
+   padding: 10px;
+   border: 2px solid var(--green-btn);
+}
+.add-to-cart:hover {
+   background-color: var(--green-btn-hover);
+}
+
+.in-cart {
+   background-color: var(--red-btn);
+   color: var(--white-color);
+   padding: 10px;
+   width: 100%;
+}
+
+.quantity-actions{
+   display: flex;
+   gap: 8px;
+   align-items: center;
+}
 .add-btn,
 .remove-btn {
-   width: 55px;
-   height: 45px;
+   padding: 7px 20px;
    color: var(--white-color);
 }
 .add-btn {
@@ -175,7 +200,7 @@ p {
    background-color: grey;
 }
 
-#btn{
+#btn {
    margin-top: 15px;
 }
 
@@ -207,7 +232,7 @@ input {
    padding: 10px;
    background-color: transparent;
    color: #252525;
-   border: 2px solid grey;
+   border: 2px solid #AAAAAA;
    display: block;
    outline: none;
 }
@@ -312,3 +337,30 @@ body::-webkit-scrollbar-track {
    padding-right: 50px;
    margin: 5px;
 }
+
+/* waves svg */
+.wave-left-svg,
+.wave-right-svg {
+   position: absolute;
+   top: 0;
+   height: 100vh;
+   width: 220px;
+   z-index: 1;
+   opacity: 0.3;
+}
+.wave-left-svg {
+   left: 0;
+}
+.wave-right-svg {
+   right: 0;
+   transform: rotate(180deg);
+}
+.wave-left-svg.base {
+   width: 100px;
+   z-index: 111;
+}
+.wave-right-svg.base {
+   width: 100px;
+   z-index: 111;
+}
+

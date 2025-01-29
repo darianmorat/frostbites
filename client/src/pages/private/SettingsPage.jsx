@@ -1,0 +1,334 @@
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import api from '../../../api/axios';
+import { useUserStore } from '../../stores/useUserStore';
+import { AnimatedContainer } from '../../components/AnimatedContainer';
+import '../private.css'
+
+const SettingsPage = () => {
+   const { logout, updateUser, user } = useUserStore();
+
+   const [deletePopup, setDeletePopup] = useState(false);
+   const [activeBtn, setActiveBtn] = useState('my-data');
+
+   const [isChanged, setIsChanged] = useState(false);
+   const [newName, setNewName] = useState('');
+   const [newEmail, setNewEmail] = useState('');
+   const [newBio, setNewBio] = useState('');
+
+   // ===========
+   // GET PROFILE
+   // ===========
+
+   useEffect(() => {
+      if (!user) {
+         setNewName('Loading...');
+         setNewEmail('Loading...');
+         setNewBio('Loading...');
+      } else {
+         setNewName(user.user_name);
+         setNewEmail(user.user_email);
+         setNewBio(user.user_bio);
+      }
+   }, [user]);
+
+   // ==============
+   // UPDATE PROFILE
+   // ==============
+   const updateProfile = async () => {
+      await updateUser(newName, newEmail, newBio);
+   };
+
+   const handleChange = (e) => {
+      const value = e.target.value;
+
+      if (e.target.name === 'name') {
+         setIsChanged(value !== user.user_name);
+         setNewName(value);
+      }
+
+      if (e.target.name === 'email') {
+         setIsChanged(value !== user.user_email);
+         setNewEmail(value);
+      }
+
+      if (e.target.name === 'bio') {
+         setIsChanged(value !== user.user_bio);
+         setNewBio(value);
+      }
+   };
+
+   const handleRestore = () => {
+      setNewName(user.user_name);
+      setNewEmail(user.user_email);
+      setNewBio(user.user_bio);
+      setIsChanged(false);
+   };
+
+   // ==============
+   // DELETE PROFILE
+   // ==============
+
+   const closePopup = () => {
+      setDeletePopup(false);
+   };
+
+   const deleteProfile = async (e) => {
+      try {
+         e.target.disabled = true;
+
+         const config = {
+            headers: {
+               token: localStorage.token,
+            },
+         };
+
+         const res = await api.delete('/user/delete', config);
+         const data = res.data;
+
+         if (data.success) {
+            toast.success(data.message);
+            handleLogoutDeleteAcct();
+         } else {
+            toast.error(data.message);
+            e.target.disabled = false;
+         }
+      } catch (err) {
+         toast.error(err.response.data.message);
+         e.target.disabled = false;
+      }
+   };
+
+   // logouts
+   const handleLogout = async (e) => {
+      e.preventDefault();
+      try {
+         logout();
+      } catch (err) {
+         console.error(err);
+      }
+   };
+
+   const handleLogoutDeleteAcct = async () => {
+      try {
+         const params = true;
+         logout(params);
+      } catch (err) {
+         console.error(err);
+      }
+   };
+
+   // active state btn
+   const toggleActive = (button) => {
+      setActiveBtn(button);
+   };
+
+   return (
+      <>
+         <div className="settings-page">
+            <div className="settings-container">
+               <AnimatedContainer>
+                  <div className="">
+                     <nav className="profile-nav">
+                        <button
+                           className={`my-data btn ${activeBtn === 'my-data' ? 'active' : 'inactive'}`}
+                           onClick={() => toggleActive('my-data')}
+                        >
+                           Personal Data
+                        </button>
+                        <button
+                           className={`preferences btn ${activeBtn === 'preferences' ? 'active' : 'inactive'}`}
+                           onClick={() => toggleActive('preferences')}
+                        >
+                           Preferences
+                        </button>
+                        <button
+                           className={`notifications btn ${activeBtn === 'notifications' ? 'active' : 'inactive'}`}
+                           onClick={() => toggleActive('notifications')}
+                        >
+                           Notifications
+                        </button>
+                        <button
+                           className={`danger-zone btn ${activeBtn === 'danger-zone' ? 'active' : 'inactive'}`}
+                           onClick={() => toggleActive('danger-zone')}
+                        >
+                           Danger Zone
+                        </button>
+                     </nav>
+                  </div>
+
+                  {activeBtn === 'my-data' && (
+                     <div className="my-data">
+                        <div className="my-data-img">
+                           <div className="my-data-banner-container">
+                              <div className="my-data-banner"></div>
+                              <div className="my-data-btns-2">
+                                 <button className="secondary-btn my-data-save-btn btn">
+                                    Change
+                                 </button>
+                                 <button className="secondary-btn-alt my-data-save-btn btn">
+                                    Remove
+                                 </button>
+                              </div>
+                           </div>
+                           <div>
+                              <div className="my-data-profile-picture"></div>
+                              <div className="my-data-btns-2">
+                                 <button className="secondary-btn my-data-save-btn btn">
+                                    Change
+                                 </button>
+                                 <button className="secondary-btn-alt my-data-save-btn btn">
+                                    Remove
+                                 </button>
+                              </div>
+                           </div>
+                        </div>
+
+                        <form className="settings-form form">
+                           <div className="form">
+                              <label htmlFor="name">Full Name:</label>
+                              <input
+                                 type="text"
+                                 value={newName}
+                                 onChange={handleChange}
+                                 name="name"
+                                 id="name"
+                                 autoComplete="name"
+                              />
+                           </div>
+
+                           <div className="form">
+                              <label htmlFor="email">Email Address:</label>
+                              <input
+                                 type="email"
+                                 value={newEmail}
+                                 onChange={handleChange}
+                                 name="email"
+                                 id="email"
+                                 autoComplete="email"
+                              />
+                           </div>
+
+                           <div className="form">
+                              <label htmlFor="">Phone number:</label>
+                              <input
+                                 type="text"
+                                 value="xxx"
+                                 name=""
+                                 id=""
+                                 autoComplete=""
+                                 disabled
+                              />
+                           </div>
+
+                           <div className="form">
+                              <label htmlFor="">Country:</label>
+                              <input
+                                 type="text"
+                                 value="xxx"
+                                 name=""
+                                 id=""
+                                 autoComplete=""
+                                 disabled
+                              />
+                           </div>
+
+                           <div className="form">
+                              <label htmlFor="bio">My Bio:</label>
+                              <textarea
+                                 type="text"
+                                 value={newBio}
+                                 onChange={handleChange}
+                                 name="bio"
+                                 id="bio"
+                                 autoComplete="bio"
+                                 rows="6"
+                              ></textarea>
+                           </div>
+                        </form>
+                        <div className="my-data-btns">
+                           <button
+                              className="secondary-btn-alt my-data-save-btn btn"
+                              onClick={handleRestore}
+                              // disabled={!isChanged}
+                           >
+                              Restore Defaults
+                           </button>
+                           <button
+                              className="secondary-btn my-data-save-btn btn"
+                              onClick={updateProfile}
+                              disabled={!isChanged}
+                           >
+                              Save Changes
+                           </button>
+                        </div>
+                     </div>
+                  )}
+
+                  {activeBtn === 'preferences' && (
+                     <div className="my-data">
+                        <h3>IN PROGRESS</h3>
+                        <p>Preferences</p>
+                     </div>
+                  )}
+
+                  {activeBtn === 'notifications' && (
+                     <div className="my-data">
+                        <h3>IN PROGRESS</h3>
+                        <p>Notifications</p>
+                     </div>
+                  )}
+
+                  {activeBtn === 'danger-zone' && (
+                     <div className="my-data danger-zone">
+                        <h3>DELETE MY ACCOUNT</h3>
+                        <p>
+                           By clicking the button down below, you will remove your account
+                           permanently from our databases:
+                        </p>
+                        <br />
+                        <div>
+                           <button
+                              className="btn logout-btn"
+                              onClick={() => setDeletePopup(true)}
+                           >
+                              Delete account
+                           </button>
+                        </div>
+                     </div>
+                  )}
+
+                  {deletePopup && (
+                     <div className="popup" onClick={closePopup}>
+                        <div
+                           className="popup-content"
+                           onClick={(e) => e.stopPropagation()}
+                        >
+                           <p className="confirmation">
+                              Are you sure you want to proceed?
+                           </p>
+                           <button className="btn close-btn" onClick={closePopup}>
+                              &#10006;
+                           </button>
+                           <button
+                              className="btn secondary-btn"
+                              onClick={(e) => {
+                                 deleteProfile(e);
+                              }}
+                           >
+                              Yes
+                           </button>
+                           <button className="btn logout-btn" onClick={closePopup}>
+                              No
+                           </button>
+                        </div>
+                     </div>
+                  )}
+               </AnimatedContainer>
+            </div>
+         </div>
+      </>
+   );
+};
+
+export default SettingsPage;
