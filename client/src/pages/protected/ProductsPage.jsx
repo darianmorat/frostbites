@@ -80,7 +80,7 @@ const ProductsPage = () => {
                                           Edit
                                        </button>
                                        <button
-                                          className="btn logout-btn admin-delete-btn"
+                                          className="btn remove-btn admin-delete-btn"
                                           onClick={() =>
                                              setDeletePopup(product.product_id)
                                           }

@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
                   </button>
                ) : (
                   <>
-                     <button className="btn in-cart" disabled>
+                     <button className="btn secondary-btn-alt" disabled>
                         Item in cart
                      </button>
                   </>

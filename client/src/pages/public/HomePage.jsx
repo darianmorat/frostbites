@@ -30,10 +30,10 @@ const HomePage = () => {
                      <h2 className="hero-title-small">A NEW WAY TO IMAGE</h2>
                      <h1 className="hero-title">ICE CREAM</h1>
                      <button
-                        className="btn primary-btn"
+                        className="btn add-to-cart"
                         onClick={() => navigate('/shopping')}
                      >
-                        BUY NOW
+                        Explore Shop
                      </button>
                   </AnimatedContainer>
                </div>
@@ -51,9 +51,11 @@ const HomePage = () => {
                </div>
             </div>
          </section>
-         {/* <button className="hero-btn-explore">EXPLORE MORE<br/> <i>↓</i></button> */}
 
-         <img src={wave_svg} alt="" className="wave-svg" />
+         <img src={wave_svg} alt="" className="wave-left-svg" />
+         <img src={wave_svg} alt="" className="wave-right-svg" />
+         <img src={wave_svg} alt="" className="wave-left-svg base" />
+         <img src={wave_svg} alt="" className="wave-right-svg base" />
 
          <section className="about-section">
             <div className="about-container">
@@ -81,11 +83,10 @@ const HomePage = () => {
                      excellence in every aspect of our craft.
                   </p>
                   <button
-                     className="btn primary-btn primary-btn-alt"
-                     id="btn"
+                     className="btn add-to-cart check-more-btn"
                      onClick={() => navigate('/about-us')}
                   >
-                     READ MORE
+                     Check More
                   </button>
                </div>
             </div>

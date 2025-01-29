@@ -56,7 +56,7 @@ export const DeleteProduct = ({
                   >
                      Yes
                   </button>
-                  <button className="btn logout-btn" onClick={closePopup}>
+                  <button className="btn remove-btn" onClick={closePopup}>
                      No
                   </button>
                </div>

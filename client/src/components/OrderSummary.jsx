@@ -37,7 +37,7 @@ const OrderSummary = () => {
             <div className="cart-items" key={index}>
                <div className="quantity-actions">
                   <button
-                     className="btn add-btn"
+                     className="btn secondary-btn add-quantity-btn"
                      onClick={() => {
                         updateQuantity(item.product_id, item.quantity + 1);
                      }}
@@ -45,7 +45,7 @@ const OrderSummary = () => {
                      +
                   </button>
                   <button
-                     className="btn remove-btn"
+                     className="btn secondary-btn-alt remove-quantity-btn"
                      onClick={() => {
                         updateQuantity(item.product_id, item.quantity - 1);
                      }}
@@ -61,7 +61,6 @@ const OrderSummary = () => {
                </div>
             </div>
          ))}
-         <hr />
          <div className="purchase-total">
             <p>Total Amount:</p>
             <p>${total} USD</p>

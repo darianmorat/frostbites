@@ -47,7 +47,7 @@ export const CreateProduct = () => {
       <>
          <div className="admin-actions">
             <button
-               className="btn primary-btn primary-btn-alt admin-create-product-btn"
+               className="btn secondary-btn-alt admin-create-product-btn"
                onClick={() => setCreatePopup(true)}
             >
                Create Product

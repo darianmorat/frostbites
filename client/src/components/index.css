@@ -8,7 +8,7 @@
 }
 
 .navbar {
-   background-color: #ffb8c9;
+   background-color: #fdb9c9;
    position: sticky;
    top: 0;
    z-index: 3;
@@ -129,8 +129,10 @@
    border-radius: 5px;
    box-shadow: 0 0 2px 2px #28282830;
 }
+
+#log-out-icon,
 .dropdown-menu > li > .nav-logout-btn {
-   color: red;
+   color: #e6323b;
 }
 
 #nav-icon {
@@ -143,9 +145,6 @@
 #nav-icon:hover {
    color: var(--red-color);
    cursor: pointer;
-}
-#log-out-icon {
-   color: red;
 }
 
 .cart-count {

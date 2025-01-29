@@ -182,7 +182,7 @@ const SignUpPage = () => {
                         htmlFor="confirmPassword"
                         className={
                            formik.touched.confirmPassword && formik.errors.confirmPassword
-                              ? 'red-text'
+                              ? 'label-error'
                               : ''
                         }
                      >

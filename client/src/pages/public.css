@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+
+:root {
+   --red-color: #ff4c77;
+   --white-color: #ffffff;
+   --black-color: #282828;
+   --grey-color: #8d8d8d;
+}
+
 /* =================================================================================== */
 /* ABOUT PAGE */
 .about {
@@ -137,7 +146,7 @@
 .cart-list {
    display: flex;
    flex-direction: column;
-   gap: 5px;
+   gap: 8px;
 }
 .cart-list > p {
    text-align: center;
@@ -146,7 +155,7 @@
 .cart-items {
    display: flex;
    align-items: center;
-   border: 1px solid grey;
+   border: 2px solid #aaaaaa;
    padding: 5px;
    border-radius: 5px;
    background-color: #fff5f7;
@@ -418,22 +427,13 @@
 
 /* =================================================================================== */
 /* HOME PAGE */
-@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
-
-:root {
-   --red-color: #ff4c77;
-   --white-color: #ffffff;
-   --black-color: #282828;
-   --grey-color: #8d8d8d;
-}
-
 /* Hero section */
 .hero-section {
-   background-color: #ffb8c9;
+   background-color: #fcc5d1;
    display: flex;
    height: calc(100vh - 70px);
    justify-content: center;
-   padding: 20px;
+   padding: 20px 0 20px 20px;
 }
 
 .hero-container {
@@ -455,6 +455,11 @@
 .hero-right {
    width: 500px;
    height: 500px;
+}
+
+.circle-svg {
+   filter: brightness(1) saturate(0.8);
+   opacity: 0.6;
 }
 
 .circle-svg,
@@ -494,6 +499,10 @@
    align-items: center;
    gap: 25px;
    max-width: 1200px;
+}
+
+.check-more-btn {
+   margin-top: 15px;
 }
 
 .about-btn-more > a {

@@ -7,9 +7,9 @@ import api from '../../../api/axios.jsx';
 import { ShowPassword } from '../../components/ShowPassword';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
 import wave_svg from '../../assets/images/svg/wave.svg';
-import '../public.css'
+import '../public.css';
 
- const ResetPasswordPage = () => {
+const ResetPasswordPage = () => {
    const [loading, setLoading] = useState(false);
    const navigate = useNavigate();
 
@@ -83,7 +83,7 @@ import '../public.css'
                         htmlFor="newPassword"
                         className={
                            formik.touched.newPassword && formik.errors.newPassword
-                              ? 'red-text'
+                              ? 'label-error'
                               : ''
                         }
                      >
@@ -110,7 +110,7 @@ import '../public.css'
                         htmlFor="confirmPassword"
                         className={
                            formik.touched.confirmPassword && formik.errors.confirmPassword
-                              ? 'red-text'
+                              ? 'label-error'
                               : ''
                         }
                      >
@@ -152,4 +152,4 @@ import '../public.css'
    );
 };
 
-export default ResetPasswordPage
+export default ResetPasswordPage;

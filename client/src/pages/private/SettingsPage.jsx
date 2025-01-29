@@ -250,7 +250,7 @@ const SettingsPage = () => {
                            <button
                               className="secondary-btn-alt my-data-save-btn btn"
                               onClick={handleRestore}
-                              // disabled={!isChanged}
+                              disabled={!isChanged}
                            >
                               Restore Defaults
                            </button>
@@ -289,7 +289,7 @@ const SettingsPage = () => {
                         <br />
                         <div>
                            <button
-                              className="btn logout-btn"
+                              className="btn remove-btn"
                               onClick={() => setDeletePopup(true)}
                            >
                               Delete account
@@ -318,7 +318,7 @@ const SettingsPage = () => {
                            >
                               Yes
                            </button>
-                           <button className="btn logout-btn" onClick={closePopup}>
+                           <button className="btn remove-btn" onClick={closePopup}>
                               No
                            </button>
                         </div>
