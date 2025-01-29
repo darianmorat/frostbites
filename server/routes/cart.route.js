@@ -1,11 +1,19 @@
 import { Router } from 'express';
-import { getOrder, addToCart, deleteFromCart } from '../controllers/cart.controller.js';
-import authorization from '../middleware/authorization.js';
+import {
+   getOrder,
+   addToCart,
+   deleteFromCart,
+   updateQuantity,
+   deleteAllFromCart,
+} from '../controllers/cart.controller.js';
+import { privateRoute } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
-router.get('/', authorization, getOrder);
-router.post('/add', authorization, addToCart);
-router.delete('/delete/:id', authorization, deleteFromCart);
+router.get('/', privateRoute, getOrder);
+router.post('/add', privateRoute, addToCart);
+router.delete('/delete/:id', privateRoute, deleteFromCart);
+router.delete('/delete', privateRoute, deleteAllFromCart);
+router.put('/update', privateRoute, updateQuantity);
 
 export default router;

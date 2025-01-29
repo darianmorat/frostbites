@@ -4,12 +4,10 @@ export const userInfo = async (req, res) => {
    try {
       const { userId } = req.user;
 
-      const user = await pool.query(
-         'SELECT user_name, user_email, created_at FROM users WHERE user_id = $1',
-         [userId],
-      );
+      const result = await pool.query('SELECT * FROM users WHERE user_id = $1', [userId]);
+      const user = result.rows[0];
 
-      res.json(user.rows[0]);
+      res.status(200).json({ success: true, user });
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });
    }
@@ -17,7 +15,7 @@ export const userInfo = async (req, res) => {
 
 export const updateUserInfo = async (req, res) => {
    try {
-      const { user_name, user_email } = req.body;
+      const { user_name, user_email, user_bio } = req.body;
       const { userId } = req.user;
 
       const currentUser = await pool.query('SELECT * FROM users WHERE user_id = $1', [
@@ -35,23 +33,22 @@ export const updateUserInfo = async (req, res) => {
                .status(409)
                .json({ success: false, message: 'Email already in use' });
          }
-      }
-
-      if (user_name) {
+      } else {
          await pool.query(
-            'UPDATE users SET user_name = $1 WHERE user_id = $2 RETURNING user_name',
-            [user_name, userId],
+            'UPDATE users SET user_name = $1, user_email = $2, user_bio = $3 WHERE user_id = $4 RETURNING user_name, user_email, user_bio',
+            [user_name, user_email, user_bio, userId],
          );
-      }
 
-      if (user_name && user_email) {
-         await pool.query(
-            'UPDATE users SET user_name = $1, user_email = $2 WHERE user_id = $3 RETURNING user_name, user_email',
-            [user_name, user_email, userId],
-         );
-      }
+         const result = await pool.query('SELECT * FROM users WHERE user_email = $1', [
+            user_email,
+         ]);
 
-      res.json({ success: true, message: 'Profile updated successfully' });
+         res.json({
+            success: true,
+            user: result.rows[0],
+            message: 'Profile updated successfully',
+         });
+      }
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });
    }

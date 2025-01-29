@@ -54,7 +54,11 @@ export const forgotPassword = async (req, res) => {
          if (err) {
             return res.status(500).json({ success: false, message: err.message });
          }
-         res.status(200).json({ success: true, message: 'Email sent, please check your inbox', token: token });
+         res.status(200).json({
+            success: true,
+            message: 'Email sent, please check your inbox',
+            token: token,
+         });
       });
    } catch (err) {
       res.status(500).json({ message: err.message });
@@ -154,6 +158,7 @@ export const sendEmail = async (req, res) => {
          }
          res.status(200).json({
             success: true,
+            user: user.rows[0],
             message: 'Email verified successfully',
             token,
          });

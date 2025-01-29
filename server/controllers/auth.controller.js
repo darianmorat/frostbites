@@ -11,14 +11,12 @@ export const registerUser = async (req, res) => {
 
       if (user.rows.length !== 0) {
          if (user.rows[0].is_verified === false) {
-            return res
-               .status(401)
-               .json({
-                  success: false,
-                  isVerified: false,
-                  message:
-                     'Your email is not verified. Please check your inbox before logging in',
-               });
+            return res.status(401).json({
+               success: false,
+               isVerified: false,
+               message:
+                  'Your email is not verified. Please check your inbox before logging in',
+            });
          }
 
          return res.status(401).json({ success: false, message: 'User already exists' });
@@ -137,14 +135,12 @@ export const loginUser = async (req, res) => {
       }
 
       if (user.rows[0].is_verified === false) {
-         return res
-            .status(401)
-            .json({
-               success: false,
-               isVerified: false,
-               message:
-                     'Your email is not verified. Please check your inbox before logging in',
-            });
+         return res.status(401).json({
+            success: false,
+            isVerified: false,
+            message:
+               'Your email is not verified. Please check your inbox before logging in',
+         });
       }
 
       const validPassword = await bcrypt.compare(password, user.rows[0].user_password);
@@ -156,7 +152,7 @@ export const loginUser = async (req, res) => {
       }
 
       const token = jwtGenerator(user.rows[0].user_id, isAdmin);
-      res.status(200).json({ success: true, token });
+      res.status(200).json({ success: true, user: user.rows[0], isAdmin, token });
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });
    }
@@ -166,8 +162,10 @@ export const verifyUser = async (req, res) => {
    try {
       const { userId, isAdmin } = req.user;
 
+      const result = await pool.query('SELECT * FROM users WHERE user_id = $1', [userId]);
+
       if (userId) {
-         res.status(200).json({ success: true, isAdmin });
+         res.status(200).json({ success: true, isAdmin, user: result.rows[0] });
       }
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });

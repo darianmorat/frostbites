@@ -10,6 +10,7 @@ CREATE TABLE users (
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    is_verified BOOLEAN DEFAULT FALSE,
    cart_items INT DEFAULT 0,
+   user_bio VARCHAR(255) NOT NULL DEFAULT 'No bio provided';
 );
 
 CREATE TABLE roles (
