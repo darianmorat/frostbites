@@ -67,15 +67,17 @@ user friendly, and built to last.
 
 - **React.js**: A modern JavaScript library.
 - **Dependencies**:
-   - **React Router Dom**: For navigation and routing.
    - **Axios**: For handling HTTP requests.
    - **Boxicons**: A library of customizable icons.
-   - **Leaflet**: A library for Interactive maps.
-   - **Loader-Spinner**: For displaying loading animations.
-   - **Toastify**: For displaying elegant notifications.
-   - **Remove-Scroll**: For removing scroll in popups.
+   - **Chart.js**: For creating interactive charts.
    - **Formik**: For handling forms in React.
+   - **Leaflet**: A library for Interactive maps.
+   - **React Router Dom**: For navigation and routing.
+   - **Loader-Spinner**: For displaying loading animations.
+   - **Remove-Scroll**: For removing scroll in popups.
+   - **Toastify**: For displaying elegant notifications.
    - **Yup**: Object schema validation.
+   - **Zustand**: State management for React.
 
 #### Back-End:
 
@@ -87,8 +89,9 @@ user friendly, and built to last.
    - **Dotenv**: For managing environment variables.
    - **JWT Authentication**: For secure user authentication.
    - **Pg**: For PostgreSQL integration.
-   - **Nodemailer**: For sending emails.
    - **Motion**: For animations in react.
+   - **Nodemailer**: For sending emails.
+   - **Stripe**: For handling payments and subscriptions.
 
 ---
 
@@ -121,7 +124,8 @@ cd frostbites
 
 ```bash
 PORT=your_server_port
-JWT_SECRET=your_jwt_secret
+BASE_URL=
+JWT_SECRET=your_jwt_secret_key
 
 DB_USER=your_database_user
 DB_PASSWORD=your_database_password
@@ -130,11 +134,14 @@ DB_HOST=your_database_host
 DB_PORT=your_database_port
 
 ADMIN_EMAIL=your_admin_email
+ADMIN_EMAIL2=
 ADMIN_ROLE=your_admin_role
 USER_ROLE=your_user_role
 
 APP_EMAIL=email_for_nodemailer
 PASSWORD_APP_EMAIL=your_email_password
+
+STRIPE_SECRET_KEY=your_secret_key
 ```
 
 4. Install dependencies for both the client and server:
