@@ -9,8 +9,8 @@ const AboutPage = () => {
          <AnimatedContainer>
             <section className="about-section-1">
                <div className="about-left">
-                  <h2 className="about-title-small">KNOW MORE</h2>
-                  <h1 className="about-title">WHO WE ARE?</h1>
+                  <h2 className="about-title-small">Know more</h2>
+                  <h1 className="about-title">Who we are?</h1>
                   <p className="about-description">
                      Frost Bites is a small but dedicated team of ice cream enthusiasts
                      from Colombia. We believe in the magic of ice cream and its power to
@@ -60,8 +60,8 @@ const AboutPage = () => {
                </div>
 
                <div className="about-left">
-                  <h2 className="about-title-small">THIS IS OUR</h2>
-                  <h1 className="about-title">TEAM GROUP</h1>
+                  <h2 className="about-title-small">This is our</h2>
+                  <h1 className="about-title">Team group</h1>
                   <p className="about-description">
                      Frost Bites is a small but dedicated team of ice cream enthusiasts
                      from Colombia. We believe in the magic of ice cream and its power to

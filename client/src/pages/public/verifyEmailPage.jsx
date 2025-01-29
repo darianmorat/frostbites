@@ -47,19 +47,18 @@ const VerifyEmailPage = ({ setHasParams }) => {
          <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
-                  <h3 className="form-title">VERIFY YOUR FROST BITES ACCOUNT!</h3>
+                  <h3 className="form-title">Verify your frost bites account!</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
                      <div className="stick smaller-stick"></div>
                   </div>
                </div>
 
-               <div className="right-form">
+               <div className="right-form spacing">
                   <p className="form-description">
                      Check <span className="your-email">{email}</span> to verify your
                      account and get started.
                   </p>
-                  <br />
                   <button
                      type="submit"
                      className="btn secondary-btn btn-submit"
@@ -67,16 +66,15 @@ const VerifyEmailPage = ({ setHasParams }) => {
                         window.open('https://ethereal.email/messages', '_blank')
                      }
                   >
-                     OPEN GMAIL
+                     Open gmail
                   </button>
-                  <br />
                   <button
                      type="submit"
                      className="btn secondary-btn-alt btn-submit"
                      onClick={() => resendEmail(email)}
                      disabled={loading}
                   >
-                     {loading ? <>SENDING...</> : <>RESEND EMAIL</>}
+                     {loading ? <>Sending...</> : <>Resend email</>}
                   </button>
                </div>
             </div>

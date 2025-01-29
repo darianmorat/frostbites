@@ -33,13 +33,13 @@ const ProductsPage = () => {
                         className={`explore-btn btn ${activeBtn === 'explore' ? 'active' : 'inactive'}`}
                         onClick={() => toggleActive('explore')}
                      >
-                        ICE CREAM CATALOG
+                        Ice cream catalog
                      </button>
                      <button
                         className={`make-btn btn ${activeBtn === 'make' ? 'active' : 'inactive'}`}
                         onClick={() => toggleActive('make')}
                      >
-                        EXTRAS FOR ICE CREAM
+                        Extras for ice cream
                      </button>
                   </div>
 
@@ -114,7 +114,7 @@ const ProductsPage = () => {
 
                   {activeBtn === 'make' && (
                      <div className="product-list make">
-                        <p>IN PROGRESS</p>
+                        <p>In progress</p>
                      </div>
                   )}
                </div>

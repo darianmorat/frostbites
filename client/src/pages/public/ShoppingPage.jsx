@@ -54,7 +54,7 @@ const ShoppingPage = () => {
 
                {activeBtn === 'make' && (
                   <div className="product-list make">
-                     <p>IN PROGRESS</p>
+                     <p>In progress</p>
                   </div>
                )}
             </div>

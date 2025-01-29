@@ -20,7 +20,7 @@ const SendEmailPage = () => {
          <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
-                  <h3 className="form-title">VERIFY YOUR FROST BITES ACCOUNT!</h3>
+                  <h3 className="form-title">Verify your frost bites account!</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
                      <div className="stick smaller-stick"></div>
@@ -39,7 +39,7 @@ const SendEmailPage = () => {
                      onClick={handleVerifyUser}
                      disabled={loading}
                   >
-                     {loading ? <>VERIFYING...</> : <>VERIFY EMAIL</>}
+                     {loading ? <>Verifying...</> : <>Verify email</>}
                   </button>
                </div>
             </div>

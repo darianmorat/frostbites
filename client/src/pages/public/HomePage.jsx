@@ -27,7 +27,7 @@ const HomePage = () => {
             <div className="hero-container">
                <div className="hero-left">
                   <AnimatedContainer>
-                     <h2 className="hero-title-small">A NEW WAY TO IMAGE</h2>
+                     <h2 className="hero-title-small">A new way to image</h2>
                      <h1 className="hero-title">ICE CREAM</h1>
                      <button
                         className="btn add-to-cart"
@@ -72,8 +72,8 @@ const HomePage = () => {
                </div>
 
                <div className="about-right">
-                  <h2 className="about-title-small">KNOW MORE</h2>
-                  <h1 className="about-title">ABOUT US</h1>
+                  <h2 className="about-title-small">Know more</h2>
+                  <h1 className="about-title">About us</h1>
                   <p className="about-description">
                      We are Frost Bites, a passionate team from Colombia dedicated to
                      bringing you the finest variety of ice creams. Our mission is to

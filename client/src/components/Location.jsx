@@ -29,7 +29,7 @@ export const Location = () => {
    return (
       <div className="location-page">
          <div className="location-map">
-            <h2 className="location-title">OUR LOCATION</h2>
+            <h2 className="location-title">Our location</h2>
             <div className="location-container">
                <div className="location-direction">
                   <p className="direction-title">Colombia, Huila</p>

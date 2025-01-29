@@ -102,13 +102,13 @@ const SignUpPage = () => {
             <div className="form-container">
                <div className="left-form">
                   <BackBtn />
-                  <h3 className="form-title">FEEL FREE TO JOIN FROST BITES!</h3>
+                  <h3 className="form-title">Feel free to join the FROSTBITES family!</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
                      <div className="stick smaller-stick"></div>
                   </div>
                   <p className="form-description">
-                     Sign up and save amazing BONUSES for you and your family together!
+                     Sign up and save amazing Bonuses for you and your family together!
                   </p>
                </div>
 
@@ -216,12 +216,12 @@ const SignUpPage = () => {
                            !formik.values.password
                         }
                      >
-                        {loading ? <>CREATING ACCOUNT...</> : <>REGISTER</>}
+                        {loading ? <>Creating Account...</> : <>SignUp</>}
                      </button>
                   </form>
                   <div className="link login-link">
                      <p className="description">Already have an account?</p>
-                     <Link to="/login">LOGIN</Link>
+                     <Link to="/login">Login</Link>
                   </div>
                </div>
             </div>

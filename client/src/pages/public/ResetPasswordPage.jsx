@@ -66,7 +66,7 @@ const ResetPasswordPage = () => {
          <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
-                  <h3 className="form-title">EASY WAY TO RESET YOUR PASSWORD</h3>
+                  <h3 className="form-title">Easy way to reset your password</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
                      <div className="stick smaller-stick"></div>
@@ -142,7 +142,7 @@ const ResetPasswordPage = () => {
                            !formik.values.confirmPassword
                         }
                      >
-                        {loading ? <>RESETTING...</> : <>RESET PASSWORD</>}
+                        {loading ? <>Resetting...</> : <>Reset password</>}
                      </button>
                   </form>
                </div>

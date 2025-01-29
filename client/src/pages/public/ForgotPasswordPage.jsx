@@ -51,7 +51,7 @@ const ForgotPasswordPage = () => {
             <div className="form-container">
                <div className="left-form">
                   <BackBtn />
-                  <h3 className="form-title">EASY WAY TO RESET YOUR PASSWORD</h3>
+                  <h3 className="form-title">Easy way to reset your password</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
                      <div className="stick smaller-stick"></div>
@@ -90,7 +90,7 @@ const ForgotPasswordPage = () => {
                               className="btn secondary-btn btn-submit"
                               disabled={loading || !formik.values.email}
                            >
-                              {loading ? <>SENDING...</> : <>SEND EMAIL</>}
+                              {loading ? <>Sending...</> : <>Send Email</>}
                            </button>
                         </>
                      ) : (
@@ -105,14 +105,14 @@ const ForgotPasswordPage = () => {
                               className="btn secondary-btn btn-submit"
                               disabled={loading || !formik.values.email}
                            >
-                              {loading ? <>RESENDING...</> : <>RESEND EMAIL</>}
+                              {loading ? <>Resending...</> : <>Resend Email</>}
                            </button>
                            <button
                               type="submit"
                               className="btn secondary-btn-alt btn-submit"
                               onClick={() => setConfirmation(false)}
                            >
-                              CHANGE EMAIL
+                              Change Email
                            </button>
                         </>
                      )}

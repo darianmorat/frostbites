@@ -4,7 +4,7 @@ import 'boxicons';
 import { useCartStore } from '../stores/useCartStore';
 import { useUserStore } from '../stores/useUserStore';
 import logo from '../assets/images/logo/logo.svg';
-import './index.css'
+import './index.css';
 
 export const Navbar = () => {
    const { cart } = useCartStore();
@@ -56,17 +56,17 @@ export const Navbar = () => {
                </div>
                <li className={url === '' ? 'active' : ''}>
                   <Link to="/" onClick={scrollToTop}>
-                     HOMEPAGE
+                     Homepage
                   </Link>
                </li>
                <li className={url === 'about-us' ? 'active' : ''}>
                   <Link to="/about-us" onClick={scrollToTop}>
-                     ABOUT US
+                     About Us
                   </Link>
                </li>
                <li className={url === 'shopping' ? 'active' : ''}>
                   <Link to="/shopping" onClick={scrollToTop}>
-                     SHOPPING
+                     Shopping
                   </Link>
                </li>
             </>
@@ -79,17 +79,17 @@ export const Navbar = () => {
                </div>
                <li className={url === 'dashboard' ? 'active' : ''}>
                   <Link to="/dashboard" onClick={scrollToTop}>
-                     DASHBOARD
+                     Dashboard
                   </Link>
                </li>
                <li className={url === 'customers' ? 'active' : ''}>
                   <Link to="/customers" onClick={scrollToTop}>
-                     CUSTUMERS
+                     Custumers
                   </Link>
                </li>
                <li className={url === 'products' ? 'active' : ''}>
                   <Link to="/products" onClick={scrollToTop}>
-                     PRODUCTS
+                     Products
                   </Link>
                </li>
             </>
@@ -180,7 +180,7 @@ export const Navbar = () => {
       <>
          <div className="navbar-right">
             <li>
-               <Link to="/login">LOGIN</Link>
+               <Link to="/login">Get Started</Link>
             </li>
             <i className="bx bx-sun bx-sm" id="nav-icon"></i>
          </div>

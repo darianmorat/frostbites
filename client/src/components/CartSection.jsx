@@ -7,15 +7,9 @@ export const CartSection = () => {
 
    return (
       <div className="left-section">
-         <h3>
-            Selections for each one of you, your family and of course your friends to
-            enjoy separately!
-            <span className="max-users"> (MAX 10)</span>
-         </h3>
-
          <img src={select_product_img} alt="" className="select-product-img" />
          <div className="purchase-container">
-            <h3 className="purchase-title">ORDER DETAILS</h3>
+            <h3 className="purchase-title">Order Summary</h3>
             <div className="cart-list">
                {cart.length === 0 && (
                   <>

@@ -140,7 +140,7 @@
    justify-content: center;
    align-items: center;
    color: white;
-   transform: scale(1.1);
+   transform: scale(1.0);
 }
 #nav-icon:hover {
    color: var(--red-color);
@@ -175,7 +175,7 @@
 .name,
 .admin-name {
    color: white;
-   font-weight: bold;
+   font-weight: 600;
 }
 .role,
 .admin-role {

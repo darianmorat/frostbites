@@ -51,7 +51,7 @@ const ResendEmailPage = () => {
             <div className="form-container">
                <div className="left-form">
                   <BackBtn />
-                  <h3 className="form-title">DID NOT RECEIVE OUR EMAIL?</h3>
+                  <h3 className="form-title">Did not receive our email?</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
                      <div className="stick smaller-stick"></div>
@@ -87,7 +87,7 @@ const ResendEmailPage = () => {
                         className="btn secondary-btn btn-submit"
                         disabled={loading || !formik.values.email}
                      >
-                        {loading ? <>SENDING...</> : <>RESEND EMAIL</>}
+                        {loading ? <>Sending...</> : <>Resend email</>}
                      </button>
                   </form>
                </div>

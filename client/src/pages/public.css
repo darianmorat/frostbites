@@ -109,7 +109,6 @@
 /* right section */
 .left-section {
    flex: 2;
-   margin-top: 20px;
    display: flex;
    flex-direction: column;
    min-width: 422px;
@@ -120,7 +119,6 @@
    text-align: justify;
 }
 .select-product-img {
-   margin-top: 15px;
    width: 200px;
 }
 
@@ -326,6 +324,12 @@
    background-color: #f9e0e5;
    width: 400px;
 }
+.right-form.spacing {
+   gap: 8px;
+}
+.right-form.spacing > p {
+   padding-bottom: 12px;
+}
 
 .left-form,
 .right-form {
@@ -421,6 +425,10 @@
 .page-not-found-img {
    margin-bottom: 40px;
    width: 500px;
+}
+
+.not-found-description {
+   margin-bottom: -15px;
 }
 /* NOT FOUND PAGE */
 /* =================================================================================== */

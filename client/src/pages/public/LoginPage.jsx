@@ -43,13 +43,13 @@ const LoginPage = () => {
             <div className="form-container">
                <div className="left-form">
                   <BackBtn />
-                  <h3 className="form-title">WELCOME BACK TO ICE CREAM SHOP</h3>
+                  <h3 className="form-title">Welcome back to FROSTBITES!</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
                      <div className="stick smaller-stick"></div>
                   </div>
                   <p className="form-description">
-                     Log in to continue to your account and save more BONUSES for each of
+                     Log in to continue to your account and save more Bonuses for each of
                      your purchases!
                   </p>
                </div>
@@ -103,13 +103,13 @@ const LoginPage = () => {
                         className="btn secondary-btn btn-submit"
                         disabled={!formik.values.email || !formik.values.password}
                      >
-                        LOGIN
+                        Login
                      </button>
                   </form>
                   <div className="link register-link">
                      <p className="description">Dont have an account?</p>
                      <Link to="/signup" onClick={handleToast}>
-                        SIGNUP
+                        SignUp
                      </Link>
                   </div>
                </div>

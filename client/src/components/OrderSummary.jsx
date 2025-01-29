@@ -70,14 +70,14 @@ const OrderSummary = () => {
             onClick={() => handlePayment()}
             disabled={loading}
          >
-            {!loading ? <>Buy Now</> : <>PROCESSING...</>}
+            {!loading ? <>Buy Now</> : <>Processing...</>}
          </button>
          <button
             className="secondary-btn-alt btn"
             onClick={() => clearCart()}
             disabled={loading}
          >
-            {!loading ? <>Clear Cart</> : <>...</>}
+            {!loading ? <>Clear Cart</> : <>Clear Cart</>}
          </button>
       </>
    );

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import page_not_found from '../../assets/images/svg/page-not-found.svg';
 import wave_svg from '../../assets/images/svg/wave.svg';
-import '../public.css'
+import '../public.css';
 
 const NotFoundPage = () => {
    return (
@@ -13,9 +13,9 @@ const NotFoundPage = () => {
          <img src={wave_svg} alt="" className="wave-left-svg base" />
          <img src={wave_svg} alt="" className="wave-right-svg base" />
 
-         <p>Oops, Page Not Found.</p>
+         <p className="not-found-description">Oops, Page Not Found.</p>
          <div className="link">
-            <Link to="/">GO TO HOMEPAGE</Link>
+            <Link to="/">Go to homepage</Link>
          </div>
       </div>
    );
