@@ -123,18 +123,17 @@ cd frostbites
 3. Set up environment variables:
 
 ```bash
+# Client .env
+BASE_URL=your_base_url
+
+# Server .env
 PORT=your_server_port
-BASE_URL=
 JWT_SECRET=your_jwt_secret_key
 
-DB_USER=your_database_user
-DB_PASSWORD=your_database_password
-DB_NAME=your_database_name
-DB_HOST=your_database_host
-DB_PORT=your_database_port
+BASE_URL=your_base_url
+DATABASE_URL=your_database_url
 
 ADMIN_EMAIL=your_admin_email
-ADMIN_EMAIL2=
 ADMIN_ROLE=your_admin_role
 USER_ROLE=your_user_role
 
