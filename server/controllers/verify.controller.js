@@ -193,7 +193,7 @@ export const resendEmail = async (req, res) => {
 
    let isAdmin = false;
 
-   if (email === process.env.ADMIN_EMAIL || email === process.env.ADMIN_EMAIL2) {
+   if (email === process.env.ADMIN_EMAIL) {
       const adminRole = process.env.ADMIN_ROLE;
 
       const roles = await pool.query('SELECT role_id FROM roles WHERE role_name = $1', [

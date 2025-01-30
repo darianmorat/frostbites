@@ -33,7 +33,7 @@ export const registerUser = async (req, res) => {
 
       let isAdmin = false;
 
-      if (email === process.env.ADMIN_EMAIL || email === process.env.ADMIN_EMAIL2) {
+      if (email === process.env.ADMIN_EMAIL) {
          const adminRole = process.env.ADMIN_ROLE;
 
          const roles = await pool.query(
@@ -122,7 +122,7 @@ export const loginUser = async (req, res) => {
 
       let isAdmin = false;
 
-      if (email === process.env.ADMIN_EMAIL || email === process.env.ADMIN_EMAIL2) {
+      if (email === process.env.ADMIN_EMAIL) {
          isAdmin = true;
       }
 

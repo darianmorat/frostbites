@@ -6,9 +6,7 @@ export const getStats = async (req, res) => {
          'SELECT user_id, user_name, user_email, created_at, is_verified FROM users',
       );
       const totalUsers = resultUsers.rows.filter(
-         (user) =>
-            user.user_email !== process.env.ADMIN_EMAIL &&
-            user.user_email !== process.env.ADMIN_EMAIL2,
+         (user) => user.user_email !== process.env.ADMIN_EMAIL,
       );
 
       const resultProducts = await pool.query(
