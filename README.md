@@ -67,8 +67,8 @@ user friendly, and built to last.
 
 - **React.js**: A modern JavaScript library.
 - **Dependencies**:
+   - **FontAwesome**: A library of customizable icons.
    - **Axios**: For handling HTTP requests.
-   - **Boxicons**: A library of customizable icons.
    - **Chart.js**: For creating interactive charts.
    - **Formik**: For handling forms in React.
    - **Leaflet**: A library for Interactive maps.
