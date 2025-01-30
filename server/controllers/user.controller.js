@@ -33,22 +33,22 @@ export const updateUserInfo = async (req, res) => {
                .status(409)
                .json({ success: false, message: 'Email already in use' });
          }
-      } else {
-         await pool.query(
-            'UPDATE users SET user_name = $1, user_email = $2, user_bio = $3 WHERE user_id = $4 RETURNING user_name, user_email, user_bio',
-            [user_name, user_email, user_bio, userId],
-         );
-
-         const result = await pool.query('SELECT * FROM users WHERE user_email = $1', [
-            user_email,
-         ]);
-
-         res.json({
-            success: true,
-            user: result.rows[0],
-            message: 'Profile updated successfully',
-         });
       }
+
+      await pool.query(
+         'UPDATE users SET user_name = $1, user_email = $2, user_bio = $3 WHERE user_id = $4 RETURNING user_name, user_email, user_bio',
+         [user_name, user_email, user_bio, userId],
+      );
+
+      const result = await pool.query('SELECT * FROM users WHERE user_email = $1', [
+         user_email,
+      ]);
+
+      res.json({
+         success: true,
+         user: result.rows[0],
+         message: 'Profile updated successfully',
+      });
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });
    }
