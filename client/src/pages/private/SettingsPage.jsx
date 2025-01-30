@@ -3,10 +3,10 @@ import { toast } from 'react-toastify';
 import api from '../../../api/axios';
 import { useUserStore } from '../../stores/useUserStore';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
-import '../private.css'
+import '../private.css';
 
 const SettingsPage = () => {
-   const { logout, updateUser, user } = useUserStore();
+   const { logout, updateUser, user, loading } = useUserStore();
 
    const [deletePopup, setDeletePopup] = useState(false);
    const [activeBtn, setActiveBtn] = useState('my-data');
@@ -21,11 +21,7 @@ const SettingsPage = () => {
    // ===========
 
    useEffect(() => {
-      if (!user) {
-         setNewName('Loading...');
-         setNewEmail('Loading...');
-         setNewBio('Loading...');
-      } else {
+      if (user) {
          setNewName(user.user_name);
          setNewEmail(user.user_email);
          setNewBio(user.user_bio);
@@ -36,7 +32,10 @@ const SettingsPage = () => {
    // UPDATE PROFILE
    // ==============
    const updateProfile = async () => {
-      await updateUser(newName, newEmail, newBio);
+      const isChanged = await updateUser(newName, newEmail, newBio);
+      if (isChanged) {
+         setIsChanged(false);
+      }
    };
 
    const handleChange = (e) => {
@@ -131,25 +130,25 @@ const SettingsPage = () => {
                   <div className="">
                      <nav className="profile-nav">
                         <button
-                           className={`my-data btn ${activeBtn === 'my-data' ? 'active' : 'inactive'}`}
+                           className={`my-data-btn btn ${activeBtn === 'my-data' ? 'active' : 'inactive'}`}
                            onClick={() => toggleActive('my-data')}
                         >
                            Personal Data
                         </button>
                         <button
-                           className={`preferences btn ${activeBtn === 'preferences' ? 'active' : 'inactive'}`}
+                           className={`preferences-btn btn ${activeBtn === 'preferences' ? 'active' : 'inactive'}`}
                            onClick={() => toggleActive('preferences')}
                         >
                            Preferences
                         </button>
                         <button
-                           className={`notifications btn ${activeBtn === 'notifications' ? 'active' : 'inactive'}`}
+                           className={`notifications-btn btn ${activeBtn === 'notifications' ? 'active' : 'inactive'}`}
                            onClick={() => toggleActive('notifications')}
                         >
                            Notifications
                         </button>
                         <button
-                           className={`danger-zone btn ${activeBtn === 'danger-zone' ? 'active' : 'inactive'}`}
+                           className={`danger-zone-btn btn ${activeBtn === 'danger-zone' ? 'active' : 'inactive'}`}
                            onClick={() => toggleActive('danger-zone')}
                         >
                            Danger Zone
@@ -210,25 +209,25 @@ const SettingsPage = () => {
                            </div>
 
                            <div className="form">
-                              <label htmlFor="">Phone number:</label>
+                              <label htmlFor="phone">Phone number:</label>
                               <input
                                  type="text"
                                  value="xxx"
                                  name=""
-                                 id=""
-                                 autoComplete=""
+                                 id="phone"
+                                 autoComplete="phone"
                                  disabled
                               />
                            </div>
 
                            <div className="form">
-                              <label htmlFor="">Country:</label>
+                              <label htmlFor="country">Country:</label>
                               <input
                                  type="text"
                                  value="xxx"
                                  name=""
-                                 id=""
-                                 autoComplete=""
+                                 id="country"
+                                 autoComplete="country"
                                  disabled
                               />
                            </div>
@@ -266,21 +265,21 @@ const SettingsPage = () => {
                   )}
 
                   {activeBtn === 'preferences' && (
-                     <div className="my-data">
+                     <div className="preferences">
                         <h3>IN PROGRESS</h3>
                         <p>Preferences</p>
                      </div>
                   )}
 
                   {activeBtn === 'notifications' && (
-                     <div className="my-data">
+                     <div className="notifications">
                         <h3>IN PROGRESS</h3>
                         <p>Notifications</p>
                      </div>
                   )}
 
                   {activeBtn === 'danger-zone' && (
-                     <div className="my-data danger-zone">
+                     <div className="danger-zone">
                         <h3>DELETE MY ACCOUNT</h3>
                         <p>
                            By clicking the button down below, you will remove your account

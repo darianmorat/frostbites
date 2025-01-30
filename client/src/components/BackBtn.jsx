@@ -1,15 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
-import 'boxicons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const BackBtn = () => {
-   const navigate = useNavigate()
+   const navigate = useNavigate();
 
    return (
       <>
          {/* SEND BACK TO WHERE THE USER WAS, NOT TO THE HOME */}
          <div className="back-btn">
             <Link onClick={() => navigate(-1)}>
-               <i className="bx bx-arrow-back bx-sm" id="back-icon"></i>
+               <FontAwesomeIcon icon="fa-solid fa-arrow-left" className="icons-v2 back" />
             </Link>
          </div>
       </>

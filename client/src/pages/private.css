@@ -31,6 +31,14 @@
 .settings-container {
    max-width: 1200px;
    width: 100%;
+   display: flex;
+   flex-direction: column;
+}
+
+.settings-container > div {
+   display: flex;
+   flex-direction: column;
+   flex-grow: 1;
 }
 /* SUCCESS PAGE */
 /* =================================================================================== */
@@ -153,24 +161,30 @@
    background-color: #fff5f750;
 }
 
-.profile-nav > .danger-zone.active {
+.profile-nav > .danger-zone-btn.active {
    color: #ff4c77;
 }
-.profile-nav > .danger-zone {
+.profile-nav > .danger-zone-btn {
    color: #ff4c7760;
 }
-.profile-nav > .danger-zone:hover {
+.profile-nav > .danger-zone-btn:hover {
    color: #ff4c7790;
 }
 
-/* section: personal data */
-.my-data {
+/* sections */
+.my-data,
+.preferences,
+.notifications,
+.danger-zone {
    padding: 20px;
    display: flex;
    flex-direction: column;
    border-radius: 5px;
    background-color: #fff5f7;
+   flex-grow: 1;
 }
+
+/* section: personal data */
 .my-data-img {
    display: flex;
    flex-direction: row-reverse;
@@ -228,6 +242,7 @@
 }
 
 textarea {
+   color: #282828;
    width: 100%;
    resize: none;
    border-radius: 5px;

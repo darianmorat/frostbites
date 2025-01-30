@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../../api/axios';
-import 'boxicons';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
 import '../protected.css'
 

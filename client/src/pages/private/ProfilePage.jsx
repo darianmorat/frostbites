@@ -1,6 +1,7 @@
 import { useUserStore } from '../../stores/useUserStore';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
-import '../private.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../private.css';
 
 const ProfilePage = () => {
    const { user } = useUserStore();
@@ -51,23 +52,34 @@ const ProfilePage = () => {
                               <br />
                               <div className="profile-contact-info">
                                  <h3>Contact Information:</h3>
-                                 <div className="profile-email">
-                                    <i className="bx bx-envelope bx-sm"></i>
+                                 <div className="contact-profile-email">
+                                    <div className="icons-container">
+                                       <FontAwesomeIcon
+                                          icon="fa-solid fa-envelope"
+                                          className="icons-v2"
+                                       />
+                                    </div>
                                     <p>{user.user_email}</p>
                                  </div>
 
-                                 <div className="profile-phone">
-                                    <i className="bx bx-phone-call bx-sm"></i>
+                                 <div className="contact-profile-phone">
+                                    <FontAwesomeIcon
+                                       icon="fa-solid fa-phone-volume"
+                                       className="icons-v2"
+                                    />
                                     <p>+57 322-393-9238</p>
                                  </div>
 
-                                 <div className="profile-country">
-                                    <i className="bx bx-location-plus bx-sm"></i>
+                                 <div className="contact-profile-country">
+                                    <FontAwesomeIcon
+                                       icon="fa-solid fa-location-dot"
+                                       className="icons-v2"
+                                    />
                                     <p>Neiva-Huila, Colombia, CL 24c #3W-04</p>
                                  </div>
                               </div>
                               <br />
-                              <div className="profile-data-joined">
+                              <div className="contact-profile-data-joined">
                                  <h3>Customer since:</h3>
                                  <p>{user.created_at}</p>
                               </div>

@@ -103,10 +103,12 @@ export const useUserStore = create((set) => ({
             toast.success(data.message);
             set({ user: data.user });
             set({ loading: false });
+            return true;
          }
       } catch (err) {
          set({ loading: false });
          toast.error(err.response.data.message);
+         return false;
       }
    },
 

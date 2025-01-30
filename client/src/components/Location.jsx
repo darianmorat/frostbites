@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup, Circle } from 'react-leaflet';
 import { useState } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
-import 'boxicons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'leaflet/dist/leaflet.css';
 
 export const Location = () => {
@@ -61,13 +61,13 @@ export const Location = () => {
                      />
                      <Marker position={[4.6682979, -74.0911833]}>
                         <Circle center={[4.6682979, -74.0911833]} radius={100} />
-                        <Popup>
-                           IceCream Shop <br /> MATIAS PIN PIN
-                        </Popup>
+                        <Popup>IceCream Shop</Popup>
                      </Marker>
                   </MapContainer>
                   <button className="map-expand-btn" onClick={() => expandMap(true)}>
-                     <i className="bx bx-expand-alt"></i>
+                     <div className="icons-container">
+                        <FontAwesomeIcon icon="fa-solid fa-expand" className="icons-v2" />
+                     </div>
                   </button>
                </div>
 
@@ -92,9 +92,7 @@ export const Location = () => {
                               />
                               <Marker position={[4.6682979, -74.0911833]}>
                                  <Circle center={[4.6682979, -74.0911833]} radius={100} />
-                                 <Popup>
-                                    IceCream Shop <br /> MATIAS PIN PIN
-                                 </Popup>
+                                 <Popup>IceCream Shop</Popup>
                               </Marker>
                            </MapContainer>
                            <button

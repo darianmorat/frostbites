@@ -37,19 +37,23 @@ import { FooterLinks } from './components/FooterLinks';
 import { Footer } from './components/Footer';
 
 import logo_slogan from './assets/images/logo/logoSlogan.svg';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 import './index.css';
 
+const Wrapper = ({ children }) => {
+   const location = useLocation();
+
+   useLayoutEffect(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+   }, [location.pathname]);
+
+   return children;
+};
+
 function App() {
-   const Wrapper = ({ children }) => {
-      const location = useLocation();
-
-      useLayoutEffect(() => {
-         window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-      }, [location.pathname]);
-
-      return children;
-   };
-
    const { fetchCart } = useCartStore();
    const { isAuth, checkAuth, checkingAuth, getUser, user } = useUserStore();
 
@@ -165,3 +169,4 @@ function App() {
 }
 
 export default App;
+library.add(fab, fas, far);

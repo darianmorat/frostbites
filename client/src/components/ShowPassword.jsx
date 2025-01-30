@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const ShowPassword = ({ showPassword, setShowPassword }) => {
    const toggleShowPassword = () => {
@@ -9,9 +10,9 @@ export const ShowPassword = ({ showPassword, setShowPassword }) => {
       <>
          <button type="button" className="btn show-password" onClick={toggleShowPassword}>
             {showPassword ? (
-               <i className="bx bx-show bx-sm" id="show-icon"></i>
+               <FontAwesomeIcon icon="fa-solid fa-eye" className="icons-v2 show" />
             ) : (
-               <i className="bx bx-hide bx-sm" id="show-icon"></i>
+               <FontAwesomeIcon icon="fa-solid fa-eye-slash" className="icons-v2 show" />
             )}
          </button>
       </>

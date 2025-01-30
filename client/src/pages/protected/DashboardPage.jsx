@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import 'boxicons';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
 import Chart from 'chart.js/auto';
 import '../protected.css'

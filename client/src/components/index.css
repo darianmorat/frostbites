@@ -130,21 +130,39 @@
    box-shadow: 0 0 2px 2px #28282830;
 }
 
-#log-out-icon,
 .dropdown-menu > li > .nav-logout-btn {
    color: #e6323b;
 }
 
-#nav-icon {
+.icons-container {
+   position: relative;
    display: flex;
-   justify-content: center;
    align-items: center;
-   color: white;
-   transform: scale(1.0);
+   justify-content: center;
 }
-#nav-icon:hover {
-   color: var(--red-color);
+.icons {
+   color: white;
+   font-size: 20px;
+}
+.icons-v2 {
+   color: #282828;
+   font-size: 19px;
+}
+.icons-v2.logout {
+   color: #e6323b;
+}
+.icons-v2.back {
+   padding: 20px;
+   font-size: 21px;
+}
+.icons-v2.show {
+   color: grey;
+}
+
+.icons:hover {
    cursor: pointer;
+   color: var(--red-color);
+   font-size: 20px;
 }
 
 .cart-count {
@@ -230,7 +248,7 @@
    border: 1px solid #28282830;
 }
 
-.location-container>div>p{
+.location-container > div > p {
    color: var(--grey-color);
 }
 

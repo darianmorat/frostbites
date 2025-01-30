@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
-import 'boxicons';
 import { useCartStore } from '../stores/useCartStore';
 import { useUserStore } from '../stores/useUserStore';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import logo from '../assets/images/logo/logo.svg';
 import './index.css';
 
@@ -102,21 +103,25 @@ export const Navbar = () => {
          <div className="navbar-right">
             {!isAdmin ? (
                <>
-                  <i className="bx bx-sun bx-sm" id="nav-icon"></i>
-                  <i className="bx bx-bell bx-sm" id="nav-icon">
+                  <div className="icons-container">
+                     <FontAwesomeIcon icon="fa-solid fa-sun" className="icons" />
+                  </div>
+                  <div className="icons-container">
                      <span className="cart-count">3</span>
-                  </i>
-                  <i
-                     className="bx bx-cart-alt bx-sm"
-                     id="nav-icon"
-                     onClick={() => navigate('/shopping')}
-                  >
+                     <FontAwesomeIcon icon="fa-solid fa-bell" className="icons" />
+                  </div>
+                  <div className="icons-container">
                      {cart.length === 0 ? (
                         <></>
                      ) : (
                         <span className="cart-count">{cart.length}</span>
                      )}
-                  </i>
+                     <FontAwesomeIcon
+                        icon="fa-solid fa-cart-flatbed"
+                        className="icons"
+                        onClick={() => navigate('/shopping')}
+                     />
+                  </div>
                   <button className="nav-profile" onClick={toggleDropMenu}>
                      <div className="nav-profile-picture"> </div>
                      <div>
@@ -127,10 +132,13 @@ export const Navbar = () => {
                </>
             ) : (
                <>
-                  <i className="bx bx-sun bx-sm" id="nav-icon"></i>
-                  <i className="bx bx-bell bx-sm" id="nav-icon">
+                  <div className="icons-container">
+                     <FontAwesomeIcon icon="fa-solid fa-sun" className="icons" />
+                  </div>
+                  <div className="icons-container">
                      <span className="cart-count">3</span>
-                  </i>
+                     <FontAwesomeIcon icon="fa-solid fa-bell" className="icons" />
+                  </div>
                   <button className="nav-profile" onClick={toggleDropMenu}>
                      <div className="nav-profile-picture"> </div>
                      <div>
@@ -145,28 +153,48 @@ export const Navbar = () => {
                <ul className="dropdown-menu" ref={menuRef}>
                   <li>
                      <Link to="/profile" onClick={() => setDropMenu(false)}>
-                        <i className="bx bx-user bx-sm"></i>
+                        <div className="icons-container">
+                           <FontAwesomeIcon
+                              icon="fa-solid fa-user"
+                              className="icons-v2"
+                           />
+                        </div>
                         Profile
                      </Link>
                   </li>
                   <hr />
                   <li>
                      <Link to="/settings" onClick={() => setDropMenu(false)}>
-                        <i className="bx bx-cog bx-sm"></i>
+                        <div className="icons-container">
+                           <FontAwesomeIcon
+                              icon="fa-solid fa-gear"
+                              className="icons-v2"
+                           />
+                        </div>
                         Settings
                      </Link>
                   </li>
                   <hr />
                   <li>
                      <Link to="#">
-                        <i className="bx bx-shield bx-sm"></i>
+                        <div className="icons-container">
+                           <FontAwesomeIcon
+                              icon="fa-solid fa-shield-halved"
+                              className="icons-v2"
+                           />
+                        </div>
                         Security
                      </Link>
                   </li>
                   <hr />
                   <li>
                      <Link className="nav-logout-btn" onClick={handleLogout}>
-                        <i className="bx bx-log-out-circle bx-sm" id="log-out-icon"></i>
+                        <div className="icons-container">
+                           <FontAwesomeIcon
+                              icon="fa-solid fa-right-from-bracket"
+                              className="icons-v2 logout"
+                           />
+                        </div>
                         Log Out
                      </Link>
                   </li>
@@ -182,7 +210,9 @@ export const Navbar = () => {
             <li>
                <Link to="/login">Get Started</Link>
             </li>
-            <i className="bx bx-sun bx-sm" id="nav-icon"></i>
+            <div className="icons-container">
+               <FontAwesomeIcon icon="fa-solid fa-sun" className="icons" />
+            </div>
          </div>
       </>
    );
