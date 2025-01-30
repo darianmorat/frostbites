@@ -36,7 +36,6 @@ export const handlePayment = async (req, res) => {
          customer_email: email,
          success_url: `${process.env.BASE_URL}/success`, // send email when payment completed
          cancel_url: `${process.env.BASE_URL}/shopping`, // what to do here?
-         // cancel_url: `http://localhost:5173/canceled`,
       });
 
       const url = session.url;
