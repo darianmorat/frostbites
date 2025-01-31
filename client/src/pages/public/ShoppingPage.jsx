@@ -50,6 +50,26 @@ const ShoppingPage = () => {
                         {products?.map((product) => (
                            <ProductCard key={product.product_id} product={product} />
                         ))}
+
+                        {/* <div className="product-item"> */}
+                        {/*    <div className="product-img-container"> */}
+                        {/*       <img */}
+                        {/*          src="https://i.ibb.co/3W7ztyW/banana.png" */}
+                        {/*          alt="sold-out" */}
+                        {/*          className="product-img" */}
+                        {/*       /> */}
+                        {/*    </div> */}
+                        {/*    <p className="product-price">$3.20 USD</p> */}
+                        {/*    <h3 className="product-name">ChocoMax</h3> */}
+                        {/**/}
+                        {/*    <div className="product-actions"> */}
+                        {/*       <> */}
+                        {/*          <button className="btn secondary-btn-alt" disabled> */}
+                        {/*             Item Sold out */}
+                        {/*          </button> */}
+                        {/*       </> */}
+                        {/*    </div> */}
+                        {/* </div> */}
                      </div>
                   )}
 

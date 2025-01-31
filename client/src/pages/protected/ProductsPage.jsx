@@ -4,7 +4,7 @@ import { useProductStore } from '../../stores/useProductStore';
 import { CreateProduct } from '../../components/protected/CreateProduct';
 import { EditProduct } from '../../components/protected/EditProduct';
 import { DeleteProduct } from '../../components/protected/DeleteProduct';
-import '../protected.css'
+import '../protected.css';
 
 // USE REACT MODAL FOR POPUPS
 
@@ -55,20 +55,25 @@ const ProductsPage = () => {
                         ) : (
                            <>
                               {products.map((product) => (
-                                 <div key={product.product_id} className="product-item-admin">
-                                    <img
-                                       src={product.product_img}
-                                       alt={product.product_name}
-                                       className="product-img"
-                                    />
+                                 <div
+                                    key={product.product_id}
+                                    className="product-item-admin"
+                                 >
+                                    <div className="product-img-container">
+                                       <img
+                                          src={product.product_img}
+                                          alt={product.product_name}
+                                          className="product-img"
+                                       />
+                                    </div>
                                     <p className="product-price">
                                        {' '}
                                        ${product.product_price} USD
                                     </p>
-                                    <h2 className="product-name">
+                                    <h3 className="product-name">
                                        {' '}
                                        {product.product_name}
-                                    </h2>
+                                    </h3>
 
                                     <div className="admin-actions">
                                        <button

@@ -55,12 +55,14 @@ const OrderSummary = () => {
                </div>
                <div className="cart-item-descrip">
                   <p>
-                     x{item.quantity} {item.product_name}
+                     <span className="item-quantity">x{item.quantity}</span> -{' '}
+                     {item.product_name}
                   </p>
                   <p>${item.product_price} USD</p>
                </div>
             </div>
          ))}
+         <hr />
          <div className="purchase-total">
             <p>Total Amount:</p>
             <p>${total} USD</p>

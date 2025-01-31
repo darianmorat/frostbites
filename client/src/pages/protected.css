@@ -44,11 +44,11 @@
 /* =================================================================================== */
 /* PRODUCTS PAGE */
 .admin-actions {
-   padding: 20px 31px;
    display: flex;
    flex-direction: column;
-   gap: 10px;
+   gap: 8px;
    align-self: center;
+   margin-top: 10px;
 }
 .admin-actions > button {
    min-width: 125px;
@@ -266,20 +266,16 @@
 
 .product-list-admin{
    display: flex;
-   gap: 38px 15px;
+   gap: 15px;
    flex-wrap: wrap;
    justify-content: center;
 }
-
 .product-item-admin {
+   border: 2px solid #28282820;
    display: flex;
    flex-direction: column;
    align-items: center;
    background-color: #fff5f7;
-   width: 160px;
-   border-radius: 90% 90% 5px 5px;
-}
-.product-item-admin:hover .product-img {
-   transform: translateY(-6px);
-   box-shadow: 0 8px 0 0 #28282830;
+   border-radius: 5px;
+   padding: 15px;
 }
