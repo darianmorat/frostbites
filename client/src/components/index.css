@@ -23,6 +23,7 @@
 .navbar-container {
    display: flex;
    justify-content: space-between;
+   flex-wrap: wrap;
    max-width: 1200px;
    height: 70px;
    margin: 0 auto;
@@ -33,11 +34,13 @@
    display: flex;
    list-style: none;
    align-items: center;
-   gap: 45px;
+   justify-content: center;
+   gap: 25px;
 }
 
 .logo {
-   width: 200px;
+   margin-top: 1px;
+   width: 160px;
 }
 
 .navbar-left > li > a {
@@ -139,6 +142,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
+   padding: 0 5px;
 }
 .icons {
    color: white;
@@ -214,6 +218,41 @@
    border-radius: 5px;
    border: 2px solid white;
 }
+
+.bars {
+   display: none;
+}
+
+@media (width < 800px) {
+   .navbar-left > li,
+   .navbar-right > li {
+      display: none;
+   }
+   .bars {
+      display: block;
+      font-size: 22px;
+   }
+   .bars:hover {
+      font-size: 22px;
+   }
+
+   .nav-profile {
+      display: block;
+   }
+   .admin-role,
+   .admin-name,
+   .role,
+   .name {
+      display: none;
+   }
+
+   .dropdown-menu::after {
+      right: 6%;
+   }
+   .dropdown-menu::before {
+      right: 2%;
+   }
+}
 /* NAVBAR COMPONENT */
 /* =================================================================================== */
 
@@ -229,6 +268,7 @@
    align-items: center;
    justify-content: center;
    background-color: #fff5f7;
+   padding: 0 20px;
 }
 .location-map {
    flex-direction: column;
@@ -243,6 +283,9 @@
    background-color: white;
    padding: 20px;
    display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   text-align: center;
    gap: 40px;
    border-radius: 5px;
    border: 1px solid #28282830;
@@ -330,7 +373,9 @@
 .location-links,
 .location-right {
    display: flex;
+   flex-wrap: wrap;
    gap: 35px;
+   display: flex;
 }
 
 .location-links {
@@ -340,7 +385,8 @@
 }
 
 .logo-slogan {
-   width: 400px;
+   width: 100%;
+   max-width: 400px;
    z-index: 999;
 }
 

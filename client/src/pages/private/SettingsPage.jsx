@@ -170,7 +170,7 @@ const SettingsPage = () => {
                                  </button>
                               </div>
                            </div>
-                           <div>
+                           <div className="my-data-profile-picture-container">
                               <div className="my-data-profile-picture"></div>
                               <div className="my-data-btns-2">
                                  <button className="secondary-btn my-data-save-btn btn">

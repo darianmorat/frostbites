@@ -103,14 +103,11 @@ export const Navbar = () => {
          <div className="navbar-right">
             {!isAdmin ? (
                <>
-                  <div className="icons-container">
-                     <FontAwesomeIcon icon="fa-solid fa-sun" className="icons" />
-                  </div>
-                  <div className="icons-container">
+                  <div className="icons-container bell">
                      <span className="cart-count">3</span>
                      <FontAwesomeIcon icon="fa-solid fa-bell" className="icons" />
                   </div>
-                  <div className="icons-container">
+                  <div className="icons-container cart">
                      {cart.length === 0 ? (
                         <></>
                      ) : (
@@ -121,6 +118,9 @@ export const Navbar = () => {
                         className="icons"
                         onClick={() => navigate('/shopping')}
                      />
+                  </div>
+                  <div className="icons-container bars">
+                     <FontAwesomeIcon icon="fa-solid fa-bars" className="icons bars" />
                   </div>
                   <button className="nav-profile" onClick={toggleDropMenu}>
                      <div className="nav-profile-picture"> </div>
@@ -133,11 +133,11 @@ export const Navbar = () => {
             ) : (
                <>
                   <div className="icons-container">
-                     <FontAwesomeIcon icon="fa-solid fa-sun" className="icons" />
-                  </div>
-                  <div className="icons-container">
                      <span className="cart-count">3</span>
                      <FontAwesomeIcon icon="fa-solid fa-bell" className="icons" />
+                  </div>
+                  <div className="icons-container bars">
+                     <FontAwesomeIcon icon="fa-solid fa-bars" className="icons bars" />
                   </div>
                   <button className="nav-profile" onClick={toggleDropMenu}>
                      <div className="nav-profile-picture"> </div>
@@ -188,6 +188,15 @@ export const Navbar = () => {
                   </li>
                   <hr />
                   <li>
+                     <Link to="#">
+                        <div className="icons-container">
+                           <FontAwesomeIcon icon="fa-solid fa-sun" className="icons-v2" />
+                        </div>
+                        Dark
+                     </Link>
+                  </li>
+                  <hr />
+                  <li>
                      <Link className="nav-logout-btn" onClick={handleLogout}>
                         <div className="icons-container">
                            <FontAwesomeIcon
@@ -207,11 +216,17 @@ export const Navbar = () => {
    const UnauthenticatedNav = () => (
       <>
          <div className="navbar-right">
-            <li>
-               <Link to="/login">Get Started</Link>
-            </li>
+            <div className="icons-container">
+               <FontAwesomeIcon icon="fa-solid fa-cart-flatbed" className="icons" />
+            </div>
             <div className="icons-container">
                <FontAwesomeIcon icon="fa-solid fa-sun" className="icons" />
+            </div>
+            <li>
+               <Link to="/login">Join Now</Link>
+            </li>
+            <div className="icons-container bars">
+               <FontAwesomeIcon icon="fa-solid fa-bars" className="icons bars" />
             </div>
          </div>
       </>

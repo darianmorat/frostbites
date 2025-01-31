@@ -61,8 +61,12 @@ p {
 }
 
 .img {
+   display: block;
    background-size: contain;
    border-radius: 5px;
+   max-width: 600px;
+   width: 100%;
+   height: auto;
 }
 
 /* buttons */
@@ -262,6 +266,7 @@ body::-webkit-scrollbar-track {
 .Toastify__toast {
    padding-right: 50px;
    margin: 5px;
+   max-width: 365px;
 }
 
 /* waves decorations */

@@ -18,45 +18,22 @@ const AboutPage = () => {
                      delightful and unique flavors, using the best ingredients, to ensure
                      every bite is a burst of happiness. We are also committed to helping
                      other ice cream businesses succeed by offering beautifully designed,
-                     user-friendly websites that enhance their online presence. Join us on
-                     our journey to spread the love of ice cream and support local
-                     businesses in their quest for success.
-                     <br />
+                     user-friendly websites that enhance their online presence. <br />
                      We are also committed to helping other ice cream businesses succeed
                      by offering beautifully designed, user-friendly websites that enhance
-                     their online presence. Join us on our journey to spread the love of
-                     ice cream and support local businesses in their quest for success. We
-                     are also committed to helping other ice cream businesses succeed by
-                     offering beautifully designed, user-friendly websites that enhance
                      their online presence. Join us on our journey to spread the love of
                      ice cream and support local businesses in their quest for success.
                   </p>
                </div>
 
                <div className="about-right">
-                  <div
-                     className="who-we-are-img img"
-                     style={{
-                        backgroundImage: `url(${who_we_are_img})`,
-                        width: '600px',
-                        height: '400px',
-                        color: 'blue',
-                     }}
-                  ></div>
+                  <img src={who_we_are_img} alt="Who are we" className="img" />
                </div>
             </section>
 
             <section className="about-section-2">
                <div className="about-right">
-                  <div
-                     className="our-team-img img"
-                     style={{
-                        backgroundImage: `url(${our_team_img})`,
-                        width: '600px',
-                        height: '400px',
-                        color: 'blue',
-                     }}
-                  ></div>
+                  <img src={our_team_img} alt="Our team" className="img" />
                </div>
 
                <div className="about-left">
@@ -69,16 +46,9 @@ const AboutPage = () => {
                      delightful and unique flavors, using the best ingredients, to ensure
                      every bite is a burst of happiness. We are also committed to helping
                      other ice cream businesses succeed by offering beautifully designed,
-                     user-friendly websites that enhance their online presence. Join us on
-                     our journey to spread the love of ice cream and support local
-                     businesses in their quest for success.
-                     <br />
+                     user-friendly websites that enhance their online presence. <br />
                      We are also committed to helping other ice cream businesses succeed
                      by offering beautifully designed, user-friendly websites that enhance
-                     their online presence. Join us on our journey to spread the love of
-                     ice cream and support local businesses in their quest for success. We
-                     are also committed to helping other ice cream businesses succeed by
-                     offering beautifully designed, user-friendly websites that enhance
                      their online presence. Join us on our journey to spread the love of
                      ice cream and support local businesses in their quest for success.
                   </p>

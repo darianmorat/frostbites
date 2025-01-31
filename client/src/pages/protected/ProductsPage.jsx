@@ -55,7 +55,7 @@ const ProductsPage = () => {
                         ) : (
                            <>
                               {products.map((product) => (
-                                 <div key={product.product_id} className="product-item">
+                                 <div key={product.product_id} className="product-item-admin">
                                     <img
                                        src={product.product_img}
                                        alt={product.product_name}

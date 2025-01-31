@@ -48,7 +48,6 @@
 /* banner */
 .profile-banner {
    border-radius: 5px 5px 0 0;
-   height: 200px;
    background-image: linear-gradient(
          to right,
          rgba(0, 0, 0, 0.8),
@@ -62,6 +61,8 @@
    align-items: center;
    justify-content: space-between;
    padding: 50px;
+   flex-wrap: wrap;
+   gap: 30px 20px;
 }
 .profile-picture {
    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxN0CVyuA0ITmZizYvxwFGq-XaJl_hMlHhnA&s');
@@ -182,11 +183,13 @@
    border-radius: 5px;
    background-color: #fff5f7;
    flex-grow: 1;
+   /* overflow: scroll; */
 }
 
 /* section: personal data */
 .my-data-img {
    display: flex;
+   flex-wrap: wrap;
    flex-direction: row-reverse;
    gap: 20px;
    width: 100%;
@@ -200,12 +203,17 @@
    border-radius: 5px;
    background-color: #ffffff;
    gap: 10px;
+   min-width: 192px;
+   flex-grow: 1;
 }
-.my-data-img > .my-data-banner-container {
+.my-data-img > .my-data-profile-picture-container {
+   max-width: 192px;
+   flex-grow: 1;
+}
+.my-data-banner-container {
    display: flex;
    flex-direction: column;
-   width: 100%;
-   min-width: 170px;
+   flex-grow: 1;
 }
 .my-data-banner,
 .my-data-profile-picture {
@@ -219,7 +227,6 @@
 }
 .my-data-profile-picture {
    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxN0CVyuA0ITmZizYvxwFGq-XaJl_hMlHhnA&s');
-   width: 170px;
 }
 .my-data-btns-2 {
    display: flex;
@@ -234,8 +241,7 @@
    margin-bottom: 20px;
 }
 .settings-form > .form {
-   flex: 1;
-   min-width: 380px;
+   width: 100%;
 }
 .settings-form > .form > label {
    background-color: #fff5f7;
@@ -260,6 +266,12 @@ textarea {
 /* section: danger zone */
 .danger-zone > h3 {
    font-weight: bold;
+}
+
+@media (width < 490px) {
+   .my-data-img > .my-data-profile-picture-container {
+      max-width: 100%;
+   }
 }
 /* SETTINGS PAGE */
 /* =================================================================================== */
