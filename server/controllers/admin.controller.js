@@ -14,7 +14,10 @@ export const getStats = async (req, res) => {
       );
       const totalProducts = resultProducts.rows;
 
-      res.json({ success: true, totalUsers, totalProducts });
+      const resultSales = await pool.query('SELECT amount FROM payments');
+      const totalSales = resultSales.rows;
+
+      res.json({ success: true, totalUsers, totalProducts, totalSales });
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });
    }

@@ -9,7 +9,6 @@ CREATE TABLE users (
    user_password VARCHAR(255) NOT NULL,
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
    is_verified BOOLEAN DEFAULT FALSE,
-   -- cart_items INT DEFAULT 0,
    user_bio VARCHAR(255) NOT NULL DEFAULT 'No bio provided';
 );
 
@@ -40,3 +39,14 @@ CREATE TABLE orders (
    quantity INT DEFAULT 0,
    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE payments (
+   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+   session_id VARCHAR(100) NOT NULL,
+   customer_email VARCHAR(255) NOT NULL,
+   amount DECIMAL(10, 2) NOT NULL,
+   payment_status VARCHAR(50) NOT NULL, 
+   status VARCHAR(50) NOT NULL,
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+);
+
