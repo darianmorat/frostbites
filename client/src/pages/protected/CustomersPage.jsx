@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../../api/axios';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
-import '../protected.css'
+import '../protected.css';
 
 const CustomersPage = () => {
    const [totalUsers, setTotalUsers] = useState({});
@@ -10,7 +10,7 @@ const CustomersPage = () => {
    const [unverifiedUsers, setUnverifiedUsers] = useState([]);
 
    const [totalProducts, setTotalProducts] = useState([]);
-   // const [totalSales, setTotalSales] = useState([]);
+   const [totalSales, setTotalSales] = useState([]);
    // const [totalRevenue, setTotalRevenue] = useState([]);
 
    const [showMore, setShowMore] = useState('total-users');
@@ -34,7 +34,13 @@ const CustomersPage = () => {
             setUnverifiedUsers(
                data.totalUsers.filter((user) => user.is_verified === false).length,
             );
+
+            const totalSales = data.totalSales;
+            const totalSum = totalSales
+               .reduce((acc, item) => acc + parseFloat(item.amount), 0)
+               .toFixed(2);
             setTotalProducts(data.totalProducts.length);
+            setTotalSales(totalSum);
          }
       } catch (err) {
          toast.info(err.response.data.message);
@@ -146,7 +152,7 @@ const CustomersPage = () => {
 
                   <div className="admin-stats second">
                      <div className="admin-stats-left">
-                        <p className="admin-stats-number">--</p>
+                        <p className="admin-stats-number">${totalSales}</p>
                         <h3 className="admin-stats-description">Total sales</h3>
                      </div>
 
@@ -161,7 +167,7 @@ const CustomersPage = () => {
 
                   <div className="admin-stats second">
                      <div className="admin-stats-left">
-                        <p className="admin-stats-number">--</p>
+                        <p className="admin-stats-number">${totalSales}</p>
                         <h3 className="admin-stats-description">Total revenue</h3>
                      </div>
 

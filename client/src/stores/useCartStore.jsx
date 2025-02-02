@@ -125,7 +125,7 @@ export const useCartStore = create((set, get) => ({
       }
    },
 
-   clearCart: async () => {
+   clearCart: async (params) => {
       try {
          const config = {
             headers: {
@@ -136,8 +136,13 @@ export const useCartStore = create((set, get) => ({
          const res = await api.delete('/cart/delete', config);
 
          if (res.data.success) {
-            toast.info(res.data.message);
-            set({ cart: [], total: 0 });
+            if (params) {
+               set({ cart: [], total: 0 });
+               return;
+            } else {
+               toast.info(res.data.message);
+               set({ cart: [], total: 0 });
+            }
          }
       } catch (err) {
          toast.error(err.response.data.message);
