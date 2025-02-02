@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import api from '../../../api/axios';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import api from '../../../api/axios';
 import '../protected.css';
 
 const CustomersPage = () => {
@@ -77,10 +78,7 @@ const CustomersPage = () => {
                         onClick={() => setShowMore('total-users')}
                      >
                         More info
-                        <i
-                           className="bx bx-right-arrow-circle bx-sm"
-                           id="show-more-icon"
-                        ></i>
+                        <FontAwesomeIcon icon="fa-regular fa-square-caret-down" />
                      </button>
                   </div>
 
@@ -99,10 +97,7 @@ const CustomersPage = () => {
                         onClick={() => setShowMore('total-verified')}
                      >
                         More info
-                        <i
-                           className="bx bx-right-arrow-circle bx-sm"
-                           id="show-more-icon"
-                        ></i>
+                        <FontAwesomeIcon icon="fa-regular fa-square-caret-down" />
                      </button>
                   </div>
 
@@ -126,10 +121,7 @@ const CustomersPage = () => {
                         onClick={() => setShowMore('total-unverified')}
                      >
                         More info
-                        <i
-                           className="bx bx-right-arrow-circle bx-sm"
-                           id="show-more-icon"
-                        ></i>
+                        <FontAwesomeIcon icon="fa-regular fa-square-caret-down" />
                      </button>
                   </div>
 
@@ -143,10 +135,7 @@ const CustomersPage = () => {
 
                      <button className="btn admin-stats-right second">
                         More info
-                        <i
-                           className="bx bx-right-arrow-circle bx-sm"
-                           id="show-more-icon"
-                        ></i>
+                        <FontAwesomeIcon icon="fa-regular fa-square-caret-down" />
                      </button>
                   </div>
 
@@ -158,10 +147,7 @@ const CustomersPage = () => {
 
                      <button className="btn admin-stats-right second">
                         More info
-                        <i
-                           className="bx bx-right-arrow-circle bx-sm"
-                           id="show-more-icon"
-                        ></i>
+                        <FontAwesomeIcon icon="fa-regular fa-square-caret-down" />
                      </button>
                   </div>
 
@@ -173,10 +159,7 @@ const CustomersPage = () => {
 
                      <button className="btn admin-stats-right second">
                         More info
-                        <i
-                           className="bx bx-right-arrow-circle bx-sm"
-                           id="show-more-icon"
-                        ></i>
+                        <FontAwesomeIcon icon="fa-regular fa-square-caret-down" />
                      </button>
                   </div>
                </div>

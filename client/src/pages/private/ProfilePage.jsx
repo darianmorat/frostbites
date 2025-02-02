@@ -53,12 +53,10 @@ const ProfilePage = () => {
                               <div className="profile-contact-info">
                                  <h3>Contact Information:</h3>
                                  <div className="contact-profile-email">
-                                    <div className="icons-container">
-                                       <FontAwesomeIcon
-                                          icon="fa-solid fa-envelope"
-                                          className="icons-v2"
-                                       />
-                                    </div>
+                                    <FontAwesomeIcon
+                                       icon="fa-solid fa-envelope"
+                                       className="icons-v2"
+                                    />
                                     <p>{user.user_email}</p>
                                  </div>
 
