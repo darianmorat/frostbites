@@ -41,7 +41,7 @@ export const useCartStore = create((set, get) => ({
       }
 
       try {
-         const body = { productId: product.product_id };
+         const body = { productId: product.id };
 
          const config = {
             headers: {
@@ -55,15 +55,21 @@ export const useCartStore = create((set, get) => ({
             toast.success(res.data.message);
             set((prevState) => {
                const existingItem = prevState.cart.find(
-                  (item) => item.product_id === product.product_id,
+                  (item) => item.product_id === product.id,
                );
+               const mappedProduct = {
+                  product_id: product.id,
+                  product_url: product.url,
+                  product_name: product.name,
+                  product_price: product.price,
+               };
                const newCart = existingItem
                   ? prevState.cart.map((item) =>
-                       item.product_id === product.product_id
+                       item.product_id === product.id
                           ? { ...item, quantity: item.quantity + 1 }
                           : item,
                     )
-                  : [...prevState.cart, { ...product, quantity: 1 }];
+                  : [...prevState.cart, { ...mappedProduct, quantity: 1 }];
                return { cart: newCart };
             });
             get().calculateTotals();

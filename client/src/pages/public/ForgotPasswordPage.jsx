@@ -6,11 +6,12 @@ import api from '../../../api/axios';
 import { BackBtn } from '../../components/BackBtn';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
 import wave_svg from '../../assets/images/svg/wave.svg';
-import '../public.css'
+import '../public.css';
 
 const ForgotPasswordPage = () => {
    const [loading, setLoading] = useState(false);
    const [confirmation, setConfirmation] = useState(false);
+   const [resent, setResent] = useState(false);
 
    const formik = useFormik({
       initialValues: {
@@ -95,15 +96,30 @@ const ForgotPasswordPage = () => {
                         </>
                      ) : (
                         <>
-                           <p className="form-description">
-                              Check
-                              <span className="your-email"> {formik.values.email} </span>
-                              for instructions to reset your password.
-                           </p>
+                           {resent ? (
+                              <p className="form-description">
+                                 Email resent, please check
+                                 <span className="your-email">
+                                    {' '}
+                                    {formik.values.email}{' '}
+                                 </span>
+                                 for instructions to reset your password!
+                              </p>
+                           ) : (
+                              <p className="form-description">
+                                 Check
+                                 <span className="your-email">
+                                    {' '}
+                                    {formik.values.email}{' '}
+                                 </span>
+                                 for instructions to reset your password!
+                              </p>
+                           )}
                            <button
                               type="submit"
                               className="btn secondary-btn btn-submit"
-                              disabled={loading || !formik.values.email}
+                              disabled={loading || !formik.values.email || resent}
+                              onClick={() => setResent(true)}
                            >
                               {loading ? <>Resending...</> : <>Resend Email</>}
                            </button>

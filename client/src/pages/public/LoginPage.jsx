@@ -8,7 +8,7 @@ import { BackBtn } from '../../components/BackBtn';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
 import wave_svg from '../../assets/images/svg/wave.svg';
 import { toast } from 'react-toastify';
-import '../public.css'
+import '../public.css';
 
 const LoginPage = () => {
    const [showPassword, setShowPassword] = useState(false);

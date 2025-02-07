@@ -11,12 +11,15 @@ export const PaymentSuccessPage = () => {
 
    const getData = async () => {
       try {
+         const config = {
+            headers: { token: localStorage.token },
+         };
+
          const sessionId = new URLSearchParams(window.location.search).get('session_id');
-         const res = await api.get(`/payment/success?session_id=${sessionId}`);
+         const res = await api.get(`/payment/success?session_id=${sessionId}`, config);
 
          if (res.data.success) {
-            const params = true
-            clearCart(params);
+            clearCart(true);
          }
       } catch (err) {
          console.log(err);

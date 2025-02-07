@@ -162,6 +162,9 @@
 .icons-v2.show {
    color: grey;
 }
+.address-icon{
+   width: 18.99px;
+}
 
 .icons:hover {
    cursor: pointer;

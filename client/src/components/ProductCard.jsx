@@ -6,19 +6,19 @@ const ProductCard = ({ product }) => {
    const { cart, addToCart } = useCartStore();
 
    const ProductActions = () => {
-      const cartItem = cart.find((item) => item.product_id === product.product_id);
+      const cartItem = cart.find((item) => item.product_id === product.id);
 
       return (
-         <div key={product.product_id} className="product-item">
+         <div key={product.id} className="product-item">
             <div className='product-img-container'>
                <img
-                  src={product.product_img}
-                  alt={product.product_name}
+                  src={product.url}
+                  alt={product.name}
                   className="product-img"
                />
             </div>
-            <p className="product-price">${product.product_price} USD</p>
-            <h3 className="product-name">{product.product_name}</h3>
+            <p className="product-price">${product.price} USD</p>
+            <h3 className="product-name">{product.name}</h3>
 
             <div className="product-actions">
                {!cartItem ? (
@@ -44,7 +44,7 @@ const ProductCard = ({ product }) => {
 
    return (
       <>
-         <ProductActions key={product.product_id} product={product} />
+         <ProductActions key={product.id} product={product} />
       </>
    );
 };

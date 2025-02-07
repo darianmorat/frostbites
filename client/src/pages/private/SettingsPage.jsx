@@ -15,6 +15,8 @@ const SettingsPage = () => {
    const [newName, setNewName] = useState('');
    const [newEmail, setNewEmail] = useState('');
    const [newBio, setNewBio] = useState('');
+   const [newPhone, setNewPhone] = useState('');
+   const [newAddress, setNewAddress] = useState('');
 
    // ===========
    // GET PROFILE
@@ -22,9 +24,11 @@ const SettingsPage = () => {
 
    useEffect(() => {
       if (user) {
-         setNewName(user.user_name);
-         setNewEmail(user.user_email);
-         setNewBio(user.user_bio);
+         setNewName(user.name);
+         setNewEmail(user.email);
+         setNewBio(user.bio);
+         setNewPhone(user.phone);
+         setNewAddress(user.address);
       }
    }, [user]);
 
@@ -32,7 +36,7 @@ const SettingsPage = () => {
    // UPDATE PROFILE
    // ==============
    const updateProfile = async () => {
-      const isChanged = await updateUser(newName, newEmail, newBio);
+      const isChanged = await updateUser(newName, newEmail, newBio, newPhone, newAddress);
       if (isChanged) {
          setIsChanged(false);
       }
@@ -42,25 +46,37 @@ const SettingsPage = () => {
       const value = e.target.value;
 
       if (e.target.name === 'name') {
-         setIsChanged(value !== user.user_name);
+         setIsChanged(value !== user.name);
          setNewName(value);
       }
 
       if (e.target.name === 'email') {
-         setIsChanged(value !== user.user_email);
+         setIsChanged(value !== user.email);
          setNewEmail(value);
       }
 
       if (e.target.name === 'bio') {
-         setIsChanged(value !== user.user_bio);
+         setIsChanged(value !== user.bio);
          setNewBio(value);
+      }
+
+      if (e.target.name === 'phone') {
+         setIsChanged(value !== user.phone);
+         setNewPhone(value);
+      }
+
+      if (e.target.name === 'address') {
+         setIsChanged(value !== user.address);
+         setNewAddress(value);
       }
    };
 
    const handleRestore = () => {
-      setNewName(user.user_name);
-      setNewEmail(user.user_email);
-      setNewBio(user.user_bio);
+      setNewName(user.name);
+      setNewEmail(user.email);
+      setNewBio(user.bio);
+      setNewPhone(user.bio);
+      setNewAddress(user.bio);
       setIsChanged(false);
    };
 
@@ -98,16 +114,6 @@ const SettingsPage = () => {
       }
    };
 
-   // logouts
-   const handleLogout = async (e) => {
-      e.preventDefault();
-      try {
-         logout();
-      } catch (err) {
-         console.error(err);
-      }
-   };
-
    const handleLogoutDeleteAcct = async () => {
       try {
          const params = true;
@@ -117,7 +123,6 @@ const SettingsPage = () => {
       }
    };
 
-   // active state btn
    const toggleActive = (button) => {
       setActiveBtn(button);
    };
@@ -212,23 +217,23 @@ const SettingsPage = () => {
                               <label htmlFor="phone">Phone number:</label>
                               <input
                                  type="text"
-                                 value="xxx"
-                                 name=""
+                                 value={newPhone}
+                                 onChange={handleChange}
+                                 name="phone"
                                  id="phone"
                                  autoComplete="phone"
-                                 disabled
                               />
                            </div>
 
                            <div className="form">
-                              <label htmlFor="country">Country:</label>
+                              <label htmlFor="address">Address:</label>
                               <input
                                  type="text"
-                                 value="xxx"
-                                 name=""
-                                 id="country"
-                                 autoComplete="country"
-                                 disabled
+                                 value={newAddress}
+                                 onChange={handleChange}
+                                 name="address"
+                                 id="address"
+                                 autoComplete="address"
                               />
                            </div>
 

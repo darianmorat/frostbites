@@ -56,30 +56,30 @@ const ProductsPage = () => {
                            <>
                               {products.map((product) => (
                                  <div
-                                    key={product.product_id}
+                                    key={product.id}
                                     className="product-item-admin"
                                  >
                                     <div className="product-img-container">
                                        <img
-                                          src={product.product_img}
-                                          alt={product.product_name}
+                                          src={product.url}
+                                          alt={product.name}
                                           className="product-img"
                                        />
                                     </div>
                                     <p className="product-price">
                                        {' '}
-                                       ${product.product_price} USD
+                                       ${product.price} USD
                                     </p>
                                     <h3 className="product-name">
                                        {' '}
-                                       {product.product_name}
+                                       {product.name}
                                     </h3>
 
                                     <div className="admin-actions">
                                        <button
                                           className="btn admin-edit-btn secondary-btn"
                                           onClick={() => {
-                                             setEditPopup(product.product_id);
+                                             setEditPopup(product.id);
                                           }}
                                        >
                                           Edit
@@ -87,7 +87,7 @@ const ProductsPage = () => {
                                        <button
                                           className="btn remove-btn admin-delete-btn"
                                           onClick={() =>
-                                             setDeletePopup(product.product_id)
+                                             setDeletePopup(product.id)
                                           }
                                        >
                                           Remove
@@ -97,16 +97,16 @@ const ProductsPage = () => {
                                     <EditProduct
                                        editPopup={editPopup}
                                        setEditPopup={setEditPopup}
-                                       productId={product.product_id}
-                                       productImg={product.product_img}
-                                       productName={product.product_name}
-                                       productPrice={product.product_price}
+                                       productId={product.id}
+                                       productImg={product.url}
+                                       productName={product.name}
+                                       productPrice={product.price}
                                     />
                                     <DeleteProduct
                                        deletePopup={deletePopup}
                                        setDeletePopup={setDeletePopup}
-                                       productId={product.product_id}
-                                       productName={product.product_name}
+                                       productId={product.id}
+                                       productName={product.name}
                                     />
                                  </div>
                               ))}

@@ -2,9 +2,15 @@ import { useUserStore } from '../../stores/useUserStore';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../private.css';
+import { useEffect } from 'react';
 
 const ProfilePage = () => {
-   const { user } = useUserStore();
+   const { user, purchases, getUser, isAdmin } = useUserStore();
+   const totalPurchases = purchases > 0 ? String(purchases).padStart(2, '0') : '00';
+
+   useEffect(() => {
+      getUser();
+   }, []);
 
    return (
       <>
@@ -15,24 +21,18 @@ const ProfilePage = () => {
                      <div className="profile-info-container">
                         <div className="profile-picture"></div>
                         <div className="">
-                           <p className="profile-name">{user.user_name}</p>
-                           <p className="profile-country">Colombia</p>
+                           <p className="profile-name">{user.name}</p>
+                           <p className="profile-country">xxxx</p>
                         </div>
                      </div>
-                     <div className="profile-stats">
-                        <div className="">
-                           <p className="stats-number">07</p>
-                           <p className="">Purchases</p>
+                     {!isAdmin && (
+                        <div className="profile-stats">
+                           <div className="">
+                              <p className="stats-number">{totalPurchases}</p>
+                              <p className="">Purchases</p>
+                           </div>
                         </div>
-                        <div className="">
-                           <p className="stats-number">04</p>
-                           <p className="">Beta level</p>
-                        </div>
-                        <div className="">
-                           <p className="stats-number">01</p>
-                           <p className="">Ranking</p>
-                        </div>
-                     </div>
+                     )}
                   </div>
                   <div className="">
                      {user ? (
@@ -40,14 +40,14 @@ const ProfilePage = () => {
                            <div className="my-data profile-data">
                               <div className="profile-bio">
                                  <h3>My bio:</h3>
-                                 <p>{user.user_bio}</p>
+                                 <p>{user.bio}</p>
                               </div>
                               <br />
                               <div className="profile-links">
                                  <h3>Links:</h3>
-                                 <a href="#">https://www.instagram.com/darianmorat</a>
-                                 <a href="#">https://github.com/darianmorat/frostbites</a>
-                                 <a href="#">https://www.linkedin.com/in/darianmorat</a>
+                                 <a href="#">https://www.example-page.com</a>
+                                 <a href="#">https://www.example-page.com</a>
+                                 <a href="#">https://www.example-page.com</a>
                               </div>
                               <br />
                               <div className="profile-contact-info">
@@ -57,7 +57,7 @@ const ProfilePage = () => {
                                        icon="fa-solid fa-envelope"
                                        className="icons-v2"
                                     />
-                                    <p>{user.user_email}</p>
+                                    <p>{user.email}</p>
                                  </div>
 
                                  <div className="contact-profile-phone">
@@ -65,15 +65,15 @@ const ProfilePage = () => {
                                        icon="fa-solid fa-phone-volume"
                                        className="icons-v2"
                                     />
-                                    <p>+57 322-393-9238</p>
+                                    <p>{user.phone}</p>
                                  </div>
 
-                                 <div className="contact-profile-country">
+                                 <div className="contact-profile-address">
                                     <FontAwesomeIcon
                                        icon="fa-solid fa-location-dot"
-                                       className="icons-v2"
+                                       className="icons-v2 address-icon"
                                     />
-                                    <p>Neiva-Huila, Colombia, CL 24c #3W-04</p>
+                                    <p>{user.address}</p>
                                  </div>
                               </div>
                               <br />

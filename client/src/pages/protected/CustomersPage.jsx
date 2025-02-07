@@ -66,7 +66,6 @@ const CustomersPage = () => {
                   >
                      <div className="admin-stats-left">
                         <p className="admin-stats-number">
-                           {/* should exclude admins registrations */}
                            {totalUsers.count
                               ? String(totalUsers.count).padStart(2, '0')
                               : '00'}
@@ -87,7 +86,6 @@ const CustomersPage = () => {
                   >
                      <div className="admin-stats-left">
                         <p className="admin-stats-number">
-                           {/* should exclude admins registrations */}
                            {verifiedUsers ? String(verifiedUsers).padStart(2, '0') : '00'}
                         </p>
                         <h3 className="admin-stats-description">Total verified users</h3>
@@ -106,7 +104,6 @@ const CustomersPage = () => {
                   >
                      <div className="admin-stats-left">
                         <p className="admin-stats-number">
-                           {/* should exclude admins registrations */}
                            {unverifiedUsers
                               ? String(unverifiedUsers).padStart(2, '0')
                               : '00'}
@@ -190,10 +187,10 @@ const CustomersPage = () => {
                               });
 
                               return (
-                                 <tr key={user.user_id}>
+                                 <tr key={user.id}>
                                     <td>{index + 1}</td>
-                                    <td>{user.user_name}</td>
-                                    <td>{user.user_email}</td>
+                                    <td>{user.name}</td>
+                                    <td>{user.email}</td>
                                     <td>{formattedDate}</td>
                                     <td>
                                        {user.is_verified ? 'Verified' : 'Not Verified'}

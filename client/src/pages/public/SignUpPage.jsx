@@ -1,26 +1,18 @@
 import { useFormik } from 'formik'; // USE REACT HOOK FORM LATER INSTEAD
 import * as Yup from 'yup';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
-import api from '../../../api/axios';
+import { useState } from 'react';
 import { ShowPassword } from '../../components/ShowPassword';
 import { BackBtn } from '../../components/BackBtn';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
 import wave_svg from '../../assets/images/svg/wave.svg';
-import '../public.css'
+import '../public.css';
+import { useUserStore } from '../../stores/useUserStore';
 
 const SignUpPage = () => {
-   const [loading, setLoading] = useState(false);
    const [showPassword, setShowPassword] = useState(false);
-
-   const navigate = useNavigate();
-
-   const location = useLocation();
-   const toastId = 'unique-toast';
-   useEffect(() => {
-      toast.dismiss(toastId);
-   }, [location]);
+   const { signup, loading } = useUserStore();
 
    // min 7 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit
    const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}$/;
@@ -45,51 +37,13 @@ const SignUpPage = () => {
       }),
       onSubmit: async (values) => {
          values.email = values.email.toLowerCase();
-         setLoading(true);
-
-         try {
-            const res = await api.post('/auth/register', values);
-            const data = res.data;
-
-            if (data.success) {
-               navigate('/verify-email', { state: { email: values.email } });
-               toast.info(data.message);
-            }
-         } catch (err) {
-            if (err.response) {
-               toast.error(err.response.data.message);
-
-               if (err.response.data.message === 'User already exists') {
-                  toast.dismiss(toastId);
-               }
-
-               if (err.response.data.isVerified === false) {
-                  if (!toast.isActive(toastId)) {
-                     toast.warning(
-                        <>
-                           <span>
-                              Did not receive the email? <br />
-                              <a href="/resend-email">Click here to resend</a>
-                           </span>
-                        </>,
-                        {
-                           toastId: toastId,
-                           autoClose: false,
-                           closeOnClick: false,
-                           draggable: false,
-                           position: 'top-right',
-                        },
-                     );
-                  }
-               }
-            } else {
-               toast.error('Server error. Please try again later.');
-            }
-         } finally {
-            setLoading(false);
-         }
+         await signup(values);
       },
    });
+
+   const handleToast = () => {
+      toast.dismiss('toast');
+   };
 
    return (
       <div className="form-body">
@@ -221,7 +175,9 @@ const SignUpPage = () => {
                   </form>
                   <div className="link login-link">
                      <p className="description">Already have an account?</p>
-                     <Link to="/login">Login</Link>
+                     <Link to="/login" onClick={handleToast}>
+                        Login
+                     </Link>
                   </div>
                </div>
             </div>

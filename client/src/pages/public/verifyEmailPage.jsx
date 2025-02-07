@@ -1,21 +1,14 @@
-/* eslint-disable react/prop-types */
-import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../../api/axios';
 import { AnimatedContainer } from '../../components/AnimatedContainer';
 import wave_svg from '../../assets/images/svg/wave.svg';
-import '../public.css'
+import '../public.css';
 
-const VerifyEmailPage = ({ setHasParams }) => {
+const VerifyEmailPage = () => {
    const [loading, setLoading] = useState(false);
-   const location = useLocation();
-   const email = location.state?.email;
-
-   if (email === undefined) {
-      console.log(email);
-      setHasParams(true);
-   }
+   const [email, setEmail] = useState(localStorage.getItem('email'));
+   const [resent, setResent] = useState(false);
 
    const resendEmail = async (email) => {
       setLoading(true);
@@ -24,7 +17,9 @@ const VerifyEmailPage = ({ setHasParams }) => {
          const data = res.data;
 
          if (data.success) {
+            setResent(true);
             toast.info(data.message);
+            localStorage.removeItem('email');
          }
       } catch (err) {
          if (err.response) {
@@ -56,15 +51,24 @@ const VerifyEmailPage = ({ setHasParams }) => {
 
                <div className="right-form spacing">
                   <p className="form-description">
-                     Check <span className="your-email">{email}</span> to verify your
-                     account and get started.
+                     {resent ? (
+                        <>
+                           Email resent at
+                           <span className="your-email"> {email}</span>, please make sure
+                           to check your inbox!
+                        </>
+                     ) : (
+                        <>
+                           We are almost there! Please make sure to check your email:
+                           <span className="your-email"> {email}</span> to verify your
+                           account and get started.
+                        </>
+                     )}
                   </p>
                   <button
                      type="submit"
                      className="btn secondary-btn btn-submit"
-                     onClick={() =>
-                        window.open('https://ethereal.email/messages', '_blank')
-                     }
+                     onClick={() => window.open('https://mail.google.com', '_blank')}
                   >
                      Open gmail
                   </button>
@@ -72,7 +76,7 @@ const VerifyEmailPage = ({ setHasParams }) => {
                      type="submit"
                      className="btn secondary-btn-alt btn-submit"
                      onClick={() => resendEmail(email)}
-                     disabled={loading}
+                     disabled={loading || resent}
                   >
                      {loading ? <>Sending...</> : <>Resend email</>}
                   </button>

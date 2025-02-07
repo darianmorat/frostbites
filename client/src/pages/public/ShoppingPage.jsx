@@ -48,7 +48,7 @@ const ShoppingPage = () => {
                         )}
 
                         {products?.map((product) => (
-                           <ProductCard key={product.product_id} product={product} />
+                           <ProductCard key={product.id} product={product} />
                         ))}
 
                         {/* <div className="product-item"> */}

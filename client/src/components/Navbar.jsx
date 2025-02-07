@@ -125,7 +125,7 @@ export const Navbar = () => {
                   <button className="nav-profile" onClick={toggleDropMenu}>
                      <div className="nav-profile-picture"> </div>
                      <div>
-                        <p className="name">{user.user_name}</p>
+                        <p className="name">{user.name}</p>
                         <p className="role">{!isAdmin && <>Customer</>}</p>
                      </div>
                   </button>
@@ -142,7 +142,7 @@ export const Navbar = () => {
                   <button className="nav-profile" onClick={toggleDropMenu}>
                      <div className="nav-profile-picture"> </div>
                      <div>
-                        <p className="admin-name">{user.user_name}</p>
+                        <p className="admin-name">{user.name}</p>
                         <p className="admin-role">{isAdmin && <>Administrator</>}</p>
                      </div>
                   </button>

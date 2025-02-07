@@ -6,7 +6,7 @@ export const PublicRoute = () => {
 
    const location = useLocation();
    const requiresParams = location.pathname === '/verify-email';
-   const hasEmailParam = !!location.state?.email;
+   const hasEmailParam = localStorage.getItem('email');
 
    if (isAuth) return <Navigate to={isAdmin ? '/dashboard' : '/'} />;
    if (requiresParams && !hasEmailParam) return <Navigate to="/not-found" />;
