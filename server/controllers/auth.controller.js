@@ -7,7 +7,7 @@ export const registerUser = async (req, res) => {
    try {
       const { name, email, password } = req.body;
 
-      const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
+      const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
 
       if (user.rows.length !== 0) {
          if (user.rows[0].is_verified === false) {
@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
       const bcryptPassword = await bcrypt.hash(password, salt);
 
       const newUser = await pool.query(
-         'INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *',
+         'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *',
          [name, email, bcryptPassword],
       );
 
@@ -35,15 +35,12 @@ export const registerUser = async (req, res) => {
 
       if (email === process.env.ADMIN_EMAIL) {
          const adminRole = process.env.ADMIN_ROLE;
+         const roles = await pool.query('SELECT id FROM roles WHERE role = $1', [
+            adminRole,
+         ]);
 
-         const roles = await pool.query(
-            'SELECT role_id FROM roles WHERE role_name = $1',
-            [adminRole],
-         );
-
-         const userId = newUser.rows[0].user_id;
-         const roleId = roles.rows[0].role_id;
-
+         const userId = newUser.rows[0].id;
+         const roleId = roles.rows[0].id;
          await pool.query(
             'INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2) RETURNING *',
             [userId, roleId],
@@ -53,62 +50,68 @@ export const registerUser = async (req, res) => {
       }
 
       const userRole = process.env.USER_ROLE;
+      const roles = await pool.query('SELECT id FROM roles WHERE role = $1', [userRole]);
 
-      const roles = await pool.query('SELECT role_id FROM roles WHERE role_name = $1', [
-         userRole,
+      const userId = newUser.rows[0].id;
+      const roleId = roles.rows[0].id;
+      await pool.query('INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2)', [
+         userId,
+         roleId,
       ]);
 
-      const userId = newUser.rows[0].user_id;
-      const roleId = roles.rows[0].role_id;
-
-      await pool.query(
-         'INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2) RETURNING *',
-         [userId, roleId],
-      );
-
-      const token = jwtGeneratorVerify(newUser.rows[0].user_id, isAdmin);
+      const token = jwtGeneratorVerify(userId, isAdmin);
 
       const transporter = nodemailer.createTransport({
-         host: 'smtp.ethereal.email',
+         host: 'live.smtp.mailtrap.io',
          port: 587,
          auth: {
-            user: process.env.APP_EMAIL,
-            pass: process.env.PASSWORD_APP_EMAIL,
+            user: process.env.MAILTRAP_USER,
+            pass: process.env.MAILTRAP_PASS,
          },
       });
 
       const mailOptions = {
-         from: process.env.APP_EMAIL,
-         to: email,
+         from: `"FrostBites Team" <${process.env.MAILTRAP_EMAIL}>`,
+         to: 'yojhandariantoledomora@gmail.com', // use 'email' later
          subject: 'Email Verification',
          html: `
-            <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
-               <h1 style="color: #1a73e8; text-align: center;">Verify your email</h1>
-               <p>Click the following link to verify your email:</p>
-               <a href="${process.env.BASE_URL}/send-email/${token}">
-                  CLICK TO VERIFY EMAIL
-               </a>
-               <p>The link will expire in 10 minutes.</p>
-               <p>If you didn't wanted to create an account, please ignore this email.</p>
-               <br/>
-               <p style="text-align: center; color: #666;">Stay frosty, <br />The FrostBites Team </p>
-               <p style="text-align: center;">
-               <a href="${process.env.BASE_URL}" style="color: #1a73e8;">Visit FrostBites</a>
-               </p>
+            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+               <header style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+                  <h1 style="color: #1a73e8; font-size: 24px; margin: 0; font-weight: bold;">Verify Your Email</h1>
+               </header>
+               <main style="padding: 20px;">
+                  <p style="font-size: 16px; margin-top: 30px">
+                     Thank you for signing up with <strong>FrostBites</strong>! To complete your registration, please verify your email address by clicking the button below:
+                  </p>
+                  <div style="text-align: center; margin: 30px 0;">
+                     <a href="${process.env.BASE_URL}/send-email/${token}"
+                        style="display: inline-block; padding: 12px 20px; font-size: 16px; color: #ffffff; background-color: #1a73e8; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                        Verify Email
+                     </a>
+                  </div>
+                  <p style="font-size: 16px;">
+                     This link will expire in <strong>10 minutes</strong>. If you did not sign up for a FrostBites account, you can safely ignore this email.
+                  </p>
+               </main>
+               <footer style="padding: 20px; border-top: 1px solid #e5e5e5; line-height:0.7; margin-top: 30px; text-align: center;">
+                  <p style="font-size: 14px; color: #666;">Stay frosty,</p>
+                  <p style="font-size: 14px; color: #666;"><strong>The FrostBites Team</strong></p>
+                  <a href="${process.env.BASE_URL}" style="color: #1a73e8; text-decoration: none; font-size: 14px;">Visit FrostBites</a>
+               </footer>
             </div>
          `,
       };
 
       transporter.sendMail(mailOptions, (err, info) => {
          if (err) {
-            return res
-               .status(500)
-               .json({ success: false, message: 'Error sending email' });
+            return res.status(500).json({
+               success: false,
+               message: 'Error sending email',
+            });
          }
-         res.status(200).json({
+         return res.status(200).json({
             success: true,
             message: 'Registration successful! Please check your inbox',
-            token,
          });
       });
    } catch (err) {
@@ -126,7 +129,7 @@ export const loginUser = async (req, res) => {
          isAdmin = true;
       }
 
-      const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
+      const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
 
       if (user.rows.length === 0) {
          return res
@@ -143,7 +146,7 @@ export const loginUser = async (req, res) => {
          });
       }
 
-      const validPassword = await bcrypt.compare(password, user.rows[0].user_password);
+      const validPassword = await bcrypt.compare(password, user.rows[0].password);
 
       if (!validPassword) {
          return res
@@ -151,8 +154,20 @@ export const loginUser = async (req, res) => {
             .json({ success: false, message: 'Email or Password is incorrect' });
       }
 
-      const token = jwtGenerator(user.rows[0].user_id, isAdmin);
-      res.status(200).json({ success: true, user: user.rows[0], isAdmin, token });
+      const resultPurchases = await pool.query(
+         'SELECT * FROM payments WHERE customer_id = $1',
+         [user.rows[0].id],
+      );
+      const purchases = resultPurchases.rows.length;
+
+      const token = jwtGenerator(user.rows[0].id, isAdmin);
+      res.status(200).json({
+         success: true,
+         user: user.rows[0],
+         purchases,
+         isAdmin,
+         token,
+      });
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });
    }
@@ -162,7 +177,7 @@ export const verifyUser = async (req, res) => {
    try {
       const { userId, isAdmin } = req.user;
 
-      const result = await pool.query('SELECT * FROM users WHERE user_id = $1', [userId]);
+      const result = await pool.query('SELECT * FROM users WHERE id = $1', [userId]);
 
       if (userId) {
          res.status(200).json({ success: true, isAdmin, user: result.rows[0] });

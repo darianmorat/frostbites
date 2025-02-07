@@ -5,18 +5,18 @@ dotenv.config();
 
 // There's methods such as using cookies to store long term sessions
 
-export function jwtGenerator(user_id, isAdmin) {
+export function jwtGenerator(userId, isAdmin) {
    const payload = {
-      user: user_id,
+      user: userId,
       admin: isAdmin,
    };
 
    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
 
-export function jwtGeneratorVerify(user_id, isAdmin) {
+export function jwtGeneratorVerify(userId, isAdmin) {
    const payload = {
-      user: user_id,
+      user: userId,
       admin: isAdmin,
    };
 

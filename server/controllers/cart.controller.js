@@ -19,7 +19,7 @@ export const addToCart = async (req, res) => {
       const { productId } = req.body;
       const { userId } = req.user;
 
-      const result = await pool.query('SELECT * FROM products WHERE product_id = $1', [
+      const result = await pool.query('SELECT * FROM products WHERE id = $1', [
          productId,
       ]);
       const product = result.rows[0];
@@ -40,7 +40,7 @@ export const addToCart = async (req, res) => {
       } else {
          await pool.query(
             'INSERT INTO orders (user_id, product_id, product_name, product_price, quantity) VALUES ($1, $2, $3, $4, $5)',
-            [userId, productId, product.product_name, product.product_price, 1],
+            [userId, productId, product.name, product.price, 1],
          );
 
          return res.status(200).json({ success: true, message: 'Product added to cart' });

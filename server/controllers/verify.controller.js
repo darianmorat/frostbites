@@ -8,7 +8,7 @@ export const forgotPassword = async (req, res) => {
    try {
       const { email } = req.body;
 
-      const result = await pool.query('SELECT * FROM users WHERE user_email = $1', [
+      const result = await pool.query('SELECT * FROM users WHERE email = $1', [
          email,
       ]);
 
@@ -17,35 +17,45 @@ export const forgotPassword = async (req, res) => {
       }
 
       const user = result.rows[0];
-      const token = jwtGeneratorVerify(user.user_id);
+      const token = jwtGeneratorVerify(user.id);
 
       const transporter = nodemailer.createTransport({
-         host: 'smtp.ethereal.email',
+         host: 'live.smtp.mailtrap.io',
          port: 587,
          auth: {
-            user: process.env.APP_EMAIL,
-            pass: process.env.PASSWORD_APP_EMAIL,
+            user: process.env.MAILTRAP_USER,
+            pass: process.env.MAILTRAP_PASS,
          },
       });
 
       const mailOptions = {
-         from: process.env.APP_EMAIL,
-         to: req.body.email,
+         from: `"FrostBites Support" <${process.env.MAILTRAP_EMAIL}>`,
+         to: 'yojhandariantoledomora@gmail.com', // use 'email' later
          subject: 'Reset Your Password',
          html: `
-            <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
-               <h1 style="color: #1a73e8; text-align: center;">Reset Your Password</h1>
-               <p>Click on the following link to reset your password:</p>
-               <a href="${process.env.BASE_URL}/reset-password/${token}">
-                  CLICK TO RESET PASSWORD
-               </a>
-               <p>The link will expire in 10 minutes.</p>
-               <p>If you didn't request a password reset, please ignore this email.</p>
-               <br/>
-               <p style="text-align: center; color: #666;">Stay frosty, <br />The FrostBites Team </p>
-               <p style="text-align: center;">
-               <a href="${process.env.BASE_URL}" style="color: #1a73e8;">Visit FrostBites</a>
-               </p>
+            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+               <header style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+                  <h1 style="color: #1a73e8; font-size: 24px; margin: 0; font-weight: bold;">Reset Your Password</h1>
+               </header>
+               <main style="padding: 20px;">
+                  <p style="font-size: 16px; margin-top: 30px"> Hi, It seems like you’ve requested to reset your password for your FrostBites account. No worries we’re here to help! <br/>
+                  <br/>
+                  Simply click the button below to reset your password:</p>
+                  <div style="text-align: center; margin: 30px 0;">
+                     <a href="${process.env.BASE_URL}/reset-password/${token}" 
+                        style="display: inline-block; padding: 12px 20px; font-size: 16px; color: #ffffff; background-color: #1a73e8; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                        Reset Password
+                     </a>
+                  </div>
+                  <p style="font-size: 16px;">
+                     This link will expire in <strong>10 minutes</strong>. If you did not request for a password reset, you can safely ignore this email.
+                  </p>
+               </main>
+               <footer style="padding: 20px; border-top: 1px solid #e5e5e5; line-height:0.7; margin-top: 30px; text-align: center;">
+                  <p style="font-size: 14px; color: #666;">Stay frosty,</p>
+                  <p style="font-size: 14px; color: #666;"><strong>The FrostBites Team</strong></p>
+                  <a href="${process.env.BASE_URL}" style="color: #1a73e8; text-decoration: none; font-size: 14px;">Visit FrostBites</a>
+               </footer>
             </div>
          `,
       };
@@ -69,7 +79,7 @@ export const resetPassword = async (req, res) => {
    try {
       const decodedToken = jwt.verify(req.params.token, process.env.JWT_SECRET);
 
-      const result = await pool.query('SELECT * FROM users WHERE user_id = $1', [
+      const result = await pool.query('SELECT * FROM users WHERE id = $1', [
          decodedToken.user,
       ]);
       const user = result.rows[0];
@@ -80,9 +90,9 @@ export const resetPassword = async (req, res) => {
       const salt = await bcrypt.genSalt(saltRound);
       const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-      await pool.query('UPDATE users SET user_password = $1 WHERE user_id = $2', [
+      await pool.query('UPDATE users SET password = $1 WHERE id = $2', [
          hashedPassword,
-         user.user_id,
+         user.id,
       ]);
 
       res.status(200).json({ success: true, message: 'Password updated' });
@@ -101,10 +111,10 @@ export const sendEmail = async (req, res) => {
    try {
       const decoded = jwt.verify(req.params.token, process.env.JWT_SECRET);
 
-      const user = await pool.query('SELECT * FROM users WHERE user_id = $1', [
+      const user = await pool.query('SELECT * FROM users WHERE id = $1', [
          decoded.user,
       ]);
-      const email = user.rows[0].user_email;
+      // const email = user.rows[0].email;
 
       if (user.rows.length === 0) {
          return res.status(404).json({ success: false, message: 'User not found' });
@@ -116,36 +126,44 @@ export const sendEmail = async (req, res) => {
             .json({ success: false, message: 'Email already verified' });
       }
 
-      await pool.query('UPDATE users SET is_verified = true WHERE user_id = $1', [
+      await pool.query('UPDATE users SET is_verified = true WHERE id = $1', [
          decoded.user,
       ]);
 
       const token = jwtGenerator(decoded.user, decoded.admin);
 
       const transporter = nodemailer.createTransport({
-         host: 'smtp.ethereal.email',
+         host: 'live.smtp.mailtrap.io',
          port: 587,
          auth: {
-            user: process.env.APP_EMAIL,
-            pass: process.env.PASSWORD_APP_EMAIL,
+            user: process.env.MAILTRAP_USER,
+            pass: process.env.MAILTRAP_PASS,
          },
       });
 
       const mailOptions = {
-         from: process.env.APP_EMAIL,
-         to: email,
+         from: `"FrostBites Team" <${process.env.MAILTRAP_EMAIL}>`,
+         to: 'yojhandariantoledomora@gmail.com', // use 'email' later
          subject: 'Welcome to FROSTBITES',
          html: `
-            <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
-               <h1 style="color: #1a73e8; text-align: center;">WELCOME TO FROSTBITES!</h1>
-               <p>Hey there,</p>
-               <p>We're excited to have you join the FrostBites family. Get ready to enjoy some seriously cool treats and exclusive offers just for you.</p>
-               <p>Feel free to explore, chill, and taste the thrill. We’re here to make every bite an adventure!</p>
-               <br/>
-               <p style="text-align: center; color: #666;">Stay frosty,<br />The FrostBites Team</p>
-               <p style="text-align: center;">
-               <a href="${process.env.BASE_URL}" style="color: #1a73e8;">Visit FrostBites</a>
-               </p>
+            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+               <header style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+                  <h1 style="color: #1a73e8; font-size: 24px; margin: 0; font-weight: bold;">Welcome to FrostBites</h1>
+               </header>
+               <main style="padding: 20px;">
+                  <p style="font-size: 16px; margin-top: 30px">
+                     Hey there, we're excited to have you join the <strong>FrostBites</strong> family. Get ready to enjoy some seriously cool treats and exclusive offers just for you.
+                  </p>           
+                  <img src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg" 
+                     alt="FrostBites Logo" 
+                     style="border-radius: 5px; max-width: 550px; margin: 0 auto; margin-bottom: 20px; display: block;"
+                  >
+               </main>
+               <footer style="padding: 20px; border-top: 1px solid #e5e5e5; line-height:0.7; margin-top: 30px; text-align: center;">
+                  <p style="font-size: 14px; color: #666;">Stay frosty,</p>
+                  <p style="font-size: 14px; color: #666;"><strong>The FrostBites Team</strong></p>
+                  <a href="${process.env.BASE_URL}" style="color: #1a73e8; text-decoration: none; font-size: 14px;">Visit FrostBites</a>
+               </footer>
             </div>
          `,
       };
@@ -158,7 +176,6 @@ export const sendEmail = async (req, res) => {
          }
          res.status(200).json({
             success: true,
-            user: user.rows[0],
             message: 'Email verified successfully',
             token,
          });
@@ -177,7 +194,7 @@ export const sendEmail = async (req, res) => {
 export const resendEmail = async (req, res) => {
    const { email } = req.body;
 
-   const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
+   const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
 
    if (user.rows.length === 0) {
       return res
@@ -196,12 +213,12 @@ export const resendEmail = async (req, res) => {
    if (email === process.env.ADMIN_EMAIL) {
       const adminRole = process.env.ADMIN_ROLE;
 
-      const roles = await pool.query('SELECT role_id FROM roles WHERE role_name = $1', [
+      const roles = await pool.query('SELECT id FROM roles WHERE role = $1', [
          adminRole,
       ]);
 
-      const userId = newUser.rows[0].user_id;
-      const roleId = roles.rows[0].role_id;
+      const userId = user.rows[0].id;
+      const roleId = roles.rows[0].id;
 
       await pool.query(
          'INSERT INTO user_roles (user_id, role_id) VALUES ($1, $2) RETURNING *',
@@ -211,35 +228,45 @@ export const resendEmail = async (req, res) => {
       isAdmin = true;
    }
 
-   const token = jwtGeneratorVerify(user.rows[0].user_id, isAdmin);
+   const token = jwtGeneratorVerify(user.rows[0].id, isAdmin);
 
    const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
+      host: 'live.smtp.mailtrap.io',
       port: 587,
       auth: {
-         user: process.env.APP_EMAIL,
-         pass: process.env.PASSWORD_APP_EMAIL,
+         user: process.env.MAILTRAP_USER,
+         pass: process.env.MAILTRAP_PASS,
       },
    });
 
    const mailOptions = {
-      from: process.env.APP_EMAIL,
-      to: email,
+      from: `"FrostBites Team" <${process.env.MAILTRAP_EMAIL}>`,
+      to: 'yojhandariantoledomora@gmail.com', // use 'email' later
       subject: 'Email Verification (Resent)',
       html: `
-         <div style="color: #333; max-width: 550px; margin: 20px auto; padding: 25px; background-color: #f9f9f9; border-radius: 10px; border: 1px solid #e0e0e0;">
-            <h1 style="color: #1a73e8; text-align: center;">Verify your email (Resent)</h1>
-            <p>Click the following link to verify your email:</p>
-            <a href="${process.env.BASE_URL}/send-email/${token}">
-               CLICK TO VERIFY EMAIL
-            </a>
-            <p>The link will expire in 10 minutes.</p>
-            <p>If you didn't wanted to create an account, please ignore this email.</p>
-            <br/>
-            <p style="text-align: center; color: #666;">Stay frosty, <br />The FrostBites Team </p>
-            <p style="text-align: center;">
-            <a href="${process.env.BASE_URL}" style="color: #1a73e8;">Visit FrostBites</a>
-            </p>
+         <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <header style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
+               <h1 style="color: #1a73e8; font-size: 24px; margin: 0; font-weight: bold;">Verify Your Email</h1>
+            </header>
+            <main style="padding: 20px;">
+               <p style="font-size: 16px; margin-top: 30px">
+                  Thank you for signing up with <strong>FrostBites</strong>! To complete your registration, please verify your email address by clicking the button below:
+               </p>
+               <div style="text-align: center; margin: 30px 0;">
+                  <a href="${process.env.BASE_URL}/send-email/${token}" 
+                     style="display: inline-block; padding: 12px 20px; font-size: 16px; color: #ffffff; background-color: #1a73e8; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                     Verify Email (Resent)
+                  </a>
+               </div>
+               <p style="font-size: 16px;">
+                  This link will expire in <strong>10 minutes</strong>. If you did not sign up for a FrostBites account, you can safely ignore this email.
+               </p>
+            </main>
+            <footer style="padding: 20px; border-top: 1px solid #e5e5e5; line-height:0.7; margin-top: 30px; text-align: center;">
+               <p style="font-size: 14px; color: #666;">Stay frosty,</p>
+               <p style="font-size: 14px; color: #666;"><strong>The FrostBites Team</strong></p>
+               <a href="${process.env.BASE_URL}" style="color: #1a73e8; text-decoration: none; font-size: 14px;">Visit FrostBites</a>
+            </footer>
          </div>
       `,
    };

@@ -19,7 +19,7 @@ export const updateProduct = async (req, res) => {
       await pool.query('DELETE FROM orders WHERE product_id = $1', [id])
 
       const result = await pool.query(
-         'UPDATE products SET product_img = $1, product_name = $2, product_price = $3 WHERE product_id = $4 RETURNING product_img, product_name, product_price',
+         'UPDATE products SET url = $1, name = $2, price = $3 WHERE id = $4 RETURNING *',
          [imageUrl, name, price, id],
       );
 
@@ -40,7 +40,7 @@ export const createProduct = async (req, res) => {
       const { imageUrl, name, price } = req.body;
 
       const newProduct = await pool.query(
-         'INSERT INTO products (product_img, product_name, product_price) VALUES ($1, $2, $3) RETURNING *',
+         'INSERT INTO products (url, name, price) VALUES ($1, $2, $3) RETURNING *',
          [imageUrl, name, price],
       );
 
@@ -60,7 +60,7 @@ export const deleteProduct = async (req, res) => {
    try {
       const { id } = req.params;
 
-      await pool.query('DELETE from products WHERE product_id = $1', [id]);
+      await pool.query('DELETE from products WHERE id = $1', [id]);
 
       res.status(200).json({ success: true, message: 'Product deleted successfully' });
    } catch (err) {

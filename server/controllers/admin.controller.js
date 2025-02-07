@@ -3,14 +3,14 @@ import pool from '../db/pool.js';
 export const getStats = async (req, res) => {
    try {
       const resultUsers = await pool.query(
-         'SELECT user_id, user_name, user_email, created_at, is_verified FROM users',
+         'SELECT id, name, email, created_at, is_verified FROM users',
       );
       const totalUsers = resultUsers.rows.filter(
-         (user) => user.user_email !== process.env.ADMIN_EMAIL,
+         (user) => user.email !== process.env.ADMIN_EMAIL,
       );
 
       const resultProducts = await pool.query(
-         'SELECT product_id, product_name, product_price, product_img FROM products',
+         'SELECT id, url, name, price FROM products',
       );
       const totalProducts = resultProducts.rows;
 

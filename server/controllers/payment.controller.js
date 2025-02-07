@@ -8,11 +8,10 @@ export const handlePayment = async (req, res) => {
       const { cart } = req.body;
       const { userId } = req.user;
 
-      const response = await pool.query(
-         'SELECT user_email FROM users WHERE user_id = $1',
-         [userId],
-      );
-      const email = response.rows[0].user_email;
+      const response = await pool.query('SELECT email FROM users WHERE id = $1', [
+         userId,
+      ]);
+      const email = response.rows[0].email;
 
       const lineItems = cart.map((item) => ({
          price_data: {
@@ -43,6 +42,8 @@ export const handlePayment = async (req, res) => {
 
 export const successPayment = async (req, res) => {
    try {
+      const { userId } = req.user;
+
       const sessionId = req.query.session_id;
       const session = await stripe.checkout.sessions.retrieve(sessionId);
 
@@ -64,8 +65,8 @@ export const successPayment = async (req, res) => {
       }
 
       await pool.query(
-         'INSERT INTO payments (session_id, customer_email, amount, payment_status, status) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-         [sessionId, customer_email, total, payment_status, session_status],
+         'INSERT INTO payments (session_id, customer_id, customer_email, amount, payment_status, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+         [sessionId, userId, customer_email, total, payment_status, session_status],
       );
 
       res.status(200).send({ success: true, message: 'Payment successfull' });
