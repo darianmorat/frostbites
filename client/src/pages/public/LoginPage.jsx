@@ -10,6 +10,9 @@ import wave_svg from '../../assets/images/svg/wave.svg';
 import { toast } from 'react-toastify';
 import '../public.css';
 
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import auth from '../../firebaseConfig';
+
 const LoginPage = () => {
    const [showPassword, setShowPassword] = useState(false);
    const { login } = useUserStore();
@@ -30,6 +33,22 @@ const LoginPage = () => {
 
    const handleToast = () => {
       toast.dismiss('toast');
+   };
+
+   const handleGoogleLogin = async () => {
+      const provider = new GoogleAuthProvider();
+      const res = await signInWithPopup(auth, provider);
+
+      try {
+         const user = res.user;
+         const values = {
+            email: user.email,
+            auth_provider: 'google',
+         };
+         await login(values);
+      } catch (err) {
+         console.error(err);
+      }
    };
 
    return (
@@ -55,7 +74,9 @@ const LoginPage = () => {
                </div>
 
                <div className="right-form">
-                  <div className="google-auth">Continue with Google</div>
+                  <button className="btn google-auth" onClick={handleGoogleLogin}>
+                     Login with Google
+                  </button>
                   <p className="separator">
                      <span className="separator-line"></span> or{' '}
                      <span className="separator-line"></span>

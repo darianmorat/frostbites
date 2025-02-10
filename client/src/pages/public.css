@@ -168,7 +168,7 @@
    gap: 10px;
    justify-content: space-between;
 }
-.purchase-total{
+.purchase-total {
    display: flex;
    align-items: center;
    gap: 10px;
@@ -274,15 +274,17 @@
    max-width: 700px;
 }
 
-.google-auth {
-   background-color: white;
+.right-form > .google-auth {
+   background-color: #ffffff90;
+   border: 2px solid #28282850;
+   color: #282828;
    height: 65px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
    font-weight: bold;
-   border-radius: 5px;
 }
+.google-auth:hover{
+   background-color: var(--white-color);
+}
+
 .separator {
    margin: 20px 0 10px 0;
    display: flex;

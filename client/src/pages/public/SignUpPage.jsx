@@ -10,6 +10,9 @@ import wave_svg from '../../assets/images/svg/wave.svg';
 import '../public.css';
 import { useUserStore } from '../../stores/useUserStore';
 
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import auth from '../../firebaseConfig';
+
 const SignUpPage = () => {
    const [showPassword, setShowPassword] = useState(false);
    const { signup, loading } = useUserStore();
@@ -45,6 +48,23 @@ const SignUpPage = () => {
       toast.dismiss('toast');
    };
 
+   const handleGoogleSignup = async () => {
+      const provider = new GoogleAuthProvider();
+      const res = await signInWithPopup(auth, provider);
+
+      try {
+         const user = res.user;
+         const values = {
+            name: user.displayName,
+            email: user.email,
+            auth_provider: 'google',
+         };
+         await signup(values);
+      } catch (err) {
+         console.error(err);
+      }
+   };
+
    return (
       <div className="form-body">
          <img src={wave_svg} alt="" className="wave-left-svg" />
@@ -67,7 +87,9 @@ const SignUpPage = () => {
                </div>
 
                <div className="right-form">
-                  <div className="google-auth">Continue with Google</div>
+                  <button className="btn google-auth" onClick={handleGoogleSignup}>
+                     Signup with Google
+                  </button>
                   <p className="separator">
                      <span className="separator-line"></span> or{' '}
                      <span className="separator-line"></span>

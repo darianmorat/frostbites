@@ -72,14 +72,25 @@ export const useUserStore = create((set, get) => ({
    signup: async (values) => {
       set({ loading: true });
       try {
-         const res = await api.post('/auth/register', values);
-         const data = res.data;
+         if (values.auth_provider) {
+            const res = await api.post('/auth/register-google', values);
+            const data = res.data;
 
-         if (data.success) {
-            localStorage.setItem('email', values.email);
-            window.location.href = '/verify-email';
-            set({ loading: false });
-            // toast.info(data.message);
+            if (data.success) {
+               localStorage.setItem('token', data.token);
+               window.location.href = '/';
+               toast.success(data.message);
+            }
+         } else {
+            const res = await api.post('/auth/register', values);
+            const data = res.data;
+
+            if (data.success) {
+               localStorage.setItem('email', values.email);
+               window.location.href = '/verify-email';
+               set({ loading: false });
+               // toast.info(data.message);
+            }
          }
       } catch (err) {
          toast.error(err.response.data.message);
@@ -109,18 +120,34 @@ export const useUserStore = create((set, get) => ({
 
    login: async (values) => {
       try {
-         const res = await api.post('/auth/login', values);
-         const data = res.data;
+         if (values.auth_provider) {
+            const res = await api.post('/auth/login-google', values);
+            const data = res.data;
 
-         if (data.success) {
-            localStorage.setItem('token', data.token);
-            set({
-               user: data.user,
-               purchases: data.purchases,
-               isAuth: true,
-               isAdmin: data.isAdmin,
-            });
-            toast.success('Login successful!');
+            if (data.success) {
+               localStorage.setItem('token', data.token);
+               set({
+                  user: data.user,
+                  purchases: data.purchases,
+                  isAuth: true,
+                  isAdmin: data.isAdmin,
+               });
+               toast.success(data.message);
+            }
+         } else {
+            const res = await api.post('/auth/login', values);
+            const data = res.data;
+
+            if (data.success) {
+               localStorage.setItem('token', data.token);
+               set({
+                  user: data.user,
+                  purchases: data.purchases,
+                  isAuth: true,
+                  isAdmin: data.isAdmin,
+               });
+               toast.success(data.message);
+            }
          }
       } catch (err) {
          toast.error(err.response.data.message);
