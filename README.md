@@ -2,13 +2,48 @@
 
 ---
 
-### Project Overview
+### Overview
 
 FrostBites is a full-stack web application developed as part of my project at SENA
 Institution. Designed with both user convenience and functionality in mind, the
 application showcases a practical implementation of modern web development principles.
 This project really helped me sharpen my skills in building applications that are secure,
 user friendly, and built to last.
+
+---
+
+### Technologies
+
+#### Front-End:
+
+- **React.js**: A modern JavaScript library.
+- **Dependencies**:
+   - **FontAwesome**: A library of customizable icons.
+   - **Axios**: For handling HTTP requests.
+   - **Chart.js**: For creating interactive charts.
+   - **Firebase**: For Google authentication.
+   - **Formik**: For handling forms in React.
+   - **Leaflet**: A library for Interactive maps.
+   - **Motion**: For animations in react.
+   - **React Router Dom**: For navigation and routing.
+   - **Loader-Spinner**: For displaying loading animations.
+   - **Remove-Scroll**: For removing scroll in popups.
+   - **Toastify**: For displaying elegant notifications.
+   - **Yup**: Object schema validation.
+   - **Zustand**: State management for React.
+
+#### Back-End:
+
+- **Node.js + Express.js**: For better server-side development.
+- **PostgreSQL**: A robust relational database.
+- **Dependencies**:
+   - **Bcrypt**: For secure password hashing.
+   - **Cors**: To handle cross-origin requests.
+   - **Dotenv**: For managing environment variables.
+   - **JWT Authentication**: For secure user authentication.
+   - **Pg**: For PostgreSQL integration.
+   - **Nodemailer**: For sending emails.
+   - **Stripe**: For handling payments and subscriptions.
 
 ---
 
@@ -58,117 +93,3 @@ user friendly, and built to last.
 - [ ] **Language Toggle**: Provide a Spanish language option.
 - [ ] **Gallery Section**: Users can submit ice cream photos for admin approval.
 - [ ] **Content Loader**: Display a placeholder while content loads.
-
----
-
-### Technologies
-
-#### Front-End:
-
-- **React.js**: A modern JavaScript library.
-- **Dependencies**:
-   - **FontAwesome**: A library of customizable icons.
-   - **Axios**: For handling HTTP requests.
-   - **Chart.js**: For creating interactive charts.
-   - **Formik**: For handling forms in React.
-   - **Leaflet**: A library for Interactive maps.
-   - **React Router Dom**: For navigation and routing.
-   - **Loader-Spinner**: For displaying loading animations.
-   - **Remove-Scroll**: For removing scroll in popups.
-   - **Toastify**: For displaying elegant notifications.
-   - **Yup**: Object schema validation.
-   - **Zustand**: State management for React.
-
-#### Back-End:
-
-- **Node.js + Express.js**: For better server-side development.
-- **PostgreSQL**: A robust relational database.
-- **Dependencies**:
-   - **Bcrypt**: For secure password hashing.
-   - **Cors**: To handle cross-origin requests.
-   - **Dotenv**: For managing environment variables.
-   - **JWT Authentication**: For secure user authentication.
-   - **Pg**: For PostgreSQL integration.
-   - **Motion**: For animations in react.
-   - **Nodemailer**: For sending emails.
-   - **Stripe**: For handling payments and subscriptions.
-
----
-
-### Installation
-
-To run the project locally, follow these steps:
-
-#### Prerequisites
-
-- [Node.js](https://nodejs.org/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [Git](https://git-scm.com/)
-- [npm](https://www.npmjs.com/)
-
-#### Step-by-Step Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/darianmorat/frostbites.git
-```
-
-2. Navigate to the project directory:
-
-```bash
-cd frostbites
-```
-
-3. Set up environment variables:
-
-```bash
-# Client .env
-BASE_URL=your_base_url
-
-# Server .env
-PORT=your_server_port
-JWT_SECRET=your_jwt_secret_key
-
-BASE_URL=your_base_url
-DATABASE_URL=your_database_url
-
-ADMIN_EMAIL=your_admin_email
-ADMIN_ROLE=your_admin_role
-USER_ROLE=your_user_role
-
-APP_EMAIL=email_for_nodemailer
-PASSWORD_APP_EMAIL=your_email_password
-
-STRIPE_SECRET_KEY=your_secret_key
-```
-
-4. Install dependencies for both the client and server:
-
-```bash
-# Install client dependencies
-cd client && npm install
-
-# Install server dependencies
-cd ../server && npm install
-```
-
-5. Initialize database:
-
-```bash
-# Navigate to the file directory
-cd server/db
-
-# Run the script to create tables
-psql -U your_username -d your_database_name -f init.sql
-```
-
-6. Run the development environment:
-
-```bash
-# For the client, start it using:
-cd client && npm run dev
-
-# For the server, start it using:
-cd ../server && npm run dev
-```
