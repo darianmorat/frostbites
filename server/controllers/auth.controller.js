@@ -1,7 +1,7 @@
 import pool from '../db/pool.js';
 import bcrypt from 'bcrypt';
-import nodemailer from 'nodemailer';
 import { jwtGenerator, jwtGeneratorVerify } from '../utils/jwtGenerator.js';
+import { verificationEmail } from '../mailtrap/emails.js';
 
 const assignRole = async (userId, role) => {
    const roles = await pool.query('SELECT id FROM roles WHERE role = $1', [role]);
@@ -51,60 +51,21 @@ export const registerUser = async (req, res) => {
       const userId = newUser.rows[0].id;
       const isAdmin = await roleAssignation(email, userId);
       const token = jwtGeneratorVerify(userId, isAdmin);
+      const emailResponse = await verificationEmail(
+         `${process.env.BASE_URL}/send-email/${token}`,
+      );
 
-      const transporter = nodemailer.createTransport({
-         host: 'live.smtp.mailtrap.io',
-         port: 587,
-         auth: {
-            user: process.env.MAILTRAP_USER,
-            pass: process.env.MAILTRAP_PASS,
-         },
-      });
-
-      const mailOptions = {
-         from: `"FrostBites Team" <${process.env.MAILTRAP_EMAIL}>`,
-         to: 'yojhandariantoledomora@gmail.com', // use 'email' later
-         subject: 'Email Verification',
-         html: `
-            <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; border: 1px solid #e5e5e5; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-               <header style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #e5e5e5;">
-                  <h1 style="color: #1a73e8; font-size: 24px; margin: 0; font-weight: bold;">Verify Your Email</h1>
-               </header>
-               <main style="padding: 20px;">
-                  <p style="font-size: 16px; margin-top: 30px">
-                     Thank you for signing up with <strong>FrostBites</strong>! To complete your registration, please verify your email address by clicking the button below:
-                  </p>
-                  <div style="text-align: center; margin: 30px 0;">
-                     <a href="${process.env.BASE_URL}/send-email/${token}"
-                        style="display: inline-block; padding: 12px 20px; font-size: 16px; color: #ffffff; background-color: #1a73e8; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                        Verify Email
-                     </a>
-                  </div>
-                  <p style="font-size: 16px;">
-                     This link will expire in <strong>10 minutes</strong>. If you did not sign up for a FrostBites account, you can safely ignore this email.
-                  </p>
-               </main>
-               <footer style="padding: 20px; border-top: 1px solid #e5e5e5; line-height:0.7; margin-top: 30px; text-align: center;">
-                  <p style="font-size: 14px; color: #666;">Stay frosty,</p>
-                  <p style="font-size: 14px; color: #666;"><strong>The FrostBites Team</strong></p>
-                  <a href="${process.env.BASE_URL}" style="color: #1a73e8; text-decoration: none; font-size: 14px;">Visit FrostBites</a>
-               </footer>
-            </div>
-         `,
-      };
-
-      transporter.sendMail(mailOptions, (err, info) => {
-         if (err) {
-            return res.status(500).json({
-               success: false,
-               message: 'Error sending email',
-            });
-         }
+      if (emailResponse.success) {
          return res.status(200).json({
             success: true,
             message: 'Registration successful! Please check your inbox',
          });
-      });
+      } else {
+         return res.status(500).json({
+            success: false,
+            message: 'Error sending email',
+         });
+      }
    } catch (err) {
       res.status(500).json({ success: false, message: 'Server error' });
    }
@@ -121,9 +82,10 @@ export const loginUser = async (req, res) => {
 
       const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
       if (user.rows[0].auth_provider === 'google') {
-         return res
-            .status(401)
-            .json({ success: false, message: 'Please login with Google and set a password!' });
+         return res.status(401).json({
+            success: false,
+            message: 'Please login with Google and set a password!',
+         });
       }
 
       if (user.rows.length === 0) {
