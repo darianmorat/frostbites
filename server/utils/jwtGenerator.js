@@ -10,7 +10,6 @@ export function jwtGenerator(userId, isAdmin) {
       user: userId,
       admin: isAdmin,
    };
-
    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 }
 
@@ -19,6 +18,5 @@ export function jwtGeneratorVerify(userId, isAdmin) {
       user: userId,
       admin: isAdmin,
    };
-
    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '10m' });
 }

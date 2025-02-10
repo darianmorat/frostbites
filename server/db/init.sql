@@ -8,14 +8,15 @@ CREATE TABLE users (
    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
    name VARCHAR(100) NOT NULL,
    email VARCHAR(255) NOT NULL,
-   password VARCHAR(255) NOT NULL,
+   password VARCHAR(255),
    bio TEXT DEFAULT 'No bio provided',
    phone VARCHAR(30) DEFAULT 'No phone provided',
    address TEXT DEFAULT 'No address provided',
    profile_picture VARCHAR(255) DEFAULT 'default_profile.jpg',
    profile_banner VARCHAR(255) DEFAULT 'default_banner.jpg',
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   is_verified BOOLEAN DEFAULT FALSE
+   is_verified BOOLEAN DEFAULT FALSE,
+   auth_provider VARCHAR(50) DEFAULT 'email'
 );
 
 CREATE TABLE roles (
