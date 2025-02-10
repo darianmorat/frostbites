@@ -22,16 +22,14 @@ export const useUserStore = create((set, get) => ({
 
    verifyUser: async () => {
       set({ loading: true });
-
       try {
          const token = window.location.pathname.split('/').pop();
          const res = await api.get(`/verify/send-email/${token}`);
          const data = res.data;
 
          if (data.token) {
-            get().getUser();
-            set({ isAuth: true, loading: false });
             localStorage.setItem('token', data.token);
+            window.location.href = '/';
             toast.success('Register successfull!');
          }
       } catch (err) {
