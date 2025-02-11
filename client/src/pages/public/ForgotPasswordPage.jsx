@@ -51,7 +51,7 @@ const ForgotPasswordPage = () => {
          <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
-                  <BackBtn />
+                  <BackBtn path={'/login'} />
                   <h3 className="form-title">Easy way to reset your password</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>

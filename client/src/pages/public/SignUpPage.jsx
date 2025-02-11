@@ -75,7 +75,7 @@ const SignUpPage = () => {
          <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
-                  <BackBtn />
+                  <BackBtn path={'/login'} />
                   <h3 className="form-title">Feel free to join the FROSTBITES family!</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>

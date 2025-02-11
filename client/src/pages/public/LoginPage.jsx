@@ -61,7 +61,7 @@ const LoginPage = () => {
          <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
-                  <BackBtn />
+                  <BackBtn path={'/'} />
                   <h3 className="form-title">Welcome back to FROSTBITES!</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>

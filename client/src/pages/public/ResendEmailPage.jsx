@@ -50,14 +50,14 @@ const ResendEmailPage = () => {
          <AnimatedContainer>
             <div className="form-container">
                <div className="left-form">
-                  <BackBtn />
+                  <BackBtn path={'/login'} />
                   <h3 className="form-title">Did not receive our email?</h3>
                   <div className="stick-container">
                      <div className="stick longer-stick"></div>
                      <div className="stick smaller-stick"></div>
                   </div>
                   <p className="form-description">
-                     Do not worry, we will send you a sencond one to confirm your
+                     Do not worry, we will send you a second one to confirm your
                      verification!
                   </p>
                </div>
