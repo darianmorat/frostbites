@@ -5,6 +5,7 @@ import { useUserStore } from '../stores/useUserStore';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import logo from '../assets/images/logo/logo.svg';
+import mobile_logo from '../assets/images/logo/mobile_logo.png';
 import './index.css';
 
 export const Navbar = () => {
@@ -17,10 +18,14 @@ export const Navbar = () => {
 
    const [dropMenu, setDropMenu] = useState(false);
    const menuRef = useRef(null);
-
    const toggleDropMenu = (e) => {
       e.stopPropagation();
       setDropMenu(!dropMenu);
+   };
+
+   const [dropMenuBars, setDropMenuBars] = useState(false);
+   const toggleDropMenuBars = () => {
+      setDropMenuBars(!dropMenuBars);
    };
 
    const closeOpenMenus = (e) => {
@@ -50,9 +55,14 @@ export const Navbar = () => {
       <div className="navbar-left">
          {!isAdmin ? (
             <>
-               <div className="logo" onClick={scrollToTop}>
+               <div className="logo-container" onClick={scrollToTop}>
                   <Link to="/">
                      <img src={logo} alt="Frostbites Logo" className="logo" />
+                     <img
+                        src={mobile_logo}
+                        alt="Frostbites Logo"
+                        className="mobile_logo"
+                     />
                   </Link>
                </div>
                <li className={url === '' ? 'active' : ''}>
@@ -113,13 +123,9 @@ export const Navbar = () => {
                      ) : (
                         <span className="cart-count">{cart.length}</span>
                      )}
-                     <FontAwesomeIcon
-                        icon="fa-solid fa-cart-flatbed"
-                        className="icons"
-                        onClick={() => navigate('/shopping')}
-                     />
+                     <FontAwesomeIcon icon="fa-solid fa-cart-flatbed" className="icons" />
                   </div>
-                  <div className="icons-container bars">
+                  <div className="icons-container bars" onClick={toggleDropMenuBars}>
                      <FontAwesomeIcon icon="fa-solid fa-bars" className="icons bars" />
                   </div>
                   <button className="nav-profile" onClick={toggleDropMenu}>
@@ -147,6 +153,54 @@ export const Navbar = () => {
                      </div>
                   </button>
                </>
+            )}
+            {dropMenuBars && (
+               <ul className="dropdown-menu-bars" ref={menuRef}>
+                  <li>
+                     <Link to="#" onClick={() => setDropMenuBars(false)}>
+                        <div className="icons-container">
+                           <FontAwesomeIcon
+                              icon="fa-solid fa-xmark"
+                              className="icons-v2"
+                           />
+                        </div>
+                        Close
+                     </Link>
+                  </li>
+                  <li>
+                     <Link to="/" onClick={() => setDropMenuBars(false)}>
+                        <div className="icons-container">
+                           <FontAwesomeIcon
+                              icon="fa-solid fa-user"
+                              className="icons-v2"
+                           />
+                        </div>
+                        Homepage
+                     </Link>
+                  </li>
+                  <li>
+                     <Link to="/about-us" onClick={() => setDropMenuBars(false)}>
+                        <div className="icons-container">
+                           <FontAwesomeIcon
+                              icon="fa-solid fa-gear"
+                              className="icons-v2"
+                           />
+                        </div>
+                        About us
+                     </Link>
+                  </li>
+                  <li>
+                     <Link to="/shopping" onClick={() => setDropMenuBars(false)}>
+                        <div className="icons-container">
+                           <FontAwesomeIcon
+                              icon="fa-solid fa-gear"
+                              className="icons-v2"
+                           />
+                        </div>
+                        Shopping
+                     </Link>
+                  </li>
+               </ul>
             )}
 
             {dropMenu && (
