@@ -63,8 +63,8 @@ user friendly, and built to last.
 - [x] **Product Catalog**: A static display of available ice cream products
 - [ ] **Create Product Catalog**: Enable users to customize ice cream with bases, flavors, and toppings.
 - [x] **Shopping Cart**: Add or remove ice cream items from the cart.
-- [ ] **Purchase Process**: Complete transactions smoothly.
-- [ ] **Order Confirmation**: Show confirmation after a successful purchase.
+- [x] **Purchase Process**: Complete transactions smoothly.
+- [x] **Order Confirmation**: Show confirmation after a successful purchase.
 
 #### User Profile
 
@@ -76,7 +76,7 @@ user friendly, and built to last.
 
 - [x] **Admin Authentication**: Restrict access to admin-only features
 - [x] **Product Management**: Add, update, or delete items in the product catalog.
-- [ ] **Site Statistics**: Track website activity like views and purchases
+- [x] **Site Statistics**: Track website activity like views and purchases
 - [ ] **Order Management**: Manage purchase orders, including marking them as shipped.
 
 #### Other Features
