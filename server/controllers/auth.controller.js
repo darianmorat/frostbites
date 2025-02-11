@@ -81,17 +81,18 @@ export const loginUser = async (req, res) => {
       }
 
       const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-      if (user.rows[0].auth_provider === 'google') {
-         return res.status(401).json({
-            success: false,
-            message: 'Please login with Google and set a password!',
-         });
-      }
 
       if (user.rows.length === 0) {
          return res
             .status(401)
             .json({ success: false, message: 'Email or Password is incorrect' });
+      }
+
+      if (user.rows[0].auth_provider === 'google') {
+         return res.status(401).json({
+            success: false,
+            message: 'Please login with Google and set a password!',
+         });
       }
 
       if (user.rows[0].is_verified === false) {
