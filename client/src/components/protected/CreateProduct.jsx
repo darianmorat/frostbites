@@ -31,7 +31,7 @@ export const CreateProduct = () => {
          try {
             await createProduct(values);
             setCreatePopup(false);
-            // formik.resetForm();
+            formik.resetForm();
          } catch (err) {
             toast.error(err.response.data.message);
          }
