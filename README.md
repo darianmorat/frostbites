@@ -1,12 +1,8 @@
-![FrostBites Logo](./client/public/frostbites.svg)
+<img align="center" src="./client/public/frostbites.svg" alt="FrostBites Logo">
+<h1></h1>
+<img align="center" src="./client/public/screenshot-1.png" alt="Screenshot 1">
 
----
-
-![FrostBites showcase](./client/public/showcase-1.png)
-
----
-
-### Overview
+## About
 
 FrostBites is a full-stack web application developed as part of my project at SENA
 Institution. Designed with both user convenience and functionality in mind, the
@@ -14,44 +10,7 @@ application showcases a practical implementation of modern web development princ
 This project really helped me sharpen my skills in building applications that are secure,
 user friendly, and built to last.
 
----
-
-### Technologies
-
-#### Front-End:
-
-- **React.js**: A modern JavaScript library.
-- **Dependencies**:
-   - **FontAwesome**: A library of customizable icons.
-   - **Axios**: For handling HTTP requests.
-   - **Chart.js**: For creating interactive charts.
-   - **Firebase**: For Google authentication.
-   - **Formik**: For handling forms in React.
-   - **Leaflet**: A library for Interactive maps.
-   - **Motion**: For animations in react.
-   - **React Router Dom**: For navigation and routing.
-   - **Loader-Spinner**: For displaying loading animations.
-   - **Remove-Scroll**: For removing scroll in popups.
-   - **Toastify**: For displaying elegant notifications.
-   - **Yup**: Object schema validation.
-   - **Zustand**: State management for React.
-
-#### Back-End:
-
-- **Node.js + Express.js**: For better server-side development.
-- **PostgreSQL**: A robust relational database.
-- **Dependencies**:
-   - **Bcrypt**: For secure password hashing.
-   - **Cors**: To handle cross-origin requests.
-   - **Dotenv**: For managing environment variables.
-   - **JWT Authentication**: For secure user authentication.
-   - **Pg**: For PostgreSQL integration.
-   - **Nodemailer**: For sending emails.
-   - **Stripe**: For handling payments and subscriptions.
-
----
-
-### Features
+## Features
 
 #### User Authentication
 
