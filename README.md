@@ -4,11 +4,10 @@
 
 ## About
 
-FrostBites is a full-stack web application developed as part of my project at SENA
-Institution. Designed with both user convenience and functionality in mind, the
-application showcases a practical implementation of modern web development principles.
-This project really helped me sharpen my skills in building applications that are secure,
-user friendly, and built to last
+FrostBites is a full-stack e-commerce platform for ice cream products. The system provides
+customers with secure order processing, account management, and personalized shopping
+experiences, while offering administrators comprehensive tools for inventory control,
+sales analytics, and business operations through an intuitive interface.
 
 ## Preview
 
