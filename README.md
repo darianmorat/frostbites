@@ -8,51 +8,66 @@ FrostBites is a full-stack web application developed as part of my project at SE
 Institution. Designed with both user convenience and functionality in mind, the
 application showcases a practical implementation of modern web development principles.
 This project really helped me sharpen my skills in building applications that are secure,
-user friendly, and built to last.
+user friendly, and built to last
 
 ## Features
 
-#### User Authentication
+#### Authentication
 
-- [x] **Login and Registration**: Users can register and log in using their email and password.
-- [x] **Session Expiry**: Sessions are automatically expired after one hour for security.
-- [ ] **Persistent Login**: Maintain user sessions until explicit logout.
-- [x] **Email Confirmation for Registration**: Users will verify their registration via email.
-- [x] **Password Validation**: Enforce strong passwords with specific criteria.
-- [x] **Forgot Password**: Enable users to reset their password through email confirmation.
+- [x] Secure login/registration
+- [x] Email verification
+- [x] Password reset & validation
+- [x] 1-hour session expiry
+- [ ] Persistent sessions
 
-#### Shopping (Catalog, Cart, and Purchases)
+#### E-Commerce
 
-- [x] **Product Catalog**: A static display of available ice cream products
-- [ ] **Create Product Catalog**: Enable users to customize ice cream with bases, flavors, and toppings.
-- [x] **Shopping Cart**: Add or remove ice cream items from the cart.
-- [x] **Purchase Process**: Complete transactions smoothly.
-- [x] **Order Confirmation**: Show confirmation after a successful purchase.
+- [x] Product catalog
+- [ ] Custom product builder
+- [x] Shopping cart & checkout
+- [x] Order confirmation
 
 #### User Profile
 
-- [x] **User Profile Section**: View and update profile information such as username and email
-- [x] **Profile Data Validation**: Validate updated profile data to ensure accuracy and uniqueness.
-- [ ] **Profile preferences**: Allow users to customize their preferences such as dark mode and language.
+- [x] Profile management
+- [x] Data validation
+- [ ] Preferences (dark mode, etc.)
 
 #### Admin Panel
 
-- [x] **Admin Authentication**: Restrict access to admin-only features
-- [x] **Product Management**: Add, update, or delete items in the product catalog.
-- [x] **Site Statistics**: Track website activity like views and purchases
-- [ ] **Order Management**: Manage purchase orders, including marking them as shipped.
+- [x] Admin authentication
+- [x] Product management (CRUD operations)
+- [x] Site statistics
 
 #### Other Features
 
-- [x] **Interactive Site Map**: Add an interactive mini-map such as GoogleMaps.
-- [ ] **Responsive Design**: Ensure the site is fully responsive and mobile-friendly.
-- [x] **Security**: Implement secure authentication (e.g., bcrypt for password hashing).
-- [x] **Error Handling**: Handle common errors and display user-friendly messages.
-- [ ] **Performance Optimization**: Improve loading times for better performance.
+- [x] Google Maps integration
+- [x] Secure authentication (bcrypt)
+- [x] Error handling
+- [x] Mobile responsiveness
+- [ ] Multilingual support
+- [ ] Performance optimization
 
-#### UI/UX Features
+## Tech Stack
 
-- [ ] **Dark Mode**: Allow users to switch to a dark theme.
-- [ ] **Language Toggle**: Provide a Spanish language option.
-- [ ] **Gallery Section**: Users can submit ice cream photos for admin approval.
-- [ ] **Content Loader**: Display a placeholder while content loads.
+- **Frontend:** React.js (deployed on Vercel)
+- **Backend:** Express.js (deployed on Render)
+- **Database:** PostgreSQL (hosted on Supabase)
+
+## Getting Started
+
+To run this project locally:
+
+```shell
+git clone https://github.com/darianmorat/frostbites.git
+cd frostbites && npm install
+cd client && npm install
+npm run dev
+```
+
+## License
+
+Contributions are welcome!  
+Feel free to fork the repository, suggest improvements, or submit pull requests
+
+© 2025 FrostBites
