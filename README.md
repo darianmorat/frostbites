@@ -2,6 +2,10 @@
 
 ---
 
+![FrostBites showcase](./client/public/showcase-1.png)
+
+---
+
 ### Overview
 
 FrostBites is a full-stack web application developed as part of my project at SENA
