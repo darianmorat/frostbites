@@ -1,6 +1,6 @@
-<img align="center" src="./client/public/frostbites.svg" alt="FrostBites Logo">
-<h1></h1>
-<img align="center" src="./client/public/screenshot-1.png" alt="Screenshot 1">
+<div align="center">
+   <img src="./client/src/assets/images/logo/logo.svg" alt="FrostBites Logo">
+</div>
 
 ## About
 
@@ -9,6 +9,16 @@ Institution. Designed with both user convenience and functionality in mind, the
 application showcases a practical implementation of modern web development principles.
 This project really helped me sharpen my skills in building applications that are secure,
 user friendly, and built to last
+
+## Preview
+
+<details>
+   <summary>View screenshots <small style="color: #888;">(click to expand)</small></summary>
+   <div align="center" style="margin-top: 16px;">
+      <img src="./client/public/screenshots/screenshot-1.png" alt="FrostBites Homepage" width="49%">
+      <img src="./client/public/screenshots/screenshot-2.png" alt="FrostBites Dashboard" width="49%">
+   </div>
+</details>
 
 ## Features
 
