@@ -1,53 +1,53 @@
-import { useEffect, useLayoutEffect } from 'react';
-import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
-import { Bounce, ToastContainer } from 'react-toastify';
-import { Bars } from 'react-loader-spinner';
+import { useEffect, useLayoutEffect } from "react";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Bounce, ToastContainer } from "react-toastify";
+import { Bars } from "react-loader-spinner";
 
-import { useCartStore } from './stores/useCartStore';
-import { useUserStore } from './stores/useUserStore';
+import { useCartStore } from "./stores/useCartStore";
+import { useUserStore } from "./stores/useUserStore";
 
-import { MainRoute } from './layouts/MainRoute';
-import { PublicRoute } from './layouts/PublicRoute';
-import { PrivateRoute } from './layouts/PrivateRoute';
-import { ProtectedRoute } from './layouts/ProtectedRoute';
+import { MainRoute } from "./layouts/MainRoute";
+import { PublicRoute } from "./layouts/PublicRoute";
+import { PrivateRoute } from "./layouts/PrivateRoute";
+import { ProtectedRoute } from "./layouts/ProtectedRoute";
 
-import HomePage from './pages/public/HomePage';
-import AboutPage from './pages/public/AboutPage';
-import ShoppingPage from './pages/public/ShoppingPage';
-import SignUpPage from './pages/public/SignUpPage';
-import LoginPage from './pages/public/LoginPage';
-import ForgotPasswordPage from './pages/public/ForgotPasswordPage';
-import ResetPasswordPage from './pages/public/ResetPasswordPage';
-import SendEmailPage from './pages/public/SendEmailPage'; // change to verify email
-import ResendEmailPage from './pages/public/ResendEmailPage';
-import VerifyEmailPage from './pages/public/verifyEmailPage'; // change to send meail
-import NotFoundPage from './pages/public/NotFoundPage';
+import HomePage from "./pages/public/HomePage";
+import AboutPage from "./pages/public/AboutPage";
+import ShoppingPage from "./pages/public/ShoppingPage";
+import SignUpPage from "./pages/public/SignUpPage";
+import LoginPage from "./pages/public/LoginPage";
+import ForgotPasswordPage from "./pages/public/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/public/ResetPasswordPage";
+import SendEmailPage from "./pages/public/SendEmailPage"; // change to verify email
+import ResendEmailPage from "./pages/public/ResendEmailPage";
+import VerifyEmailPage from "./pages/public/verifyEmailPage"; // change to send meail
+import NotFoundPage from "./pages/public/NotFoundPage";
 
-import ProfilePage from './pages/private/ProfilePage';
-import SettingsPage from './pages/private/SettingsPage';
-import PaymentSuccessPage from './pages/private/PaymentSuccessPage';
+import ProfilePage from "./pages/private/ProfilePage";
+import SettingsPage from "./pages/private/SettingsPage";
+import PaymentSuccessPage from "./pages/private/PaymentSuccessPage";
 // import PaymentCanceledPage from './pages/private/PaymentCanceledPage';
 
-import DashboardPage from './pages/protected/DashboardPage';
-import ProductsPage from './pages/protected/ProductsPage';
-import CustomersPage from './pages/protected/CustomersPage';
+import DashboardPage from "./pages/protected/DashboardPage";
+import ProductsPage from "./pages/protected/ProductsPage";
+import CustomersPage from "./pages/protected/CustomersPage";
 
-import { Navbar } from './components/Navbar';
-import { FooterLinks } from './components/FooterLinks';
-import { Footer } from './components/Footer';
+import { Navbar } from "./components/Navbar";
+import { FooterLinks } from "./components/FooterLinks";
+import { Footer } from "./components/Footer";
 
-import logo_slogan from './assets/images/logo/logoSlogan.svg';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fab } from '@fortawesome/free-brands-svg-icons';
-import { fas } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
-import './index.css';
+import logo_slogan from "./assets/images/logo/logoSlogan.svg";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import "./index.css";
 
 const Wrapper = ({ children }) => {
    const location = useLocation();
 
    useLayoutEffect(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
    }, [location.pathname]);
 
    return children;
@@ -76,20 +76,20 @@ function App() {
 
    const location = useLocation();
    const hiddentPaths = [
-      '/signup',
-      '/login',
-      '/forgot-password',
-      '/resend-email',
-      '/verify-email',
-      '/success',
-      '/not-found',
+      "/signup",
+      "/login",
+      "/forgot-password",
+      "/resend-email",
+      "/verify-email",
+      "/success",
+      "/not-found",
    ];
-   const dinamicPrefixes = ['/reset-password', '/send-email'];
+   const dinamicPrefixes = ["/reset-password", "/send-email"];
    const hideComponents =
       hiddentPaths.includes(location.pathname) ||
       dinamicPrefixes.some((prefix) => location.pathname.startsWith(prefix));
 
-   const hiddenLinks = ['/dashboard', '/products', '/customers', '/profile', '/settings'];
+   const hiddenLinks = ["/dashboard", "/products", "/customers", "/profile", "/settings"];
    const hideFooterLinks = hiddenLinks.includes(location.pathname);
 
    if (checkingAuth) {
